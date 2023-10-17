@@ -12,6 +12,18 @@ namespace data_access.Repositories
     {
         //For example:
         //IRepository<MyClass> MyClassRepo { get; }
+        IRepository<Category> CategoryRepo { get; }
+        IRepository<Employee> EmployeeRepo { get; }
+        IRepository<Order> OrderRepo { get; }
+        IRepository<OrderPosition> OrderPositionRepo { get; }
+        IRepository<OrderStatus> OrderStatusRepo { get; }
+        IRepository<Payment> PaymentRepo { get; }
+        IRepository<PaymentType> PaymentTypeRepo { get; }
+        IRepository<Position> PositionRepo { get; }
+        IRepository<Service> ServiceRepo { get; }
+        IRepository<Tabel> TabelRepo { get; }
+        IRepository<WorkShift> WorkShiftRepo { get; }
+        IRepository<WorkShiftEmployee> WorkShiftEmployeeRepo { get; }
         void Save();
     }
 }

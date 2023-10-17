@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace data_access.Entities
+{
+    public class WorkShiftEmployee : IEntity
+    {
+        //складений первиний ключ
+        public int Id { get; set; }
+        public int WorkShiftId { get; set; }
+        public virtual WorkShift WorkShift { get; set; }
+        public int EmployeeId { get; set; }
+        public virtual Employee Employee { get; set; }
+        public TimeOnly TimeFrom { get; set; }
+        public TimeOnly TimeTo { get; set;}
+        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+    }
+}

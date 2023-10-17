@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    //For example:
-    public class MyClass : IEntity
+    public class PaymentType : IEntity
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Payment> Payments { get; set; } = new HashSet<Payment>();
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public interface IEntity
+    public class Tabel : IEntity
     {
-        int Id { get; set; }
+        public int Id { get; set; }
+        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }
