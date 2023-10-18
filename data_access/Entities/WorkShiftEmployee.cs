@@ -9,7 +9,6 @@ namespace data_access.Entities
     public class WorkShiftEmployee : IEntity
     {
         //складений первиний ключ
-        public int Id { get; set; }
         public int WorkShiftId { get; set; }
         public virtual WorkShift WorkShift { get; set; }
         public int EmployeeId { get; set; }

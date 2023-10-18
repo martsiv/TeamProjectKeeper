@@ -8,6 +8,6 @@ namespace data_access.Entities
 {
     public interface IEntity
     {
-        int Id { get; set; }
+
     }
 }
