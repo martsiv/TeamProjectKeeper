@@ -13,10 +13,13 @@ namespace data_access.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasOne(x => x.WorkShiftEmployee).WithMany(x => x.Orders).HasForeignKey(x => x.WorkShiftEmployeeId);
-            builder.HasOne(x => x.OrderStatus).WithMany(x => x.Orders).HasForeignKey(x => x.OrderStatusId);
+            builder.HasOne(x => x.WorkShiftEmployee).WithMany(x => x.Orders).HasForeignKey(x => x.WorkShiftEmployeeId).IsRequired(true);
+            builder.HasOne(x => x.OrderStatus).WithMany(x => x.Orders).HasForeignKey(x => x.OrderStatusId).IsRequired(true);
             builder.HasOne(x => x.Payment).WithMany(x => x.Orders).HasForeignKey(x => x.PaymentId).IsRequired(false);
             builder.Property(x => x.CutleryNumber).IsRequired(false);
+            builder.Property(x => x.CutleryNumber).HasColumnName("Number of cutlery");
+            builder.Property(x => x.TotalPrice).HasColumnName("Total amount of money");
+
         }
     }
 }

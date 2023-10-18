@@ -10,6 +10,6 @@ namespace data_access.Entities
     {
         public int Id { get; set; }
         public string PaymentType { get; set; }
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

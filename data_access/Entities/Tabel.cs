@@ -9,6 +9,6 @@ namespace data_access.Entities
     public class Tabel : IEntity
     {
         public int Id { get; set; }
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public ICollection<InternalOrder> InternalOrders { get; set; } = new HashSet<InternalOrder>();
     }
 }

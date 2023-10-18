@@ -17,6 +17,8 @@ namespace data_access.Repositories
         private IRepository<Category>? categoryRepo = null;
         private IRepository<Employee>? employeeRepo = null;
         private IRepository<Order>? orderRepo = null;
+        private IRepository<DeliveryOrder>? deliveryOrderRepo = null;
+        private IRepository<InternalOrder>? internalOrderRepo = null;
         private IRepository<OrderPosition>? orderPositionRepo = null;
         private IRepository<OrderStatus>? orderStatusRepo = null;
         private IRepository<Payment>? paymentRepo = null;
@@ -83,6 +85,30 @@ namespace data_access.Repositories
                     this.orderPositionRepo = new Repository<OrderPosition>(context);
                 }
                 return orderPositionRepo;
+            }
+        }
+        public IRepository<InternalOrder> InternalOrderRepo
+        {
+            get
+            {
+
+                if (this.internalOrderRepo == null)
+                {
+                    this.internalOrderRepo = new Repository<InternalOrder>(context);
+                }
+                return internalOrderRepo;
+            }
+        }
+        public IRepository<DeliveryOrder> DeliveryOrderRepo
+        {
+            get
+            {
+
+                if (this.deliveryOrderRepo == null)
+                {
+                    this.deliveryOrderRepo = new Repository<DeliveryOrder>(context);
+                }
+                return deliveryOrderRepo;
             }
         }
         public IRepository<OrderStatus> OrderStatusRepo

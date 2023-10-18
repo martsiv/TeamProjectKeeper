@@ -16,9 +16,11 @@ namespace data_access.Data.Configurations
         public void Configure(EntityTypeBuilder<WorkShiftEmployee> builder)
         {
             builder.HasKey(x => new { x.EmployeeId, x.WorkShiftId });
-            builder.HasOne(x => x.Employee).WithMany(x => x.WorkShiftEmployees).HasForeignKey(x => x.EmployeeId);
-            builder.HasOne(x => x.WorkShift).WithMany(x => x.WorkShiftEmployees).HasForeignKey(x => x.WorkShiftId);
+            builder.HasOne(x => x.Employee).WithMany(x => x.WorkShiftEmployees).HasForeignKey(x => x.EmployeeId).IsRequired(true);
+            builder.HasOne(x => x.WorkShift).WithMany(x => x.WorkShiftEmployees).HasForeignKey(x => x.WorkShiftId).IsRequired(true);
             builder.Property(x => x.TimeTo).IsRequired(false);
+            builder.Property(x => x.TimeFrom).HasColumnName("Time from");
+            builder.Property(x => x.TimeTo).HasColumnName("Time to");
 		}
     }
 }

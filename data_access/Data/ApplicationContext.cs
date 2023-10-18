@@ -40,5 +40,7 @@ namespace data_access.Data
         public DbSet<Tabel> Tabels { get; set; }
         public DbSet<WorkShift> WorkShifts { get; set; }
         public DbSet<WorkShiftEmployee> WorkShiftsEmployees { get; set; }
+        public DbSet<DeliveryOrder> DeliveryOrders { get; set; }
+        public DbSet<InternalOrder> InternalOrders { get; set; }
     }
 }

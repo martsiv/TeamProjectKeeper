@@ -12,6 +12,6 @@ namespace data_access.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int PinCode { get; set; }
-        public virtual ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
+        public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
     }
 }

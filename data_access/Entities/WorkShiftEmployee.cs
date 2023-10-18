@@ -10,9 +10,9 @@ namespace data_access.Entities
     {
         //складений первиний ключ
         public int WorkShiftId { get; set; }
-        public virtual WorkShift WorkShift { get; set; }
+        public WorkShift? WorkShift { get; set; }
         public int EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
         public TimeOnly TimeFrom { get; set; }
         public TimeOnly TimeTo { get; set;}
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();

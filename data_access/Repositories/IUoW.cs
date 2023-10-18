@@ -15,6 +15,8 @@ namespace data_access.Repositories
         IRepository<Category> CategoryRepo { get; }
         IRepository<Employee> EmployeeRepo { get; }
         IRepository<Order> OrderRepo { get; }
+        IRepository<InternalOrder> InternalOrderRepo { get; }
+        IRepository<DeliveryOrder> DeliveryOrderRepo { get; }
         IRepository<OrderPosition> OrderPositionRepo { get; }
         IRepository<OrderStatus> OrderStatusRepo { get; }
         IRepository<Payment> PaymentRepo { get; }

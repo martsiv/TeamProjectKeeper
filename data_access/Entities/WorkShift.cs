@@ -10,6 +10,6 @@ namespace data_access.Entities
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public virtual ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
+        public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
     }
 }

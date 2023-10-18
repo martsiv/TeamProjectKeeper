@@ -14,8 +14,8 @@ namespace data_access.Data.Configurations
         public void Configure(EntityTypeBuilder<OrderPosition> builder)
         {
 			builder.HasKey(x => new { x.OrderId, x.PositionId });
-			builder.HasOne(x => x.Position).WithMany(x => x.OrderPositions).HasForeignKey(x => x.PositionId);
-            builder.HasOne(x => x.Order).WithMany(x => x.OrderPositions).HasForeignKey(x => x.OrderId);
+			builder.HasOne(x => x.Position).WithMany(x => x.OrderPositions).HasForeignKey(x => x.PositionId).IsRequired(true);
+            builder.HasOne(x => x.Order).WithMany(x => x.OrderPositions).HasForeignKey(x => x.OrderId).IsRequired(true);
         }
     }
 }
