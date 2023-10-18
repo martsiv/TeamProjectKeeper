@@ -11,6 +11,6 @@ namespace data_access.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Subcategory> Services { get; set; } = new HashSet<Subcategory>();
+        public virtual ICollection<Subcategory> Subcategories { get; set; } = new HashSet<Subcategory>();
     }
 }

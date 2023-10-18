@@ -9,12 +9,12 @@ using data_access.Entities;
 
 namespace data_access.Data.Configurations
 {
-    public class ServiceConfigs : IEntityTypeConfiguration<Subcategory>
+    public class SubcategoryConfigs : IEntityTypeConfiguration<Subcategory>
     {
         public void Configure(EntityTypeBuilder<Subcategory> builder) 
         { 
-            builder.HasOne(x => x.Category).WithMany(x => x.Services).HasForeignKey(x => x.CategoryId);
-            builder.HasMany(x => x.Positions).WithOne(x => x.Service).HasForeignKey(x => x.ServiceId);
+            builder.HasOne(x => x.Category).WithMany(x => x.Subcategories).HasForeignKey(x => x.CategoryId);
+            builder.HasMany(x => x.Positions).WithOne(x => x.Subcategory).HasForeignKey(x => x.SubcategoryId);
         }
     }
 }

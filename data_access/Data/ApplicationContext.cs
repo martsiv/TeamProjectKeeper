@@ -11,8 +11,6 @@ namespace data_access.Data
 {
     public class ApplicationContext : DbContext
     {
-        //public DbSet<MyClass> variable { get; set; } = null!; //For example
-        //Connection ---------------------------------------
         public string connectionString;
 
         public ApplicationContext()
@@ -23,12 +21,9 @@ namespace data_access.Data
         {
             optionsBuilder.UseSqlServer(connectionString);
         }
-        //Connection ---------------------------------------
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new OrderConfigs());
-            modelBuilder.ApplyConfiguration(new PaymentConfigs());
             modelBuilder.ApplyConfiguration(new SubcategoryConfigs());
             modelBuilder.ApplyConfiguration(new OrderPositionConfigs());
             modelBuilder.ApplyConfiguration(new WorkShiftEmployeeConfigs());
@@ -40,9 +35,8 @@ namespace data_access.Data
         public DbSet<OrderPosition> OrdersPositions { get; set; }
         public DbSet<OrderStatus> OrdersStatuses { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<Subcategory> Services { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Tabel> Tabels { get; set; }
         public DbSet<WorkShift> WorkShifts { get; set; }
         public DbSet<WorkShiftEmployee> WorkShiftsEmployees { get; set; }

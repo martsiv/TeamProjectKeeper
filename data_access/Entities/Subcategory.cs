@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public class Service : IEntity
+    public class Subcategory : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

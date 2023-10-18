@@ -20,9 +20,8 @@ namespace data_access.Repositories
         private IRepository<OrderPosition>? orderPositionRepo = null;
         private IRepository<OrderStatus>? orderStatusRepo = null;
         private IRepository<Payment>? paymentRepo = null;
-        private IRepository<PaymentType>? paymentTypeRepo = null;
         private IRepository<Position>? positionRepo = null;
-        private IRepository<Subcategory>? serviceRepo = null;
+        private IRepository<Subcategory>? subcategoryRepo = null;
         private IRepository<Tabel>? tabelRepo = null;
         private IRepository<WorkShift>? workShiftRepo = null;
         private IRepository<WorkShiftEmployee>? workShiftEmployeeRepo = null;
@@ -110,18 +109,6 @@ namespace data_access.Repositories
                 return paymentRepo;
             }
         }
-        public IRepository<PaymentType> PaymentTypeRepo
-        {
-            get
-            {
-
-                if (this.paymentTypeRepo == null)
-                {
-                    this.paymentTypeRepo = new Repository<PaymentType>(context);
-                }
-                return paymentTypeRepo;
-            }
-        }
         public IRepository<Position> PositionRepo
         {
             get
@@ -134,16 +121,16 @@ namespace data_access.Repositories
                 return positionRepo;
             }
         }
-        public IRepository<Subcategory> ServiceRepo
-        {
+        public IRepository<Subcategory> SubcategoryRepo
+		{
             get
             {
 
-                if (this.serviceRepo == null)
+                if (this.subcategoryRepo == null)
                 {
-                    this.serviceRepo = new Repository<Subcategory>(context);
+                    this.subcategoryRepo = new Repository<Subcategory>(context);
                 }
-                return serviceRepo;
+                return subcategoryRepo;
             }
         }
         public IRepository<Tabel> TabelRepo

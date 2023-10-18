@@ -18,9 +18,8 @@ namespace data_access.Repositories
         IRepository<OrderPosition> OrderPositionRepo { get; }
         IRepository<OrderStatus> OrderStatusRepo { get; }
         IRepository<Payment> PaymentRepo { get; }
-        IRepository<PaymentType> PaymentTypeRepo { get; }
         IRepository<Position> PositionRepo { get; }
-        IRepository<Subcategory> ServiceRepo { get; }
+        IRepository<Subcategory> SubcategoryRepo { get; }
         IRepository<Tabel> TabelRepo { get; }
         IRepository<WorkShift> WorkShiftRepo { get; }
         IRepository<WorkShiftEmployee> WorkShiftEmployeeRepo { get; }
