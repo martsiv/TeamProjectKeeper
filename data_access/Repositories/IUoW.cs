@@ -20,7 +20,7 @@ namespace data_access.Repositories
         IRepository<Payment> PaymentRepo { get; }
         IRepository<PaymentType> PaymentTypeRepo { get; }
         IRepository<Position> PositionRepo { get; }
-        IRepository<Service> ServiceRepo { get; }
+        IRepository<Subcategory> ServiceRepo { get; }
         IRepository<Tabel> TabelRepo { get; }
         IRepository<WorkShift> WorkShiftRepo { get; }
         IRepository<WorkShiftEmployee> WorkShiftEmployeeRepo { get; }

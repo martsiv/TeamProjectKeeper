@@ -29,7 +29,7 @@ namespace data_access.Data
         {
             modelBuilder.ApplyConfiguration(new OrderConfigs());
             modelBuilder.ApplyConfiguration(new PaymentConfigs());
-            modelBuilder.ApplyConfiguration(new ServiceConfigs());
+            modelBuilder.ApplyConfiguration(new SubcategoryConfigs());
             modelBuilder.ApplyConfiguration(new OrderPositionConfigs());
             modelBuilder.ApplyConfiguration(new WorkShiftEmployeeConfigs());
             DbInitializer.SeedData(modelBuilder);
@@ -42,7 +42,7 @@ namespace data_access.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<Service> Services { get; set; }
+        public DbSet<Subcategory> Services { get; set; }
         public DbSet<Tabel> Tabels { get; set; }
         public DbSet<WorkShift> WorkShifts { get; set; }
         public DbSet<WorkShiftEmployee> WorkShiftsEmployees { get; set; }

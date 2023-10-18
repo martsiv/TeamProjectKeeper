@@ -12,7 +12,7 @@ namespace data_access.Entities
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int ServiceId { get; set; }
-        public virtual Service Service { get; set; }
+        public virtual Subcategory Service { get; set; }
         public virtual ICollection<OrderPosition> OrderPositions { get; set; } = new HashSet<OrderPosition>();
     }
 }

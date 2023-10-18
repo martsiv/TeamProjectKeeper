@@ -22,7 +22,7 @@ namespace data_access.Repositories
         private IRepository<Payment>? paymentRepo = null;
         private IRepository<PaymentType>? paymentTypeRepo = null;
         private IRepository<Position>? positionRepo = null;
-        private IRepository<Service>? serviceRepo = null;
+        private IRepository<Subcategory>? serviceRepo = null;
         private IRepository<Tabel>? tabelRepo = null;
         private IRepository<WorkShift>? workShiftRepo = null;
         private IRepository<WorkShiftEmployee>? workShiftEmployeeRepo = null;
@@ -134,14 +134,14 @@ namespace data_access.Repositories
                 return positionRepo;
             }
         }
-        public IRepository<Service> ServiceRepo
+        public IRepository<Subcategory> ServiceRepo
         {
             get
             {
 
                 if (this.serviceRepo == null)
                 {
-                    this.serviceRepo = new Repository<Service>(context);
+                    this.serviceRepo = new Repository<Subcategory>(context);
                 }
                 return serviceRepo;
             }

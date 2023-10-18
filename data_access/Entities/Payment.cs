@@ -9,8 +9,7 @@ namespace data_access.Entities
     public class Payment : IEntity
     {
         public int Id { get; set; }
-        public int PaymentTypeId { get; set; }
-        public virtual PaymentType PaymentType { get; set; }
+        public string PaymentType { get; set; }
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

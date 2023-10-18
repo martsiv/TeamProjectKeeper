@@ -18,6 +18,7 @@ namespace data_access.Data.Configurations
             builder.HasKey(x => new { x.EmployeeId, x.WorkShiftId });
             builder.HasOne(x => x.Employee).WithMany(x => x.WorkShiftEmployees).HasForeignKey(x => x.EmployeeId);
             builder.HasOne(x => x.WorkShift).WithMany(x => x.WorkShiftEmployees).HasForeignKey(x => x.WorkShiftId);
-        }
+            builder.Property(x => x.TimeTo).IsRequired(false);
+		}
     }
 }
