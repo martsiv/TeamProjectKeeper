@@ -16,6 +16,7 @@ namespace data_access.Data.Configurations
 			builder.HasKey(x => new { x.OrderId, x.PositionId });
 			builder.HasOne(x => x.Position).WithMany(x => x.OrderPositions).HasForeignKey(x => x.PositionId).IsRequired(true);
             builder.HasOne(x => x.Order).WithMany(x => x.OrderPositions).HasForeignKey(x => x.OrderId).IsRequired(true);
+            builder.Property(x => x.Comment).IsRequired(false);
         }
     }
 }

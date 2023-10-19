@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public interface IEntity
-    {
-
-    }
+    public interface IEntity { }
 }

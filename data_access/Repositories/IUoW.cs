@@ -10,8 +10,6 @@ namespace data_access.Repositories
 {
     public interface IUoW
     {
-        //For example:
-        //IRepository<MyClass> MyClassRepo { get; }
         IRepository<Category> CategoryRepo { get; }
         IRepository<Employee> EmployeeRepo { get; }
         IRepository<Order> OrderRepo { get; }

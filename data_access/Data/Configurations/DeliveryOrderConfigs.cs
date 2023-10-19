@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace data_access.Data.Configurations
 {
-    public class DeliveryOrder : IEntityTypeConfiguration<DeliveryOrder>
+    public class DeliveryOrderConfigs : IEntityTypeConfiguration<DeliveryOrder>
     {
         public void Configure(EntityTypeBuilder<DeliveryOrder> builder)
         {
-            builder.Property(x => x.ClientName)
+            builder.Property(x => x.ClientName).HasColumnName("Client name");
+            builder.Property(x => x.DeliveryTime).HasColumnName("Delivery time");
+            builder.Property(x => x.PhoneNumber).HasColumnName("Phone number");
         }
     }
 }

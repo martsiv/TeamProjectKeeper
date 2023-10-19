@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    //For example:
     public class Category : IEntity
     {
         public int Id { get; set; }

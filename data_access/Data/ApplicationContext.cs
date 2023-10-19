@@ -12,7 +12,6 @@ namespace data_access.Data
     public class ApplicationContext : DbContext
     {
         public string connectionString;
-
         public ApplicationContext()
         {
             connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=KeeperDB;Integrated Security=True;Connect Timeout=2;";
@@ -23,10 +22,14 @@ namespace data_access.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new DeliveryOrderConfigs());
+            modelBuilder.ApplyConfiguration(new InternalOrderConfigs());
             modelBuilder.ApplyConfiguration(new OrderConfigs());
             modelBuilder.ApplyConfiguration(new SubcategoryConfigs());
             modelBuilder.ApplyConfiguration(new OrderPositionConfigs());
             modelBuilder.ApplyConfiguration(new WorkShiftEmployeeConfigs());
+            modelBuilder.Entity<Employee>().HasAlternateKey(x => x.Name);
+            modelBuilder.Entity<Position>().Property(x => x.Price).HasColumnType("money");
             DbInitializer.SeedData(modelBuilder);
         }
         public DbSet<Category> Categories { get; set; }

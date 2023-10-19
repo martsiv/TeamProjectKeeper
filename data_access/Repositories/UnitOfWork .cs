@@ -12,8 +12,6 @@ namespace data_access.Repositories
     public class UnitOfWork : IUoW, IDisposable
     {
         private static ApplicationContext context = new ApplicationContext();
-        // For example
-        //private IRepository<MyClass>? myClassRepo = null;
         private IRepository<Category>? categoryRepo = null;
         private IRepository<Employee>? employeeRepo = null;
         private IRepository<Order>? orderRepo = null;
@@ -27,18 +25,6 @@ namespace data_access.Repositories
         private IRepository<Tabel>? tabelRepo = null;
         private IRepository<WorkShift>? workShiftRepo = null;
         private IRepository<WorkShiftEmployee>? workShiftEmployeeRepo = null;
-
-        //public IRepository<MyClass> MyClassRepo
-        //{
-        //    get
-        //    {
-        //        if (this.myClassRepo == null)
-        //        {
-        //            this.myClassRepo = new Repository<MyClass>(context);
-        //        }
-        //        return myClassRepo;
-        //    }
-        //}
         public IRepository<Category> CategoryRepo
         {
             get
