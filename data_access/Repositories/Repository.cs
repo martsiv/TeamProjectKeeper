@@ -14,13 +14,11 @@ namespace data_access.Repositories
     {
         internal ApplicationContext context;
         internal DbSet<TEntity> dbSet;
-
         public Repository(ApplicationContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();
         }
-
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
