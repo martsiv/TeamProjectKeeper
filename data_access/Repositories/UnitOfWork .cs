@@ -17,10 +17,10 @@ namespace data_access.Repositories
         private IRepository<Order>? orderRepo = null;
         private IRepository<DeliveryOrder>? deliveryOrderRepo = null;
         private IRepository<InternalOrder>? internalOrderRepo = null;
-        private IRepository<OrderPosition>? orderPositionRepo = null;
+        private IRepository<OrderDish>? orderDishRepo = null;
         private IRepository<OrderStatus>? orderStatusRepo = null;
         private IRepository<Payment>? paymentRepo = null;
-        private IRepository<Position>? positionRepo = null;
+        private IRepository<Dish>? dishRepo = null;
         private IRepository<Subcategory>? subcategoryRepo = null;
         private IRepository<Tabel>? tabelRepo = null;
         private IRepository<WorkShift>? workShiftRepo = null;
@@ -61,16 +61,16 @@ namespace data_access.Repositories
                 return orderRepo;
             }
         }
-        public IRepository<OrderPosition> OrderPositionRepo
+        public IRepository<OrderDish> OrderDishRepo
         {
             get
             {
 
-                if (this.orderPositionRepo == null)
+                if (this.orderDishRepo == null)
                 {
-                    this.orderPositionRepo = new Repository<OrderPosition>(context);
+                    this.orderDishRepo = new Repository<OrderDish>(context);
                 }
-                return orderPositionRepo;
+                return orderDishRepo;
             }
         }
         public IRepository<InternalOrder> InternalOrderRepo
@@ -121,16 +121,16 @@ namespace data_access.Repositories
                 return paymentRepo;
             }
         }
-        public IRepository<Position> PositionRepo
+        public IRepository<Dish> DishRepo
         {
             get
             {
 
-                if (this.positionRepo == null)
+                if (this.dishRepo == null)
                 {
-                    this.positionRepo = new Repository<Position>(context);
+                    this.dishRepo = new Repository<Dish>(context);
                 }
-                return positionRepo;
+                return dishRepo;
             }
         }
         public IRepository<Subcategory> SubcategoryRepo

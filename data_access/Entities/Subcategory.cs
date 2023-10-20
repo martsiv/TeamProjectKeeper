@@ -13,6 +13,6 @@ namespace data_access.Entities
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
-        public ICollection<Position> Positions { get; set; } = new HashSet<Position>();
+        public ICollection<Dish> Dishes { get; set; } = new HashSet<Dish>();
     }
 }
