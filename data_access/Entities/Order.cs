@@ -17,7 +17,7 @@ namespace data_access.Entities
         public OrderStatus? OrderStatus { get; set; }
         public int? PaymentId { get; set; }
         public Payment? Payment { get; set; }
-        public ICollection<OrderPosition> OrderPositions { get; set; } = new HashSet<OrderPosition>();
+        public ICollection<OrderDish> OrderDishes { get; set; } = new HashSet<OrderDish>();
         public int? CutleryNumber { get; set; }
         public decimal TotalPrice { get; set; }
     }

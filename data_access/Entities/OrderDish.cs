@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public class OrderPosition : IEntity
+    public class OrderDish : IEntity
     {
-        public int PositionId { get; set; }
-        public Position? Position { get; set; }
+        public int DishId { get; set; }
+        public Dish? Dish { get; set; }
         public int OrderId { get; set; }
         public Order? Order { get; set; }
         public int Quantity { get; set; }

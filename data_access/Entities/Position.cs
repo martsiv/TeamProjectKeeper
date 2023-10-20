@@ -8,11 +8,8 @@ namespace data_access.Entities
 {
     public class Position : IEntity
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int SubcategoryId { get; set; }
-        public Subcategory? Subcategory { get; set; }
-        public ICollection<OrderPosition> OrderPositions { get; set; } = new HashSet<OrderPosition>();
+        public virtual ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }
