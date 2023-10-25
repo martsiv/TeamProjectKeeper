@@ -8,8 +8,88 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ResourceDictionaries\Image\Airplane.png" />
+    <None Remove="ResourceDictionaries\Image\Back.png" />
+    <None Remove="ResourceDictionaries\Image\Casa.png" />
+    <None Remove="ResourceDictionaries\Image\Check.png" />
+    <None Remove="ResourceDictionaries\Image\CheckWhite.png" />
+    <None Remove="ResourceDictionaries\Image\Creditcard.png" />
+    <None Remove="ResourceDictionaries\Image\Delivery.png" />
+    <None Remove="ResourceDictionaries\Image\Dish.png" />
+    <None Remove="ResourceDictionaries\Image\DoubleForward.png" />
+    <None Remove="ResourceDictionaries\Image\Equals.png" />
+    <None Remove="ResourceDictionaries\Image\Forward.png" />
+    <None Remove="ResourceDictionaries\Image\HallScheme.png" />
+    <None Remove="ResourceDictionaries\Image\Home.png" />
+    <None Remove="ResourceDictionaries\Image\Instrument.png" />
+    <None Remove="ResourceDictionaries\Image\Lock.png" />
+    <None Remove="ResourceDictionaries\Image\Menu.png" />
+    <None Remove="ResourceDictionaries\Image\Minus.png" />
+    <None Remove="ResourceDictionaries\Image\Money.png" />
+    <None Remove="ResourceDictionaries\Image\Order.png" />
+    <None Remove="ResourceDictionaries\Image\OrderMenuWhite.png" />
+    <None Remove="ResourceDictionaries\Image\OrderRescheduling.png" />
+    <None Remove="ResourceDictionaries\Image\OtherBack.png" />
+    <None Remove="ResourceDictionaries\Image\People.png" />
+    <None Remove="ResourceDictionaries\Image\PinCode.png" />
+    <None Remove="ResourceDictionaries\Image\Pluse.png" />
+    <None Remove="ResourceDictionaries\Image\PowerOff.png" />
+    <None Remove="ResourceDictionaries\Image\Printer.png" />
+    <None Remove="ResourceDictionaries\Image\Refresh.png" />
+    <None Remove="ResourceDictionaries\Image\Scissors.png" />
+    <None Remove="ResourceDictionaries\Image\Search.png" />
+    <None Remove="ResourceDictionaries\Image\Star.png" />
+    <None Remove="ResourceDictionaries\Image\Table.png" />
+    <None Remove="ResourceDictionaries\Image\TableColor.png" />
+    <None Remove="ResourceDictionaries\Image\ThreeDots.png" />
+    <None Remove="ResourceDictionaries\Image\TrashCan.png" />
+    <None Remove="ResourceDictionaries\Image\Waiter.png" />
+    <None Remove="ResourceDictionaries\Image\X.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ResourceDictionaries\Image\Airplane.png" />
+    <Resource Include="ResourceDictionaries\Image\Back.png" />
+    <Resource Include="ResourceDictionaries\Image\Casa.png" />
+    <Resource Include="ResourceDictionaries\Image\Check.png" />
+    <Resource Include="ResourceDictionaries\Image\CheckWhite.png" />
+    <Resource Include="ResourceDictionaries\Image\Creditcard.png" />
+    <Resource Include="ResourceDictionaries\Image\Delivery.png" />
+    <Resource Include="ResourceDictionaries\Image\Dish.png" />
+    <Resource Include="ResourceDictionaries\Image\DoubleForward.png" />
+    <Resource Include="ResourceDictionaries\Image\Equals.png" />
+    <Resource Include="ResourceDictionaries\Image\Forward.png" />
+    <Resource Include="ResourceDictionaries\Image\HallScheme.png" />
+    <Resource Include="ResourceDictionaries\Image\Home.png" />
+    <Resource Include="ResourceDictionaries\Image\Instrument.png" />
+    <Resource Include="ResourceDictionaries\Image\Lock.png" />
+    <Resource Include="ResourceDictionaries\Image\Menu.png" />
+    <Resource Include="ResourceDictionaries\Image\Minus.png" />
+    <Resource Include="ResourceDictionaries\Image\Money.png" />
+    <Resource Include="ResourceDictionaries\Image\Order.png" />
+    <Resource Include="ResourceDictionaries\Image\OrderMenuWhite.png" />
+    <Resource Include="ResourceDictionaries\Image\OrderRescheduling.png" />
+    <Resource Include="ResourceDictionaries\Image\OtherBack.png" />
+    <Resource Include="ResourceDictionaries\Image\People.png" />
+    <Resource Include="ResourceDictionaries\Image\PinCode.png" />
+    <Resource Include="ResourceDictionaries\Image\Pluse.png" />
+    <Resource Include="ResourceDictionaries\Image\PowerOff.png" />
+    <Resource Include="ResourceDictionaries\Image\Printer.png" />
+    <Resource Include="ResourceDictionaries\Image\Refresh.png" />
+    <Resource Include="ResourceDictionaries\Image\Scissors.png" />
+    <Resource Include="ResourceDictionaries\Image\Search.png" />
+    <Resource Include="ResourceDictionaries\Image\Star.png" />
+    <Resource Include="ResourceDictionaries\Image\Table.png" />
+    <Resource Include="ResourceDictionaries\Image\TableColor.png" />
+    <Resource Include="ResourceDictionaries\Image\ThreeDots.png" />
+    <Resource Include="ResourceDictionaries\Image\TrashCan.png" />
+    <Resource Include="ResourceDictionaries\Image\Waiter.png" />
+    <Resource Include="ResourceDictionaries\Image\X.png" />
   </ItemGroup>
 
 </Project>
