@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
+using WPFClient.TransferModel;
 
 namespace WPFClient.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class VM_OrdersByAllTables : IPageViewModel
     {
+        public BaseTransferModel TransferModel { get; set; }
+
         private ICommand? _goToGeneralInfo;
         private ICommand? _goToOrdersByHalls;
         private ICommand? _goToOrderMainView;
 
-        public event EventHandler<EventArgs<string>>? ViewChanged;
+        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
         public string Title { get; set; }
 
@@ -26,13 +29,14 @@ namespace WPFClient.ViewModels
             PageId = pageIndex;
             Title = "ViewOrdersByAllTables";
         }
+
         public ICommand GoToGeneralInfo
         {
             get
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "2");
+                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "2" });
                 });
             }
         }
@@ -42,7 +46,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToOrdersByHalls ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "4");
+                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "4" });
                 });
             }
         }
@@ -52,7 +56,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToOrderMainView ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "6");
+                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "6" });
                 });
             }
         }

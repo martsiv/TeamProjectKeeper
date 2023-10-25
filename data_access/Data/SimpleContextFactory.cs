@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace data_access.Data
 {
     //For creating a connection using a json resource file
-    //public class SampleContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
+    //public class SimpleContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
     //{
     //    public ApplicationContext CreateDbContext(string[] args)
     //    {

@@ -8,8 +8,93 @@
              d:DataContext="{d:DesignInstance Type=vm:VM_OrderMainView}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <Label
+    <DockPanel x:Name="GeneralDockPanel">
+        <DockPanel x:Name="TopDockPanel" DockPanel.Dock="Top" Height="50" Background="White">
+            <Button DockPanel.Dock="Left" Width="70" Template="{StaticResource btTemplate}" Background="LightSteelBlue"  Foreground="WhiteSmoke">+Гість</Button>
+            <UniformGrid DockPanel.Dock="Right" Rows="1">
+                <Button Width="70">Delivery</Button>
+                <Button Width="70">Menu</Button>
+                <Button Width="70">Lock</Button>
+            </UniformGrid>
+            <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
+                <Button DockPanel.Dock="Right" Width="60" Template="{StaticResource btTemplate}" Background="LightSteelBlue" Foreground="WhiteSmoke">Гість 1</Button>
+
+            </DockPanel>
+        </DockPanel>
+
+        <DockPanel x:Name="BottomDockPanel" DockPanel.Dock="Bottom" Height="50" Background="Black">
+            <Button DockPanel.Dock="Left" Width="70" Template="{StaticResource btTemplate}">Назад</Button>
+            <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <Button DockPanel.Dock="Right" Width="70" Template="{StaticResource btTemplate}">Друк</Button>
+                <Button DockPanel.Dock="Right" Width="70" Template="{StaticResource btTemplate}">Поп. чек</Button>
+            </DockPanel>
+        </DockPanel>
+
+        <Border x:Name="CentralWindowPartBorder" Background="DimGray">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                    <ColumnDefinition Width="60*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="50">
+                        <Button Template="{StaticResource btTemplate}">+</Button>
+                        <Button Template="{StaticResource btTemplate}">-</Button>
+                        <Button Template="{StaticResource btTemplate}">123</Button>
+                        <Button Template="{StaticResource btTemplate}">scisors</Button>
+                        <Button Template="{StaticResource btTemplate}">...</Button>
+                        <Button Template="{StaticResource btTemplate}">X</Button>
+                    </UniformGrid>
+                    <DockPanel DockPanel.Dock="Top">
+                        <Grid DockPanel.Dock="Top"  Background="SteelBlue">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center" Foreground="WhiteSmoke">Order</Label>
+                            <Label Grid.Row="0" Grid.Column="1" Foreground="WhiteSmoke">9:25</Label>
+                            <Label Grid.Row="1" Grid.Column="1" Foreground="WhiteSmoke">Звичайне замовлення</Label>
+                            <Label Grid.Row="0" Grid.Column="2" Foreground="WhiteSmoke">44</Label>
+                            <Label Grid.Row="1" Grid.Column="2" Foreground="WhiteSmoke">Стіл 3</Label>
+                            <Label Grid.Row="0" Grid.Column="3" Foreground="WhiteSmoke">Офіціант</Label>
+                            <Label Grid.Row="1" Grid.Column="3" Foreground="WhiteSmoke">Людини 2</Label>
+                            <Label Grid.Row="0" Grid.Column="4" Foreground="WhiteSmoke">Eye</Label>
+                            <Label Grid.Row="1" Grid.Column="4" Foreground="WhiteSmoke">[123]</Label>
+                        </Grid>
+                        <Border DockPanel.Dock="Bottom" Background="White">
+                            <TextBlock HorizontalAlignment="Center">
+                            0.00грн
+                            </TextBlock>
+                        </Border>
+                        
+                        <StackPanel Background="White">
+
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel Grid.Column="1" Background="DimGray">
+                    <UniformGrid DockPanel.Dock="Top" Rows="1" Height="50">
+                        <Button Template="{StaticResource btTemplate}">Search</Button>
+                        <Button Template="{StaticResource btTemplate}">Home</Button>
+                        <Button Template="{StaticResource btTemplate}">Кухня</Button>
+                        <Button Template="{StaticResource btTemplate}">Бар</Button>
+                    </UniformGrid>
+                    <ListBox DockPanel.Dock="Bottom" Background="Transparent">
+                        
+                    </ListBox>
+                </DockPanel>
+            </Grid>
+        </Border>
+
+        <!--<Label
             DockPanel.Dock="Top"
              Name="View1" 
              VerticalAlignment="Top" HorizontalAlignment="Center"
@@ -35,7 +120,7 @@
 
         <Border>
 
-        </Border>
+        </Border>-->
 
     </DockPanel>
 </UserControl>

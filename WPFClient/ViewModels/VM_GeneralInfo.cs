@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
+using WPFClient.TransferModel;
 
 namespace WPFClient.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class VM_GeneralInfo : IPageViewModel
     {
+        public BaseTransferModel TransferModel { get; set; }
         private ICommand? _goToLogin;
         private ICommand? _goToOrdersByWaiters;
 
-        public event EventHandler<EventArgs<string>>? ViewChanged;
+        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
         public string Title { get; set; }
 
@@ -31,7 +33,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToLogin ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "1");
+                    ViewChanged?.Raise(this, new LoginTM() { PageNumber = "1" });
                 });
             }
         }
@@ -41,7 +43,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToOrdersByWaiters ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "3");
+                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "3" });
                 });
             }
         }

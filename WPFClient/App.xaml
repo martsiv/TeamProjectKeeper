@@ -4,31 +4,38 @@
              xmlns:local="clr-namespace:WPFClient"
              xmlns:view="clr-namespace:WPFClient.Views"
              xmlns:vm="clr-namespace:WPFClient.ViewModels">
+
     <Application.Resources>
-        <DataTemplate DataType="{x:Type vm:VM_Login}">
-            <view:UserControlLogin/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_GeneralInfo}">
-            <view:UserControlGeneralInfo/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_OrderMainView}">
-            <view:UserControlOrderMainView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_OrderQuickCheck}">
-            <view:UserControlOrderQuickCheck/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_OrdersByAllTables}">
-            <view:UserControlOrdersByAllTables/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_OrdersByHalls}">
-            <view:UserControlOrdersByHalls/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_OrdersByWaiters}">
-            <view:UserControlOrdersByWaiters/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Payment}">
-            <view:UserControlPayment/>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionaries/Dictionary1.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type vm:VM_Login}">
+                <view:UserControlLogin/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_GeneralInfo}">
+                <view:UserControlGeneralInfo/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_OrderMainView}">
+                <view:UserControlOrderMainView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_OrderQuickCheck}">
+                <view:UserControlOrderQuickCheck/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_OrdersByAllTables}">
+                <view:UserControlOrdersByAllTables/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_OrdersByHalls}">
+                <view:UserControlOrdersByHalls/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_OrdersByWaiters}">
+                <view:UserControlOrdersByWaiters/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VM_Payment}">
+                <view:UserControlPayment/>
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
 
