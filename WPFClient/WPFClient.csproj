@@ -53,6 +53,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\data_access\data_access.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="ResourceDictionaries\Image\Airplane.png" />
     <Resource Include="ResourceDictionaries\Image\Back.png" />
     <Resource Include="ResourceDictionaries\Image\Casa.png" />
