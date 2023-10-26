@@ -32,7 +32,7 @@
 
         <Border>
             <DockPanel>
-                <Border DockPanel.Dock="Top" Background="LightGray" Height="60">
+                <Border DockPanel.Dock="Top" Background="White" Height="60">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -57,23 +57,23 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Border DockPanel.Dock="Bottom" Background="Gray" Height="60">
+                <Border DockPanel.Dock="Bottom" Background="#ff303030" Height="60">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="7*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="BackButton" HorizontalAlignment="Left" Height="60" Width="120" Content="Назад" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png"/>
+                        <Button x:Name="BackButton" Foreground="White" HorizontalAlignment="Left" Height="60" Width="120" Content="Назад" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="HallSchemeButton" HorizontalAlignment="Right" Height="60" Width="120" Content="Схема зали" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/HallScheme.png"/>
-                            <Button x:Name="AllTableButton" HorizontalAlignment="Right" Height="60" Width="120" Content="Всі столи" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Table.png"/>
-                            <Button x:Name="ByWaitersButton" HorizontalAlignment="Right" Height="60" Width="120" Content="За офіціантами" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Waiter.png"/>
-                            <Button x:Name="QuickCheckButton" HorizontalAlignment="Right" Height="60" Width="120" Content="Швидкий чек" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png"/>
+                            <Button x:Name="HallSchemeButton" Foreground="White" HorizontalAlignment="Right" Height="60" Width="120" Content="Схема зали" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/HallScheme.png"/>
+                            <Button x:Name="AllTableButton" Foreground="White" HorizontalAlignment="Right" Height="60" Width="120" Content="Всі столи" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Table.png"/>
+                            <Button x:Name="ByWaitersButton" Foreground="White" HorizontalAlignment="Right" Height="60" Width="120" Content="За офіціантами" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Waiter.png"/>
+                            <Button x:Name="QuickCheckButton" Foreground="White" HorizontalAlignment="Right" Height="60" Width="120" Content="Швидкий чек" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png"/>
                         </StackPanel>
                     </Grid>
                     
                 </Border>
-                <Border Background="Wheat">
+                <Border Background="DimGray">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -81,6 +81,9 @@
                         </Grid.ColumnDefinitions>
                         <ListBox Background="Transparent" BorderBrush="Transparent">
 
+                        </ListBox>
+                        <ListBox Grid.Column="1" Background="Transparent" BorderBrush="Transparent">
+                            
                         </ListBox>
                     </Grid>
                 </Border>
