@@ -5,6 +5,7 @@
              xmlns:view="clr-namespace:WPFClient.Views"
              xmlns:Ext="clr-namespace:Ext"
              xmlns:vm="clr-namespace:WPFClient.ViewModels">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

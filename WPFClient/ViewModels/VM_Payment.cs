@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
+using WPFClient.TransferModel;
 
 namespace WPFClient.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
     public class VM_Payment : IPageViewModel
     {
+        public BaseTransferModel TransferModel { get; set; }
+
         private ICommand? _goToGeneralInfo;
         private ICommand? _goToOrderQuickCheck;
 
-        public event EventHandler<EventArgs<string>>? ViewChanged;
+        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
         public string Title { get; set; }
 
@@ -25,13 +28,14 @@ namespace WPFClient.ViewModels
             PageId = pageIndex;
             Title = "ViewPayment";
         }
+
         public ICommand GoToGeneralInfo
         {
             get
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "2");
+                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "2" });
                 });
             }
         }
@@ -41,7 +45,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToOrderQuickCheck ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, "7");
+                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "7" });
                 });
             }
         }
