@@ -98,7 +98,7 @@
                                     <Label HorizontalAlignment="Left" Foreground="White">ДО СПЛАТИ:</Label>
                                     <Label HorizontalAlignment="Right" Foreground="White">4324</Label>
                                 </UniformGrid>
-                                <ListBox Background="Transparent"  Grid.Row="1">
+                                <ListBox Background="Transparent" BorderBrush="Transparent" Grid.Row="1">
 
                                 </ListBox>
                                 <UniformGrid Columns="2"  Grid.Row="2">
