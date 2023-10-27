@@ -30,6 +30,22 @@
                 <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Printer.png" Foreground="White">Друк</Button>
                 <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png" Foreground="White">Попередній чек</Button>
             </DockPanel>
+            <Border>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                    <Button                
+                 Content="OrdersAllTables"
+                 Command="{Binding GoToOrdersAllTables}"
+                 Width="90" Height="30" Margin="0,20" />
+                    <Button                
+                 Content="GeneralInfo"
+                 Command="{Binding GoToGeneralInfo}"
+                 Width="90" Height="30" Margin="0,20" />
+                    <Button                
+                 Content="OrderQuickCheck"
+                 Command="{Binding GoToOrderQuickCheck}"
+                 Width="90" Height="30" Margin="0,20" />
+                </UniformGrid>
+            </Border>
         </DockPanel>
 
         <Border x:Name="CentralWindowPartBorder" Background="DimGray">
@@ -75,7 +91,7 @@
                             0.00грн
                             </TextBlock>
                         </Border>
-                        
+
                         <StackPanel Background="White">
 
                         </StackPanel>
@@ -92,39 +108,10 @@
                         <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Bar.png" Foreground="White">Бар</Button>
                     </UniformGrid>
                     <ListBox DockPanel.Dock="Bottom" Background="Transparent" BorderBrush="Transparent">
-                        
+
                     </ListBox>
                 </DockPanel>
             </Grid>
         </Border>
-
-        <!--<Label
-            DockPanel.Dock="Top"
-             Name="View1" 
-             VerticalAlignment="Top" HorizontalAlignment="Center"
-             Height="40" 
-             Canvas.Left="10" Canvas.Top="10" 
-             FontSize="14" FontFamily="Georgia" 
-             FontWeight="Bold"
-             Content="{Binding Title}"/>
-        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-            <Button                
-                 Content="OrdersAllTables"
-                 Command="{Binding GoToOrdersAllTables}"
-                 Width="90" Height="30" Margin="0,20" />
-            <Button                
-                 Content="GeneralInfo"
-                 Command="{Binding GoToGeneralInfo}"
-                 Width="90" Height="30" Margin="0,20" />
-            <Button                
-                 Content="OrderQuickCheck"
-                 Command="{Binding GoToOrderQuickCheck}"
-                 Width="90" Height="30" Margin="0,20" />
-        </UniformGrid>
-
-        <Border>
-
-        </Border>-->
-
     </DockPanel>
 </UserControl>
