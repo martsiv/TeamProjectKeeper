@@ -18,12 +18,11 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_Login : IPageViewModel
     {
-        public UnitOfWork UoW { get; set; }
-        public BaseTransferModel TransferModel { get; set; }
         private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
         public IEnumerable<EmployeeModel> Employees => employees;
+        public BaseTransferModel TransferModel { get; set; }
+        public UnitOfWork UoW { get; set; }
         public EmployeeModel? SelectedEmployee { get; set; }
-        private ICommand? _goToGeneralInfo;
 
         public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
@@ -35,8 +34,9 @@ namespace WPFClient.ViewModels
             loadEmployeesCmd = new((o) => LoadEmployees());
             LoadEmployees();
             PageId = pageIndex;
-            Title = "ViewLogin";
+            Title = "Авторизація";
         }
+        private ICommand? _goToGeneralInfo;
         public ICommand GoToGeneralInfo
         {
             get

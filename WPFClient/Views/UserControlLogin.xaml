@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance Type=vm:VM_Login}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
+    <StackPanel Background="White">
       
         <Label 
             Name="View1" 

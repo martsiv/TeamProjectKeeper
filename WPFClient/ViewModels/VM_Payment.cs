@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
+using WPFClient.Models;
 using WPFClient.TransferModel;
 
 namespace WPFClient.ViewModels
@@ -15,11 +16,12 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_Payment : IPageViewModel
     {
+        public EmployeeModel CurrentEmployeeModel { get; set; }
         public BaseTransferModel TransferModel { get; set; }
+        public OrderModel CurrentOrderModel { get; set; }
         public UnitOfWork UoW { get; set; }
 
         private ICommand? _goToGeneralInfo;
-        private ICommand? _goToOrderQuickCheck;
         private ICommand? _goToLogin;
         public ICommand GoToLogin
         {
@@ -27,7 +29,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToLogin ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new LoginTM() { PageNumber = "1" });
+                    ViewChanged?.Raise(this, new BaseTransferModel() { UoW = UoW, PageNumber = "1" });
                 });
             }
         }
@@ -36,10 +38,10 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
 
-        public VM_Payment(string pageIndex = "8")
+        public VM_Payment(string pageIndex = "6")
         {
             PageId = pageIndex;
-            Title = "ViewPayment";
+            Title = "Оплата";
         }
 
         public ICommand GoToGeneralInfo
@@ -48,17 +50,18 @@ namespace WPFClient.ViewModels
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "2" });
+                    ViewChanged?.Raise(this, new BaseTransferModel() { PreviousPage = PageId, UoW = this.UoW, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = "2" });
                 });
             }
         }
-        public ICommand GoToOrderQuickCheck
+        private ICommand? _goToPreviusPage;
+        public ICommand GoToPreviusPage
         {
             get
             {
-                return _goToOrderQuickCheck ??= new RelayCommand(x =>
+                return _goToPreviusPage ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "7" });
+                    ViewChanged?.Raise(this, new BaseTransferModel() { PreviousPage = PageId, UoW = this.UoW, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = TransferModel.PreviousPage });
                 });
             }
         }

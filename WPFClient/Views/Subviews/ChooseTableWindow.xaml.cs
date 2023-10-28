@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPFClient.Views.Subviews
 {
     /// <summary>
-    /// Interaction logic for UserControlOrders.xaml
+    /// Interaction logic for ChooseTableWindow.xaml
     /// </summary>
-    public partial class UserControlOrders : UserControl
+    public partial class ChooseTableWindow : Window
     {
-        public UserControlOrders()
+        public ChooseTableWindow()
         {
             InitializeComponent();
         }

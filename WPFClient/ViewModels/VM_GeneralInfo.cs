@@ -50,10 +50,9 @@ namespace WPFClient.ViewModels
         public WorkShiftModel CurrentWorkShift { get; set; }
         public UnitOfWork UoW { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        [DependsOn(nameof(TransferModel))]
-        public GeneralInfoTM GeneralInfoTM => TransferModel as GeneralInfoTM;
+        public OrderModel CurrentOrderModel { get; set; }
         private ICommand? _goToLogin;
-        private ICommand? _goToOrdersByWaiters;
+        private ICommand? _goToOrders;
 
         public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
@@ -61,10 +60,8 @@ namespace WPFClient.ViewModels
 
         public VM_GeneralInfo(string pageIndex = "2")
         {
-            afterLoadedCmd = new((o) => AfterLoaded());
-
             PageId = pageIndex;
-            Title = "ViewGeneralInfo";
+            Title = "Загальна інформація";
         }
         public ICommand GoToLogin
         {
@@ -72,27 +69,19 @@ namespace WPFClient.ViewModels
             {
                 return _goToLogin ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new LoginTM() { PageNumber = "1" });
+                    ViewChanged?.Raise(this, new LoginTM() { UoW = UoW, PageNumber = "1" });
                 });
             }
         }
-        public ICommand GoToOrdersByWaiters
+        public ICommand GoToOrders
         {
             get
             {
-                return _goToOrdersByWaiters ??= new RelayCommand(x =>
+                return _goToOrders ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new GeneralInfoTM() { PageNumber = "3" });
+                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPage = PageId, PageNumber = "3" });
                 });
             }
-        }
-
-
-        private readonly RelayCommand afterLoadedCmd;
-        public ICommand AfterLoadedCmd => afterLoadedCmd;
-        public void AfterLoaded()
-        {
-            CurrentEmployeeModel = TransferModel.CurrentEmployee;
         }
     }
 }

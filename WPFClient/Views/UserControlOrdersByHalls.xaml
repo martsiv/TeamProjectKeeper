@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:WPFClient.Views"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              xmlns:Ext="clr-namespace:Ext"
-             d:DataContext="{d:DesignInstance Type=vm:VM_OrdersByHalls}"
+             d:DataContext="{d:DesignInstance Type=vm:VM_Orders}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel Background="White">
+        <Label Content="By halls"/>
+    </DockPanel>
 </UserControl>

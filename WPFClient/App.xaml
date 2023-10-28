@@ -23,14 +23,8 @@
             <DataTemplate DataType="{x:Type vm:VM_OrderQuickCheck}">
                 <view:UserControlOrderQuickCheck/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:VM_OrdersByAllTables}">
-                <view:UserControlOrdersByAllTables/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:VM_OrdersByHalls}">
-                <view:UserControlOrdersByHalls/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:VM_OrdersByWaiters}">
-                <view:UserControlOrdersByWaiters/>
+            <DataTemplate DataType="{x:Type vm:VM_Orders}">
+                <view:UserControlOrders/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:VM_Payment}">
                 <view:UserControlPayment/>
@@ -38,6 +32,3 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
-
-    
-    

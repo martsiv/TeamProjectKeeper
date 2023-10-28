@@ -9,15 +9,7 @@
              d:DataContext="{d:DesignInstance Type=vm:VM_GeneralInfo}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName = "Loaded">
-            <i:InvokeCommandAction Command = "{Binding AfterLoadedCmd }"/>
-        </i:EventTrigger>
-        <!--<i:EventTrigger EventName = "StateChanged">
-            <i:InvokeCommandAction Command = "{Binding StateChangedCommand}"/>
-        </i:EventTrigger>-->
-    </i:Interaction.Triggers>
-    <DockPanel>
+    <DockPanel Background="White">
         <Label
             DockPanel.Dock="Top"
              Name="View1" 
@@ -27,15 +19,14 @@
              FontSize="14" FontFamily="Georgia" 
              FontWeight="Bold"
              Content="{Binding Title}"/>
-        <TextBlock Text="{Binding GeneralInfoTM.NewProp}"></TextBlock>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1">
             <Button                
                  Content="Login"
                  Command="{Binding GoToLogin}"
                  Width="90" Height="30" Margin="0,20" />
             <Button                
-                 Content="OrdersByWaiters"
-                 Command="{Binding GoToOrdersByWaiters}"
+                 Content="Orders"
+                 Command="{Binding GoToOrders}"
                  Width="90" Height="30" Margin="0,20" />
         </UniformGrid>
 
