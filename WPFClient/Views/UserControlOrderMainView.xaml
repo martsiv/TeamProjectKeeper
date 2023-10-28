@@ -17,7 +17,7 @@
             <UniformGrid DockPanel.Dock="Right" Rows="1">
                 <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Delivery.png"></Button>
                 <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Menu.png"></Button>
-                <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Lock.png"></Button>
+                <Button Width="120" Command="{Binding GoToLogin}" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Lock.png"></Button>
             </UniformGrid>
             <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
 
@@ -25,27 +25,11 @@
         </DockPanel>
 
         <DockPanel x:Name="BottomDockPanel" DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
-            <Button DockPanel.Dock="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Foreground="White">Назад</Button>
+            <Button DockPanel.Dock="Left" Command="{Binding GoToPreviusPage}" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Foreground="White">Назад</Button>
             <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
                 <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Printer.png" Foreground="White">Друк</Button>
                 <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png" Foreground="White">Попередній чек</Button>
             </DockPanel>
-            <Border>
-                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-                    <Button                
-                 Content="OrdersAllTables"
-                 Command="{Binding GoToOrdersAllTables}"
-                 Width="90" Height="30" Margin="0,20" />
-                    <Button                
-                 Content="GeneralInfo"
-                 Command="{Binding GoToGeneralInfo}"
-                 Width="90" Height="30" Margin="0,20" />
-                    <Button                
-                 Content="OrderQuickCheck"
-                 Command="{Binding GoToOrderQuickCheck}"
-                 Width="90" Height="30" Margin="0,20" />
-                </UniformGrid>
-            </Border>
         </DockPanel>
 
         <Border x:Name="CentralWindowPartBorder" Background="DimGray">
