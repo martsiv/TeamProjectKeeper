@@ -25,7 +25,6 @@ namespace WPFClient.ViewModels
                 _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-                //pageViews.Data = "Data: " + s.Value.ToString();
             };
 
             _pageViewModels["2"] = new VM_GeneralInfo("2");
@@ -34,7 +33,6 @@ namespace WPFClient.ViewModels
                 _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-                //pageViews.Data = "Data: " + s.Value.ToString();
             };
 
             _pageViewModels["3"] = new VM_Orders("3");
@@ -43,7 +41,6 @@ namespace WPFClient.ViewModels
                 _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-                //pageViews.Data = "Data: " + s.Value.ToString();
             };
 
             _pageViewModels["4"] = new VM_OrderMainView("4");
@@ -52,7 +49,6 @@ namespace WPFClient.ViewModels
                 _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-                //pageViews.Data = "Data: " + s.Value.ToString();
             };
 
             _pageViewModels["5"] = new VM_OrderQuickCheck("5");
@@ -61,7 +57,6 @@ namespace WPFClient.ViewModels
                 _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-                //pageViews.Data = "Data: " + s.Value.ToString();
             };
 
             _pageViewModels["6"] = new VM_Payment("6");
@@ -70,38 +65,9 @@ namespace WPFClient.ViewModels
                 _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-                //pageViews.Data = "Data: " + s.Value.ToString();
             };
 
             CurrentPageViewModel = _pageViewModels["1"];
-
-            //_pageViewModels["3"] = new VM_OrdersByWaiters("3");
-            //_pageViewModels["3"].ViewChanged += (o, s) =>
-            //{
-            //    _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
-            //    _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
-            //    CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-            //    //pageViews.Data = "Data: " + s.Value.ToString();
-            //};
-
-            //_pageViewModels["4"] = new VM_OrdersByHalls("4");
-            //_pageViewModels["4"].ViewChanged += (o, s) =>
-            //{
-            //    _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
-            //    _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
-            //    CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-            //    //pageViews.Data = "Data: " + s.Value.ToString();
-            //};
-
-            //_pageViewModels["5"] = new VM_OrdersByAllTables("5");
-            //_pageViewModels["5"].ViewChanged += (o, s) =>
-            //{
-            //    _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
-            //    _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
-            //    CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
-            //    //pageViews.Data = "Data: " + s.Value.ToString();
-            //};
-
         }
     }
 }

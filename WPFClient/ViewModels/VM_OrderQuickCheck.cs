@@ -16,12 +16,21 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_OrderQuickCheck : IPageViewModel
     {
-        public EmployeeModel CurrentEmployeeModel { get; set; }
+
+        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
+        public string PageId { get; set; }
+        public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public OrderModel CurrentOrderModel { get; set; }
         public UnitOfWork UoW { get; set; }
-        private ICommand? _goToGeneralInfo;
-        private ICommand? _goToPayment;
+        public EmployeeModel CurrentEmployeeModel { get; set; }
+        public OrderModel CurrentOrderModel { get; set; }
+
+        public VM_OrderQuickCheck(string pageIndex = "5")
+        {
+            PageId = pageIndex;
+            Title = "Швидкий чек";
+        }
+        #region Navigation
         private ICommand? _goToLogin;
         public ICommand GoToLogin
         {
@@ -33,16 +42,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
-
-        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
-        public string PageId { get; set; }
-        public string Title { get; set; }
-
-        public VM_OrderQuickCheck(string pageIndex = "5")
-        {
-            PageId = pageIndex;
-            Title = "Швидкий чек";
-        }
+        private ICommand? _goToGeneralInfo;
         public ICommand GoToGeneralInfo
         {
             get
@@ -53,6 +53,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        private ICommand? _goToPayment;
         public ICommand GoToPayment
         {
             get
@@ -74,5 +75,6 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        #endregion
     }
 }

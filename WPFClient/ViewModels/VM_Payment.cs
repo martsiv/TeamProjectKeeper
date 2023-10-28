@@ -16,12 +16,20 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_Payment : IPageViewModel
     {
-        public EmployeeModel CurrentEmployeeModel { get; set; }
+        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
+        public string PageId { get; set; }
+        public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public OrderModel CurrentOrderModel { get; set; }
         public UnitOfWork UoW { get; set; }
+        public EmployeeModel CurrentEmployeeModel { get; set; }
+        public OrderModel CurrentOrderModel { get; set; }
+        public VM_Payment(string pageIndex = "6")
+        {
+            PageId = pageIndex;
+            Title = "Оплата";
+        }
 
-        private ICommand? _goToGeneralInfo;
+        #region Navigation
         private ICommand? _goToLogin;
         public ICommand GoToLogin
         {
@@ -33,17 +41,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
-
-        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
-        public string PageId { get; set; }
-        public string Title { get; set; }
-
-        public VM_Payment(string pageIndex = "6")
-        {
-            PageId = pageIndex;
-            Title = "Оплата";
-        }
-
+        private ICommand? _goToGeneralInfo;
         public ICommand GoToGeneralInfo
         {
             get
@@ -65,5 +63,6 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        #endregion
     }
 }

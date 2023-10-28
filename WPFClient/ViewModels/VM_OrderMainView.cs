@@ -16,11 +16,20 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_OrderMainView : IPageViewModel
     {
+        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
+        public string PageId { get; set; }
+        public string Title { get; set; }
+        public BaseTransferModel TransferModel { get; set; }
+        public UnitOfWork UoW { get; set; }
         public EmployeeModel CurrentEmployeeModel { get; set; }
         public OrderModel CurrentOrderModel { get; set; }
-        public UnitOfWork UoW { get; set; }
-        public BaseTransferModel TransferModel { get; set; }
-        private ICommand? _goToGeneralInfo;
+        public VM_OrderMainView(string pageIndex = "4")
+        {
+            PageId = pageIndex;
+            Title = "Замовлення";
+        }
+
+        #region Navigation
         private ICommand? _goToLogin;
         public ICommand GoToLogin
         {
@@ -32,16 +41,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
-
-        public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
-        public string PageId { get; set; }
-        public string Title { get; set; }
-
-        public VM_OrderMainView(string pageIndex = "4")
-        {
-            PageId = pageIndex;
-            Title = "Замовлення";
-        }
+        private ICommand? _goToGeneralInfo;
         public ICommand GoToGeneralInfo
         {
             get
@@ -63,5 +63,6 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        #endregion
     }
 }

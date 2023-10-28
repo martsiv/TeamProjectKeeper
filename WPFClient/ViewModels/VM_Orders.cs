@@ -18,19 +18,13 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_Orders : IPageViewModel
     {
-        public EmployeeModel CurrentEmployeeModel { get; set; }
-        public UnitOfWork UoW { get; set; }
-        public BaseTransferModel TransferModel { get; set; }
-        public OrderModel CurrentOrderModel { get; set; }
-
-        private ICommand? _goToGeneralInfo;
-        private ICommand? _goToOrderMainView;
-        private ICommand? _goToLogin;
-
         public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
         public string Title { get; set; }
-
+        public BaseTransferModel TransferModel { get; set; }
+        public UnitOfWork UoW { get; set; }
+        public EmployeeModel CurrentEmployeeModel { get; set; }
+        public OrderModel CurrentOrderModel { get; set; }
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables(), (o) => !(CurrentUserControl is UserControlOrdersByAllTables));
@@ -41,6 +35,8 @@ namespace WPFClient.ViewModels
             Title = "Вибір замовлення";
         }
 
+        #region Navigation
+        private ICommand? _goToLogin;
         public ICommand GoToLogin
         {
             get
@@ -51,6 +47,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        private ICommand? _goToGeneralInfo;
         public ICommand GoToGeneralInfo
         {
             get
@@ -61,6 +58,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        private ICommand? _goToOrderMainView;
         public ICommand GoToOrderMainView
         {
             get
@@ -93,7 +91,6 @@ namespace WPFClient.ViewModels
                 });
             }
         }
-
         public object CurrentUserControl { get; set; }
 
         private readonly RelayCommand switchToByAllTablesCmd;
@@ -103,7 +100,6 @@ namespace WPFClient.ViewModels
             var control = new UserControlOrdersByAllTables() { DataContext = this };
             CurrentUserControl = control;
         }
-
         private readonly RelayCommand switchToByWaitersCmd;
         public ICommand SswitchToByWaitersCmd => switchToByWaitersCmd;
         public void SwitchToByWaiters()
@@ -111,7 +107,6 @@ namespace WPFClient.ViewModels
             var control = new UserControlOrdersByWaiters() { DataContext = this };
             CurrentUserControl = control;
         }
-
         private readonly RelayCommand switchToByHallsCmd;
         public ICommand SwitchToByHallsCmd => switchToByHallsCmd;
         public void SwitchToByHalls()
@@ -119,5 +114,6 @@ namespace WPFClient.ViewModels
             var control = new UserControlOrdersByHalls() { DataContext = this };
             CurrentUserControl = control;
         }
+        #endregion
     }
 }

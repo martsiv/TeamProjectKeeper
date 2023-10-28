@@ -18,16 +18,14 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_Login : IPageViewModel
     {
-        private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
-        public IEnumerable<EmployeeModel> Employees => employees;
-        public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW { get; set; }
-        public EmployeeModel? SelectedEmployee { get; set; }
-
         public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
         public string Title { get; set; }
-
+        public BaseTransferModel TransferModel { get; set; }
+        public UnitOfWork UoW { get; set; }
+        public EmployeeModel? SelectedEmployee { get; set; }
+        private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
+        public IEnumerable<EmployeeModel> Employees => employees;
         public VM_Login(UnitOfWork unitOfWork, string pageIndex = "1")
         {
             UoW = unitOfWork;
@@ -36,26 +34,8 @@ namespace WPFClient.ViewModels
             PageId = pageIndex;
             Title = "Авторизація";
         }
-        private ICommand? _goToGeneralInfo;
-        public ICommand GoToGeneralInfo
-        {
-            get
-            {
-                return _goToGeneralInfo ??= new RelayCommand(x =>
-                {
-                    //loginTM.PageNumber = "2";
-                    //ViewChanged?.Raise(this, loginTM);
-                    if (SelectedEmployee != null && CheckPin())
-                    {
-                        var selectedEmployee = SelectedEmployee;
-                        SelectedEmployee = null;
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = "2", CurrentEmployee = selectedEmployee, UoW = this.UoW });
-                    }
-                }, x => SelectedEmployee != null);
-            }
-        }
-
-
+         
+        #region Load employees
         private readonly RelayCommand loadEmployeesCmd;
         public ICommand LoadEmployeesCmd => loadEmployeesCmd;
         public void LoadEmployees()
@@ -72,6 +52,26 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        #endregion
+
+        #region Navigation
+
+        private ICommand? _goToGeneralInfo;
+        public ICommand GoToGeneralInfo
+        {
+            get
+            {
+                return _goToGeneralInfo ??= new RelayCommand(x =>
+                {
+                    if (SelectedEmployee != null && CheckPin())
+                    {
+                        var selectedEmployee = SelectedEmployee;
+                        SelectedEmployee = null;
+                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = "2", CurrentEmployee = selectedEmployee, UoW = this.UoW });
+                    }
+                }, x => SelectedEmployee != null);
+            }
+        }
         private bool CheckPin()
         {
             NumbersWindow numbersWindow = new NumbersWindow();
@@ -82,5 +82,6 @@ namespace WPFClient.ViewModels
             numbersWindow.Close();
             return false;
         }
+        #endregion
     }
 }
