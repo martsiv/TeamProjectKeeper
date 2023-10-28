@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿using data_access.Repositories;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,21 @@ namespace WPFClient.ViewModels
     public class VM_Payment : IPageViewModel
     {
         public BaseTransferModel TransferModel { get; set; }
+        public UnitOfWork UoW { get; set; }
 
         private ICommand? _goToGeneralInfo;
         private ICommand? _goToOrderQuickCheck;
+        private ICommand? _goToLogin;
+        public ICommand GoToLogin
+        {
+            get
+            {
+                return _goToLogin ??= new RelayCommand(x =>
+                {
+                    ViewChanged?.Raise(this, new LoginTM() { PageNumber = "1" });
+                });
+            }
+        }
 
         public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }

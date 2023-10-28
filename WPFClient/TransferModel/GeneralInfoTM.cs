@@ -9,8 +9,6 @@ namespace WPFClient.TransferModel
 {
     public class GeneralInfoTM : BaseTransferModel
     {
-        public List<EmployeeModel> employees = new List<EmployeeModel>();
-        public EmployeeModel CurrentEmployee { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using data_access.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,11 @@ using WPFClient.TransferModel;
 
 namespace WPFClient.ViewModels
 {
-    /*
-     - create base transferModel with PageNumber
-     - 
-     */
 
     public interface IPageViewModel
     {
         event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
+        public UnitOfWork UoW { get; set; }
         public BaseTransferModel TransferModel { get; set; }
         string PageId { get; set; }
         string Title { get; set; }
