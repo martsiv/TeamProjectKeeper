@@ -41,6 +41,17 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+        private ICommand? _goToOrderMainView;
+        public ICommand GoToOrderMainView
+        {
+            get
+            {
+                return _goToOrderMainView ??= new RelayCommand(x =>
+                {
+                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPage = PageId, PageNumber = "4" });
+                });
+            }
+        }
         private ICommand? _goToGeneralInfo;
         public ICommand GoToGeneralInfo
         {
