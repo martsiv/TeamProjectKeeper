@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFClient.Views"
+             xmlns:Ext="clr-namespace:Ext"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_Payment}"
              mc:Ignorable="d" 
@@ -30,7 +31,144 @@
         </UniformGrid>
 
         <Border>
+            <DockPanel>
+                <DockPanel x:Name="TopDockPanel" DockPanel.Dock="Top" Height="60" Background="White">
+                    <UniformGrid DockPanel.Dock="Right" Rows="1" HorizontalAlignment="Right">
+                        <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Menu.png"></Button>
+                        <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Lock.png"></Button>
+                    </UniformGrid>
+                    <Grid DockPanel.Dock="Left" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.ColumnSpan="3" FontSize="14" FontWeight="Bold">ОПЛАТА ЗАМОВЛЕННЯ #</Label>
+                        <Label Grid.Column="0" Grid.Row="1">Відкрите: </Label>
+                        <Label Grid.Column="1" Grid.Row="1">Офіціант: </Label>
+                        <Label Grid.Column="2" Grid.Row="1">Стіл: </Label>
+                    </Grid>
+                </DockPanel>
 
+                <DockPanel x:Name="BottomDockPanel" DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
+                    <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Foreground="White">Назад</Button>
+                    <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Dish.png" Foreground="White">Замовлення</Button>
+                    <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png" Foreground="White">З товарним чеком</Button>
+                    <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Airplane.png" Foreground="White">Відправлення чека</Button>
+                    <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <Button DockPanel.Dock="Right" Width="240" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Payment.png" Foreground="White">Оплатити</Button>
+                    </DockPanel>
+                </DockPanel>
+
+                <Border x:Name="CentralWindowPartBorder" Background="DimGray">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Grid.Column="0">
+                            <Border Background="DimGray" DockPanel.Dock="Bottom" Height="30">
+                                <UniformGrid Columns="2">
+                                    <Label HorizontalAlignment="Left" Foreground="White">Разом:</Label>
+                                    <Label HorizontalAlignment="Right" Foreground="White">4324</Label>
+                                </UniformGrid>
+                            </Border>
+                            <ListBox Margin="0">
+
+                            </ListBox>
+                        </DockPanel>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <UniformGrid Columns="2" Height="30" Grid.Row="0">
+                                    <Label HorizontalAlignment="Left" Foreground="White">ДО СПЛАТИ:</Label>
+                                    <Label HorizontalAlignment="Right" Foreground="White">4324</Label>
+                                </UniformGrid>
+                                <ListBox Background="Transparent" BorderBrush="Transparent" Grid.Row="1">
+
+                                </ListBox>
+                                <UniformGrid Columns="2"  Grid.Row="2">
+                                    <Label HorizontalAlignment="Left" Foreground="White">ВНЕСЕНО:</Label>
+                                    <Label HorizontalAlignment="Right" Foreground="White">0,00</Label>
+                                </UniformGrid>
+                                <UniformGrid Columns="2"  Grid.Row="3">
+                                    <Label HorizontalAlignment="Left" Foreground="White">ВНЕСТИ:</Label>
+                                    <Label HorizontalAlignment="Right" Foreground="White">4324</Label>
+                                </UniformGrid>
+                                <UniformGrid Columns="2"  Grid.Row="4">
+                                    <Label HorizontalAlignment="Left" Foreground="White">Здача:</Label>
+                                    <Label HorizontalAlignment="Right" Foreground="White">0,00</Label>
+                                </UniformGrid>
+                            </Grid>
+                            <DockPanel Grid.Column="1">
+                                <UniformGrid Rows="1" Background="LightSteelBlue" DockPanel.Dock="Top">
+                                    <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Money.png" Foreground="White">Готівкою</Button>
+                                    <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Creditcard.png" Foreground="White">Банківською картою</Button>
+                                </UniformGrid>
+                                <Grid Background="#ff716969" Height="100" VerticalAlignment="Top" DockPanel.Dock="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="Khaki">Оплата готівкою</Label>
+                                    <Label Grid.Row="1" HorizontalAlignment="Center" Foreground="White" FontSize="40">0,00 грн.</Label>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Button Grid.ColumnSpan="5" Grid.Row="4" Background="White" Content="Точна сума" FontSize="40"/>
+                                    <Button Grid.Column="0" Grid.Row="0" Background="White" Content="1" FontSize="40"/>
+                                    <Button Grid.Column="1" Grid.Row="0" Background="White" Content="2" FontSize="40"/>
+                                    <Button Grid.Column="2" Grid.Row="0" Background="White" Content="3" FontSize="40"/>
+                                    <Button Grid.Column="3" Grid.Row="0" Background="#ff404040" Content="+1" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="4" Grid.Row="0" Background="#ff404040" Content="+5" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="0" Grid.Row="1" Background="White" Content="4" FontSize="40"/>
+                                    <Button Grid.Column="1" Grid.Row="1" Background="White" Content="5" FontSize="40"/>
+                                    <Button Grid.Column="2" Grid.Row="1" Background="White" Content="6" FontSize="40"/>
+                                    <Button Grid.Column="3" Grid.Row="1" Background="#ff404040" Content="+10" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="4" Grid.Row="1" Background="#ff404040" Content="+50" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="0" Grid.Row="2" Background="White" Content="7" FontSize="40"/>
+                                    <Button Grid.Column="1" Grid.Row="2" Background="White" Content="8" FontSize="40"/>
+                                    <Button Grid.Column="2" Grid.Row="2" Background="White" Content="9" FontSize="40"/>
+                                    <Button Grid.Column="3" Grid.Row="2" Background="#ff404040" Content="+100" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="4" Grid.Row="2" Background="#ff404040" Content="+500" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="0" Grid.Row="3" Background="White" Content="," FontSize="40"/>
+                                    <Button Grid.Column="1" Grid.Row="3" Background="White" Content="0" FontSize="40"/>
+                                    <Button Grid.Column="2" Grid.Row="3" Background="White" Content="X" FontSize="40"/>
+                                    <Button Grid.Column="3" Grid.Row="3" Background="#ff404040" Content="+1000" Foreground="White" FontSize="40"/>
+                                    <Button Grid.Column="4" Grid.Row="3" Background="#ff404040" Content="+5000" Foreground="White" FontSize="40"/>
+                                </Grid>
+                            </DockPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </DockPanel>
         </Border>
 
     </DockPanel>

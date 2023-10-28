@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="ResourceDictionaries\Image\Airplane.png" />
     <None Remove="ResourceDictionaries\Image\Back.png" />
+    <None Remove="ResourceDictionaries\Image\Bar.png" />
     <None Remove="ResourceDictionaries\Image\Casa.png" />
     <None Remove="ResourceDictionaries\Image\Check.png" />
     <None Remove="ResourceDictionaries\Image\CheckWhite.png" />
@@ -22,14 +23,17 @@
     <None Remove="ResourceDictionaries\Image\HallScheme.png" />
     <None Remove="ResourceDictionaries\Image\Home.png" />
     <None Remove="ResourceDictionaries\Image\Instrument.png" />
+    <None Remove="ResourceDictionaries\Image\Kitchen.png" />
     <None Remove="ResourceDictionaries\Image\Lock.png" />
     <None Remove="ResourceDictionaries\Image\Menu.png" />
     <None Remove="ResourceDictionaries\Image\Minus.png" />
     <None Remove="ResourceDictionaries\Image\Money.png" />
+    <None Remove="ResourceDictionaries\Image\Number.png" />
     <None Remove="ResourceDictionaries\Image\Order.png" />
     <None Remove="ResourceDictionaries\Image\OrderMenuWhite.png" />
     <None Remove="ResourceDictionaries\Image\OrderRescheduling.png" />
     <None Remove="ResourceDictionaries\Image\OtherBack.png" />
+    <None Remove="ResourceDictionaries\Image\Payment.png" />
     <None Remove="ResourceDictionaries\Image\People.png" />
     <None Remove="ResourceDictionaries\Image\PinCode.png" />
     <None Remove="ResourceDictionaries\Image\Pluse.png" />
@@ -60,6 +64,7 @@
   <ItemGroup>
     <Resource Include="ResourceDictionaries\Image\Airplane.png" />
     <Resource Include="ResourceDictionaries\Image\Back.png" />
+    <Resource Include="ResourceDictionaries\Image\Bar.png" />
     <Resource Include="ResourceDictionaries\Image\Casa.png" />
     <Resource Include="ResourceDictionaries\Image\Check.png" />
     <Resource Include="ResourceDictionaries\Image\CheckWhite.png" />
@@ -72,14 +77,17 @@
     <Resource Include="ResourceDictionaries\Image\HallScheme.png" />
     <Resource Include="ResourceDictionaries\Image\Home.png" />
     <Resource Include="ResourceDictionaries\Image\Instrument.png" />
+    <Resource Include="ResourceDictionaries\Image\Kitchen.png" />
     <Resource Include="ResourceDictionaries\Image\Lock.png" />
     <Resource Include="ResourceDictionaries\Image\Menu.png" />
     <Resource Include="ResourceDictionaries\Image\Minus.png" />
     <Resource Include="ResourceDictionaries\Image\Money.png" />
+    <Resource Include="ResourceDictionaries\Image\Number.png" />
     <Resource Include="ResourceDictionaries\Image\Order.png" />
     <Resource Include="ResourceDictionaries\Image\OrderMenuWhite.png" />
     <Resource Include="ResourceDictionaries\Image\OrderRescheduling.png" />
     <Resource Include="ResourceDictionaries\Image\OtherBack.png" />
+    <Resource Include="ResourceDictionaries\Image\Payment.png" />
     <Resource Include="ResourceDictionaries\Image\People.png" />
     <Resource Include="ResourceDictionaries\Image\PinCode.png" />
     <Resource Include="ResourceDictionaries\Image\Pluse.png" />

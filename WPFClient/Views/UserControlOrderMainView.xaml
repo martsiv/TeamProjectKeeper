@@ -4,30 +4,48 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFClient.Views"
+             xmlns:Ext="clr-namespace:Ext"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_OrderMainView}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel x:Name="GeneralDockPanel">
-        <DockPanel x:Name="TopDockPanel" DockPanel.Dock="Top" Height="50" Background="White">
-            <Button DockPanel.Dock="Left" Width="70" Template="{StaticResource btTemplate}" Background="LightSteelBlue"  Foreground="WhiteSmoke">+Гість</Button>
+        <DockPanel x:Name="TopDockPanel" DockPanel.Dock="Top" Height="60" Background="White">
+            <Border DockPanel.Dock="Left" Background="LightSteelBlue">
+                <Button DockPanel.Dock="Left" Width="70" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Pluse.png" Foreground="WhiteSmoke">+Гість</Button>
+            </Border>
             <UniformGrid DockPanel.Dock="Right" Rows="1">
-                <Button Width="70">Delivery</Button>
-                <Button Width="70">Menu</Button>
-                <Button Width="70">Lock</Button>
+                <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Delivery.png"></Button>
+                <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Menu.png"></Button>
+                <Button Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Lock.png"></Button>
             </UniformGrid>
             <DockPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                <Button DockPanel.Dock="Right" Width="60" Template="{StaticResource btTemplate}" Background="LightSteelBlue" Foreground="WhiteSmoke">Гість 1</Button>
 
             </DockPanel>
         </DockPanel>
 
-        <DockPanel x:Name="BottomDockPanel" DockPanel.Dock="Bottom" Height="50" Background="Black">
-            <Button DockPanel.Dock="Left" Width="70" Template="{StaticResource btTemplate}">Назад</Button>
+        <DockPanel x:Name="BottomDockPanel" DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
+            <Button DockPanel.Dock="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Foreground="White">Назад</Button>
             <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
-                <Button DockPanel.Dock="Right" Width="70" Template="{StaticResource btTemplate}">Друк</Button>
-                <Button DockPanel.Dock="Right" Width="70" Template="{StaticResource btTemplate}">Поп. чек</Button>
+                <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Printer.png" Foreground="White">Друк</Button>
+                <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png" Foreground="White">Попередній чек</Button>
             </DockPanel>
+            <Border>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                    <Button                
+                 Content="OrdersAllTables"
+                 Command="{Binding GoToOrdersAllTables}"
+                 Width="90" Height="30" Margin="0,20" />
+                    <Button                
+                 Content="GeneralInfo"
+                 Command="{Binding GoToGeneralInfo}"
+                 Width="90" Height="30" Margin="0,20" />
+                    <Button                
+                 Content="OrderQuickCheck"
+                 Command="{Binding GoToOrderQuickCheck}"
+                 Width="90" Height="30" Margin="0,20" />
+                </UniformGrid>
+            </Border>
         </DockPanel>
 
         <Border x:Name="CentralWindowPartBorder" Background="DimGray">
@@ -38,15 +56,15 @@
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Column="0">
                     <UniformGrid DockPanel.Dock="Bottom" Rows="1" Height="50">
-                        <Button Template="{StaticResource btTemplate}">+</Button>
-                        <Button Template="{StaticResource btTemplate}">-</Button>
-                        <Button Template="{StaticResource btTemplate}">123</Button>
-                        <Button Template="{StaticResource btTemplate}">scisors</Button>
-                        <Button Template="{StaticResource btTemplate}">...</Button>
-                        <Button Template="{StaticResource btTemplate}">X</Button>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Pluse.png"/>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Minus.png"/>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Number.png"/>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Scissors.png"/>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/ThreeDots.png"/>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/X.png"/>
                     </UniformGrid>
                     <DockPanel DockPanel.Dock="Top">
-                        <Grid DockPanel.Dock="Top"  Background="SteelBlue">
+                        <Grid DockPanel.Dock="Top"  Background="SteelBlue" Height="60">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
@@ -73,7 +91,7 @@
                             0.00грн
                             </TextBlock>
                         </Border>
-                        
+
                         <StackPanel Background="White">
 
                         </StackPanel>
@@ -81,46 +99,19 @@
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" Background="DimGray">
-                    <UniformGrid DockPanel.Dock="Top" Rows="1" Height="50">
-                        <Button Template="{StaticResource btTemplate}">Search</Button>
-                        <Button Template="{StaticResource btTemplate}">Home</Button>
-                        <Button Template="{StaticResource btTemplate}">Кухня</Button>
-                        <Button Template="{StaticResource btTemplate}">Бар</Button>
+                    <UniformGrid DockPanel.Dock="Top" Rows="1" Height="60">
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png"></Button>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Search.png"></Button>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Home.png"></Button>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Forward.png"></Button>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Kitchen.png" Foreground="White">Кухня</Button>
+                        <Button Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Bar.png" Foreground="White">Бар</Button>
                     </UniformGrid>
-                    <ListBox DockPanel.Dock="Bottom" Background="Transparent">
-                        
+                    <ListBox DockPanel.Dock="Bottom" Background="Transparent" BorderBrush="Transparent">
+
                     </ListBox>
                 </DockPanel>
             </Grid>
         </Border>
-
-        <!--<Label
-            DockPanel.Dock="Top"
-             Name="View1" 
-             VerticalAlignment="Top" HorizontalAlignment="Center"
-             Height="40" 
-             Canvas.Left="10" Canvas.Top="10" 
-             FontSize="14" FontFamily="Georgia" 
-             FontWeight="Bold"
-             Content="{Binding Title}"/>
-        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-            <Button                
-                 Content="OrdersAllTables"
-                 Command="{Binding GoToOrdersAllTables}"
-                 Width="90" Height="30" Margin="0,20" />
-            <Button                
-                 Content="GeneralInfo"
-                 Command="{Binding GoToGeneralInfo}"
-                 Width="90" Height="30" Margin="0,20" />
-            <Button                
-                 Content="OrderQuickCheck"
-                 Command="{Binding GoToOrderQuickCheck}"
-                 Width="90" Height="30" Margin="0,20" />
-        </UniformGrid>
-
-        <Border>
-
-        </Border>-->
-
     </DockPanel>
 </UserControl>
