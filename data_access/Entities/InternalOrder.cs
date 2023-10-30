@@ -9,6 +9,6 @@ namespace data_access.Entities
     public class InternalOrder : Order
     {
         public int TableId { get; set; }
-        public Tabel? Tabel { get; set; }
+        public Table? Table { get; set; }
     }
 }

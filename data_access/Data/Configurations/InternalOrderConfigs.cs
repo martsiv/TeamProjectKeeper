@@ -14,7 +14,7 @@ namespace data_access.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<InternalOrder> builder)
         {
-            builder.HasOne(x => x.Tabel).WithMany(x => x.InternalOrders).HasForeignKey(x => x.TableId).IsRequired(true);
+            builder.HasOne(x => x.Table).WithMany(x => x.InternalOrders).HasForeignKey(x => x.TableId).IsRequired(true);
         }
     }
 }

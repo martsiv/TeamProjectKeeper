@@ -15,18 +15,28 @@ namespace data_access.Data
     {
         public static void SeedData(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Tabel>().HasData(new Tabel[]
+            modelBuilder.Entity<Hall>().HasData(new Hall[]
             {
-                new Tabel() { Id = 1},
-                new Tabel() { Id = 2},
-                new Tabel() { Id = 3},
-                new Tabel() { Id = 4},
-                new Tabel() { Id = 5},
-                new Tabel() { Id = 6},
-                new Tabel() { Id = 7},
-                new Tabel() { Id = 8},
-                new Tabel() { Id = 9},
-                new Tabel() { Id = 10},
+                new Hall() { Id = 1, Name = "Бар"},
+                new Hall() { Id = 2, Name = "Основний зал"},
+                new Hall() { Id = 3, Name = "Літня тераса"},
+            });
+            modelBuilder.Entity<Entities.Table>().HasData(new Entities.Table[]
+            {
+                new Entities.Table() { Id = 1, HallId = 2},
+                new Entities.Table() { Id = 2, HallId = 2},
+                new Entities.Table() { Id = 3, HallId = 2},
+                new Entities.Table() { Id = 4, HallId = 2},
+                new Entities.Table() { Id = 5, HallId = 2},
+                new Entities.Table() { Id = 6, HallId = 2},
+                new Entities.Table() { Id = 7, HallId = 2},
+                new Entities.Table() { Id = 8, HallId = 2},
+                new Entities.Table() { Id = 9, HallId = 2},
+                new Entities.Table() { Id = 10, HallId = 2},
+                new Entities.Table() { Id = 11, HallId = 1},
+                new Entities.Table() { Id = 12, HallId = 1},
+                new Entities.Table() { Id = 13, HallId = 1},
+                new Entities.Table() { Id = 14, HallId = 1},
             });
             modelBuilder.Entity<Category>().HasData(new Category[]
             {

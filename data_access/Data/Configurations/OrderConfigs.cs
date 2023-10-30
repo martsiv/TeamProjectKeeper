@@ -20,6 +20,8 @@ namespace data_access.Data.Configurations
             builder.Property(x => x.CutleryNumber).HasColumnName("Number of cutlery");
             builder.Property(x => x.TotalPrice).HasColumnName("Total amount of money");
             builder.Property(x => x.TotalPrice).HasColumnType("money");
+            builder.Property(x => x.Closed).IsRequired(false);
+
         }
     }
 }
