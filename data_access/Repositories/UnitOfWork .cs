@@ -12,8 +12,11 @@ namespace data_access.Repositories
     public class UnitOfWork : IUoW, IDisposable
     {
         private static ApplicationContext context = new ApplicationContext();
+        private IRepository<CashierShift>? cashierShiftRepo = null;
+        private IRepository<CashRegister>? cashRegisterRepo = null;
         private IRepository<Category>? categoryRepo = null;
         private IRepository<Employee>? employeeRepo = null;
+        private IRepository<Hall>? hallRepo = null;
         private IRepository<Order>? orderRepo = null;
         private IRepository<DeliveryOrder>? deliveryOrderRepo = null;
         private IRepository<InternalOrder>? internalOrderRepo = null;
@@ -22,9 +25,33 @@ namespace data_access.Repositories
         private IRepository<Payment>? paymentRepo = null;
         private IRepository<Dish>? dishRepo = null;
         private IRepository<Subcategory>? subcategoryRepo = null;
-        private IRepository<Tabel>? tabelRepo = null;
+        private IRepository<Table>? tableRepo = null;
         private IRepository<WorkShift>? workShiftRepo = null;
         private IRepository<WorkShiftEmployee>? workShiftEmployeeRepo = null;
+        public IRepository<CashierShift> CashierShiftRepo
+        {
+            get
+            {
+
+                if (this.cashierShiftRepo == null)
+                {
+                    this.cashierShiftRepo = new Repository<CashierShift>(context);
+                }
+                return cashierShiftRepo;
+            }
+        }
+        public IRepository<CashRegister> CashRegisterRepo
+        {
+            get
+            {
+
+                if (this.cashRegisterRepo == null)
+                {
+                    this.cashRegisterRepo = new Repository<CashRegister>(context);
+                }
+                return cashRegisterRepo;
+            }
+        }
         public IRepository<Category> CategoryRepo
         {
             get
@@ -47,6 +74,18 @@ namespace data_access.Repositories
                     this.employeeRepo = new Repository<Employee>(context);
                 }
                 return employeeRepo;
+            }
+        }
+        public IRepository<Hall> HallRepo
+        {
+            get
+            {
+
+                if (this.hallRepo == null)
+                {
+                    this.hallRepo = new Repository<Hall>(context);
+                }
+                return hallRepo;
             }
         }
         public IRepository<Order> OrderRepo
@@ -145,16 +184,16 @@ namespace data_access.Repositories
                 return subcategoryRepo;
             }
         }
-        public IRepository<Tabel> TabelRepo
+        public IRepository<Table> TableRepo
         {
             get
             {
 
-                if (this.tabelRepo == null)
+                if (this.tableRepo == null)
                 {
-                    this.tabelRepo = new Repository<Tabel>(context);
+                    this.tableRepo = new Repository<Table>(context);
                 }
-                return tabelRepo;
+                return tableRepo;
             }
         }
         public IRepository<WorkShift> WorkShiftRepo
