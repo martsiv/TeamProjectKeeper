@@ -15,7 +15,7 @@ namespace data_access.Entities
         public WorkShift? WorkShift { get; set; }
         public DateTime OpeningDateTime { get; set; }
         public DateTime? ClosingDateTime { get; set; }
-        public int? DepositedCash { get; set; }
-        public int? WithdrawnCash { get; set; }
+        public decimal? DepositedCash { get; set; }
+        public decimal? WithdrawnCash { get; set; }
     }
 }

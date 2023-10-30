@@ -16,8 +16,8 @@ namespace data_access.Data.Configurations
             builder.HasOne(x => x.CashRegister).WithMany(x => x.CashierShifts).HasForeignKey(x => x.CashRegisterId).IsRequired(true);
             builder.HasOne(x => x.WorkShift).WithMany(x => x.CashierShifts).HasForeignKey(x => x.WorkShiftId).IsRequired(true);
             builder.Property(x => x.ClosingDateTime).IsRequired(false);
-            builder.Property(x => x.DepositedCash).IsRequired(false);
-            builder.Property(x => x.WithdrawnCash).IsRequired(false);
+            builder.Property(x => x.DepositedCash).HasColumnType("money").IsRequired(false);
+            builder.Property(x => x.WithdrawnCash).HasColumnType("money").IsRequired(false);
         }
     }
 }
