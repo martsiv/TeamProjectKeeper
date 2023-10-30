@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance Type=vm:VM_Orders}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel Background="White">
+    <DockPanel>
         <Label Content="By halls"/>
     </DockPanel>
 </UserControl>

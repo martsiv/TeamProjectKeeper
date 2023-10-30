@@ -12,7 +12,7 @@
     <DockPanel>
         <Border>
             <DockPanel>
-                <Border DockPanel.Dock="Top" Background="LightGray" Height="60">
+                <Border DockPanel.Dock="Top" Background="White" Height="60">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -37,23 +37,23 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Border DockPanel.Dock="Bottom" Background="Gray" Height="60">
+                <Border DockPanel.Dock="Bottom" Background="#ff303030" Height="60">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="7*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="BackButton" Command="{Binding GoToPreviusPage}" HorizontalAlignment="Left" Height="60" Width="120" Content="Назад" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png"/>
+                        <Button x:Name="BackButton" Command="{Binding GoToPreviusPage}" HorizontalAlignment="Left" Height="60" Width="120" Content="Назад" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Foreground="White"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="HallSchemeButton" Command="{Binding SwitchToByHallsCmd}" HorizontalAlignment="Right" Height="60" Width="120" Content="Схема зали" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/HallScheme.png"/>
-                            <Button x:Name="AllTableButton" Command="{Binding SwitchToByAllTablesCmd}" HorizontalAlignment="Right" Height="60" Width="120" Content="Всі столи" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Table.png"/>
-                            <Button x:Name="ByWaitersButton" Command="{Binding SswitchToByWaitersCmd}" HorizontalAlignment="Right" Height="60" Width="120" Content="За офіціантами" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Waiter.png"/>
-                            <Button x:Name="QuickCheckButton" Command="{Binding GoToQuickCheck}" HorizontalAlignment="Right" Height="60" Width="120" Content="Швидкий чек" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png"/>
+                            <Button x:Name="HallSchemeButton" Command="{Binding SwitchToByHallsCmd}" HorizontalAlignment="Right" Height="60" Width="120" Content="Схема зали" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/HallScheme.png" Foreground="White"/>
+                            <Button x:Name="AllTableButton" Command="{Binding SwitchToByAllTablesCmd}" HorizontalAlignment="Right" Height="60" Width="120" Content="Всі столи" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Table.png" Foreground="White"/>
+                            <Button x:Name="ByWaitersButton" Command="{Binding SswitchToByWaitersCmd}" HorizontalAlignment="Right" Height="60" Width="120" Content="За офіціантами" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Waiter.png" Foreground="White"/>
+                            <Button x:Name="QuickCheckButton" Command="{Binding GoToQuickCheck}" HorizontalAlignment="Right" Height="60" Width="120" Content="Швидкий чек" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png" Foreground="White"/>
                         </StackPanel>
                     </Grid>
 
                 </Border>
-                <Border Background="Wheat">
+                <Border Background="DimGray">
                     <Grid>
                         <ContentControl Content="{Binding CurrentUserControl}" />
                     </Grid>
