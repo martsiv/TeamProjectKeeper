@@ -53,6 +53,17 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+         private ICommand? _goToPayment;
+        public ICommand GoToPayment
+        {
+            get
+            {
+                return _goToPayment ??= new RelayCommand(x =>
+                {
+                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPage = PageId, PageNumber = "6" });
+                });
+            }
+        }
         private ICommand? _goToPreviusPage;
         public ICommand GoToPreviusPage
         {

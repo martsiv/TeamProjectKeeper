@@ -22,6 +22,9 @@
 
                 <DockPanel x:Name="BottomDockPanel" DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
                     <Button DockPanel.Dock="Left" Command="{Binding GoToPreviusPage}" HorizontalAlignment="Left" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Foreground="White">Назад</Button>
+                    <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <Button DockPanel.Dock="Right" Command="{Binding GoToPayment}" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Casa.png" Foreground="White">Каса</Button>
+                    </DockPanel>
                 </DockPanel>
 
                 <Border x:Name="CentralWindowPartBorder" Background="DimGray">

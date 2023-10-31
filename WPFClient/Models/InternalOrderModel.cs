@@ -12,6 +12,6 @@ namespace WPFClient.Models
     public class InternalOrderModel
     {
         public int TableId { get; set; }
-        public Tabel? Tabel { get; set; }
+        public Table? Tabel { get; set; }
     }
 }

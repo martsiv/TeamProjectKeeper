@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using data_access.Data;
 
@@ -11,9 +12,10 @@ using data_access.Data;
 namespace data_access.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231030211629_NewUpdateMigration")]
+    partial class NewUpdateMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,14 +38,14 @@ namespace data_access.Migrations
                     b.Property<DateTime?>("ClosingDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("DepositedCash")
-                        .HasColumnType("money");
+                    b.Property<int?>("DepositedCash")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OpeningDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("WithdrawnCash")
-                        .HasColumnType("money");
+                    b.Property<int?>("WithdrawnCash")
+                        .HasColumnType("int");
 
                     b.Property<int>("WorkShiftId")
                         .HasColumnType("int");

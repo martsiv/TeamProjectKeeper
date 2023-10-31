@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public class Tabel : IEntity
+    public class Hall : IEntity
     {
         public int Id { get; set; }
-        public ICollection<InternalOrder> InternalOrders { get; set; } = new HashSet<InternalOrder>();
+        public string Name { get; set; }
+        public ICollection<Table> Tables { get; set; } = new HashSet<Table>();
     }
 }

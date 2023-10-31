@@ -29,6 +29,7 @@
             <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
                 <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Printer.png" Foreground="White">Друк</Button>
                 <Button DockPanel.Dock="Right" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/CheckWhite.png" Foreground="White">Попередній чек</Button>
+                <Button DockPanel.Dock="Right" Command="{Binding GoToPayment}" Width="120" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Casa.png" Foreground="White">Каса</Button>
             </DockPanel>
         </DockPanel>
 

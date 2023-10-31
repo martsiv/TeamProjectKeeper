@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace data_access.Entities
 {
-    public class WorkShift : IEntity
+    public class CashRegister : IEntity
     {
         public int Id { get; set; }
-        public DateTime OpeningDate { get; set; }
-        public DateTime ClosingDate { get; set; }
-        public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
+        public string Description { get; set; }
         public ICollection<CashierShift> CashierShifts { get; set; } = new HashSet<CashierShift>();
     }
 }

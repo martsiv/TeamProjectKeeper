@@ -15,7 +15,7 @@ namespace data_access.Data.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.HasAlternateKey(x => x.Name);
-            builder.HasOne(x => x.Position).WithMany(x => x.Employees).HasForeignKey(x => x.PositionId).IsRequired(true);
+            builder.HasOne(x => x.Position).WithMany(x => x.Employees).HasForeignKey(x => x.PositionId).IsRequired(false);
         }
     }
 }

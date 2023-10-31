@@ -20,5 +20,7 @@ namespace data_access.Entities
         public ICollection<OrderDish> OrderDishes { get; set; } = new HashSet<OrderDish>();
         public int? CutleryNumber { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime Opened { get; set; }
+        public DateTime? Closed { get; set; }
     }
 }
