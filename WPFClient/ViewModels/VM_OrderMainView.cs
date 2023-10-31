@@ -37,7 +37,7 @@ namespace WPFClient.ViewModels
             {
                 return _goToLogin ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new BaseTransferModel() { UoW = UoW, PageNumber = "1" });
+                    ViewChanged?.Raise(this, new BaseTransferModel() { UoW = UoW, PageNumber = UserControlsEnum.Login.ToString() });
                 });
             }
         }
@@ -48,7 +48,8 @@ namespace WPFClient.ViewModels
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPage = PageId, PageNumber = "2" });
+                    TransferModel.PreviousPages.Add(PageId);
+                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.GeneralInfo.ToString() });
                 });
             }
         }
@@ -59,8 +60,13 @@ namespace WPFClient.ViewModels
             {
                 return _goToPreviusPage ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new BaseTransferModel() { PreviousPage = PageId, UoW = this.UoW, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = TransferModel.PreviousPage });
-                });
+                    if (TransferModel.PreviousPages.Count != 0)
+                    {
+                        string lastPage = TransferModel.PreviousPages.Last();
+                        TransferModel.PreviousPages.RemoveAt(TransferModel.PreviousPages.Count - 1);
+                        ViewChanged?.Raise(this, new BaseTransferModel() { UoW = this.UoW, PreviousPages = TransferModel.PreviousPages, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = lastPage });
+                    }
+                }, (o) => TransferModel.PreviousPages.Count != 0);
             }
         }
         #endregion

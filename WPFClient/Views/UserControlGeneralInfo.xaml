@@ -19,11 +19,22 @@
              FontSize="14" FontFamily="Georgia" 
              FontWeight="Bold"
              Content="{Binding Title}"/>
+        <Border DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding CurrentEmployeeModel.Name}"/>
+                <TextBlock Text="Зміна відкрита: "/>
+                <TextBlock Text=""/>
+            </StackPanel>
+        </Border>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1">
             <Button                
                  Content="Login"
                  Command="{Binding GoToLogin}"
                  Width="90" Height="30" Margin="0,20" />
+            <Button                
+      Content="Previous"
+      Command="{Binding GoToPreviusPage}"
+      Width="90" Height="30" Margin="0,20" />
             <Button                
                  Content="Orders"
                  Command="{Binding GoToOrders}"
