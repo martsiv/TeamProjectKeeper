@@ -67,7 +67,7 @@ namespace WPFClient.ViewModels
                     {
                         var selectedEmployee = SelectedEmployee;
                         SelectedEmployee = null;
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = "2", CurrentEmployee = selectedEmployee, UoW = this.UoW });
+                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentEmployee = selectedEmployee, UoW = this.UoW });
                     }
                 }, x => SelectedEmployee != null);
             }

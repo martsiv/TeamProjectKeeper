@@ -12,7 +12,7 @@ namespace WPFClient.TransferModel
 {
     public class BaseTransferModel
     {
-        public string PreviousPage { get; set; }
+        public List<string> PreviousPages { get; set; } = new List<string>();
         public string PageNumber { get; set; }
         public UnitOfWork UoW { get; set; }
         public EmployeeModel CurrentEmployee { get; set; }
