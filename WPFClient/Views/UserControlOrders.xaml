@@ -20,7 +20,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="5" HorizontalAlignment="Left">
-                             <Run FontWeight="Bold" FontSize="12" Text="Борденюк Світлана"/><!--Binding до імені офіціанта-->
+                             <Run FontWeight="Bold" FontSize="12" Text="{Binding CurrentEmployeeModel.Name}"/>
                              <LineBreak/>
                              <Run FontSize="12" Text="Зміна відкрита:"/><!--Binding до дати та часу відкриття зміни-->
                              <LineBreak/>
