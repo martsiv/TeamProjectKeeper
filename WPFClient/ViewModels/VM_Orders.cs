@@ -27,10 +27,11 @@ namespace WPFClient.ViewModels
         public OrderModel CurrentOrderModel { get; set; }
         public VM_Orders(string pageIndex = "3")
         {
-            switchToByAllTablesCmd = new((o) => SwitchToByAllTables(), (o) => !(CurrentUserControl is UserControlOrdersByAllTables));
-            switchToByWaitersCmd = new((o) => SwitchToByWaiters(), (o) => !(CurrentUserControl is UserControlOrdersByWaiters));
-            switchToByHallsCmd = new((o) => SwitchToByHalls(), (o) => !(CurrentUserControl is UserControlOrdersByHalls));
-
+            switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
+            switchToByWaitersCmd = new((o) => SwitchToByWaiters());
+            switchToByHallsCmd = new((o) => SwitchToByHalls());
+            //Встановлюємо значення за замовчуванням
+            SwitchToByWaiters();
             PageId = pageIndex;
             Title = "Вибір замовлення";
         }
@@ -105,22 +106,31 @@ namespace WPFClient.ViewModels
         public ICommand SwitchToByAllTablesCmd => switchToByAllTablesCmd;
         public void SwitchToByAllTables()
         {
-            var control = new UserControlOrdersByAllTables() { DataContext = this };
-            CurrentUserControl = control;
+            if (!(CurrentUserControl is UserControlOrdersByAllTables))
+            {
+                var control = new UserControlOrdersByAllTables() { DataContext = this };
+                CurrentUserControl = control;
+            }
         }
         private readonly RelayCommand switchToByWaitersCmd;
         public ICommand SswitchToByWaitersCmd => switchToByWaitersCmd;
         public void SwitchToByWaiters()
         {
-            var control = new UserControlOrdersByWaiters() { DataContext = this };
-            CurrentUserControl = control;
+            if (!(CurrentUserControl is UserControlOrdersByWaiters))
+            {
+                var control = new UserControlOrdersByWaiters() { DataContext = this };
+                CurrentUserControl = control;
+            }
         }
         private readonly RelayCommand switchToByHallsCmd;
         public ICommand SwitchToByHallsCmd => switchToByHallsCmd;
         public void SwitchToByHalls()
         {
-            var control = new UserControlOrdersByHalls() { DataContext = this };
-            CurrentUserControl = control;
+            if (!(CurrentUserControl is UserControlOrdersByHalls))
+            {
+                var control = new UserControlOrdersByHalls() { DataContext = this };
+                CurrentUserControl = control;
+            }
         }
         #endregion
     }
