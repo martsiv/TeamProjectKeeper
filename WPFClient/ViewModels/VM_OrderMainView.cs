@@ -60,7 +60,8 @@ namespace WPFClient.ViewModels
             {
                 return _goToPayment ??= new RelayCommand(x =>
                 {
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPage = PageId, PageNumber = "6" });
+                    TransferModel.PreviousPages.Add(PageId);
+                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.Payment.ToString() });
                 });
             }
         }
