@@ -51,7 +51,8 @@ namespace WPFClient.ViewModels
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
         public UnitOfWork UoW { get; set; }
-        public EmployeeModel CurrentEmployeeModel { get; set; }
+        [DependsOn (nameof(TransferModel))]
+        public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         public WorkShiftModel CurrentWorkShift { get; set; }
         public OrderModel CurrentOrderModel { get; set; }
 
