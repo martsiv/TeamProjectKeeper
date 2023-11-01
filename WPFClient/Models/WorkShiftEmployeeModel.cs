@@ -13,7 +13,7 @@ namespace WPFClient.Models
     public class WorkShiftEmployeeModel
     {
         public int WorkShiftId { get; set; }
-        public WorkShift? WorkShift { get; set; }
+        public DateTime WorkShiftDate { get; set; }
         public int EmployeeId { get; set; }
         public Employee? Employee { get; set; }
         public DateTime TimeFrom { get; set; }

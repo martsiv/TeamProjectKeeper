@@ -17,6 +17,7 @@ namespace WPFClient.TransferModel
         public UnitOfWork UoW { get; set; }
         public EmployeeModel CurrentEmployee { get; set; }
         public OrderModel CurrentOrder { get; set; }
+        public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get; set; }
         public BaseTransferModel()
         {
             

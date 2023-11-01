@@ -12,6 +12,7 @@ using WPFClient.Commands;
 using WPFClient.Help;
 using WPFClient.Models;
 using WPFClient.TransferModel;
+using WPFClient.Views;
 
 namespace WPFClient.ViewModels
 {
@@ -51,12 +52,30 @@ namespace WPFClient.ViewModels
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
         public UnitOfWork UoW { get; set; }
-        public EmployeeModel CurrentEmployeeModel { get; set; }
-        public WorkShiftModel CurrentWorkShift { get; set; }
-        public OrderModel CurrentOrderModel { get; set; }
+        [DependsOn(nameof(TransferModel))]
+        public EmployeeModel CurrentEmployeeModel { get => TransferModel.CurrentEmployee; }
+        [DependsOn(nameof(TransferModel))]
+        public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; set => TransferModel.CurrentWorkShiftEmployee = value; }
+        [DependsOn(nameof(TransferModel))]
+        public string IsOpenedWorkShift
+        {
+            get
+            {
+                if (CurrentWorkShiftEmployee == null)
+                    return "Зміна закрита";
+                else
+                    return $"Зміна відкрита\n{CurrentWorkShiftEmployee.TimeFrom.ToString("dd.MM.yyyy HH:mm:ss")}";
+            }
+        }
+
+        [DependsOn(nameof(TransferModel))]
+        public OrderModel CurrentOrderModel { get => TransferModel.CurrentOrder; set => TransferModel.CurrentOrder = value; }
 
         public VM_GeneralInfo(string pageIndex = "2")
         {
+            openWorkShiftEmployeeCmd = new((o) => OpenWorkShiftEmployee(), (o) => CurrentWorkShiftEmployee == null);
+            closeWorkShiftEmployeeCmd = new((o) => CloseWorkShiftEmployee(), (o) => CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo != null);
+
             PageId = pageIndex;
             Title = "Загальна інформація";
         }
@@ -92,14 +111,50 @@ namespace WPFClient.ViewModels
                 return _goToPreviusPage ??= new RelayCommand(x =>
                 {
                     if (TransferModel.PreviousPages.Count != 0)
-                    { 
+                    {
                         string lastPage = TransferModel.PreviousPages.Last();
                         TransferModel.PreviousPages.RemoveAt(TransferModel.PreviousPages.Count - 1);
                         ViewChanged?.Raise(this, new BaseTransferModel() { UoW = this.UoW, PreviousPages = TransferModel.PreviousPages, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = lastPage });
                     }
                 }, (o) => TransferModel.PreviousPages.Count != 0);
             }
-        } 
+        }
         #endregion
+
+        private readonly RelayCommand openWorkShiftEmployeeCmd;
+        public ICommand OpenWorkShiftEmployeeCmd => openWorkShiftEmployeeCmd;
+        public void OpenWorkShiftEmployee()
+        {
+            var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.OpeningDate.Date == DateTime.Now.Date)?.FirstOrDefault();
+            DateTime currentTime = DateTime.Now;
+            if (workShift == null)
+            {
+                workShift = new WorkShift() { OpeningDate = currentTime.Date };
+                UoW.WorkShiftRepo.Insert(workShift);
+                UoW.Save();
+            }
+            WorkShiftEmployee workShiftEmployee = new WorkShiftEmployee() { EmployeeId = CurrentEmployeeModel.Id, WorkShiftId = workShift.Id, TimeFrom = new DateTime(1, 1, 1, currentTime.Hour, currentTime.Minute, currentTime.Second) };
+            UoW.WorkShiftEmployeeRepo.Insert(workShiftEmployee);
+            UoW.Save();
+            CurrentWorkShiftEmployee = new WorkShiftEmployeeModel() { EmployeeId = workShiftEmployee.EmployeeId, Employee = workShiftEmployee.Employee, WorkShiftDate = workShift.OpeningDate, WorkShiftId = workShiftEmployee.WorkShiftId, TimeFrom = workShiftEmployee.TimeFrom };
+        }
+        private readonly RelayCommand closeWorkShiftEmployeeCmd;
+        public ICommand CloseWorkShiftEmployeeCmd => closeWorkShiftEmployeeCmd;
+        public void CloseWorkShiftEmployee()
+        {
+            if (CurrentWorkShiftEmployee == null)
+                return;
+            DateTime currentTime = DateTime.Now;
+
+            CurrentWorkShiftEmployee.TimeTo = new DateTime(1, 1, 1, currentTime.Hour, currentTime.Minute, currentTime.Second);
+            var compositeKey = new { WorkShiftId = CurrentWorkShiftEmployee.WorkShiftId, EmployeeId = CurrentWorkShiftEmployee.EmployeeId };
+
+            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.GetByID(compositeKey);
+            workShiftEmployee.TimeTo = CurrentWorkShiftEmployee.TimeTo;
+            UoW.WorkShiftEmployeeRepo.Update(workShiftEmployee);
+            UoW.Save();
+            CurrentWorkShiftEmployee = null;
+        }
+        //public bool IsOpenedWorkShift { get => UoW.WorkShiftRepo.Get().Where(ws => ws.OpeningDate.Date == DateTime.Now.Date).ToList()?.Count != null; }
     }
 }
