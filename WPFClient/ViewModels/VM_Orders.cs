@@ -3,9 +3,11 @@ using data_access.Repositories;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
@@ -26,17 +28,61 @@ namespace WPFClient.ViewModels
         [DependsOn (nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         public OrderModel CurrentOrderModel { get; set; }
+        public HallModel? SelectedHall { get; set; }
+        private ObservableCollection<HallModel> halls = new ObservableCollection<HallModel>();
+        public IEnumerable<HallModel> Halls => halls;
+        public TableModel? SelectedTable { get; set; }
+        private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
+        public IEnumerable<TableModel> Tables => tables;
+        
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
             switchToByWaitersCmd = new((o) => SwitchToByWaiters());
             switchToByHallsCmd = new((o) => SwitchToByHalls());
+            loadHallsCmd = new((o) => LoadHalls());
+            loadTablesCmd = new((o) => LoadTables(o));
             //Встановлюємо значення за замовчуванням
             SwitchToByWaiters();
             PageId = pageIndex;
             Title = "Вибір замовлення";
         }
+        #region LoadData
+        private readonly RelayCommand loadHallsCmd;
+        public ICommand LoadHallsCmd => loadHallsCmd;
+        public void LoadHalls()
+        {
+            var res = UoW.HallRepo.Get();
+            halls.Clear();
+            foreach (var item in res)
+            {
+                halls.Add(new HallModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    LoadTablesCmd = this.LoadTablesCmd
+                });
+            }
+        }
+        private readonly RelayCommand loadTablesCmd;
+        public ICommand LoadTablesCmd => loadTablesCmd;
+        public void LoadTables(object obj)
+        {
+            if(obj == null)
+                return;
+            var res = UoW.TableRepo.Get().Where(x => x.Hall.Name == obj.ToString());
+            tables.Clear();
+            foreach (var item in res)
+            {
+                tables.Add(new TableModel()
+                {
+                    Id = item.Id,
+                    HallId = item.HallId,
+                });
+            }
+        }
 
+        #endregion
         #region Navigation
         private ICommand? _goToLogin;
         public ICommand GoToLogin
@@ -131,6 +177,7 @@ namespace WPFClient.ViewModels
             {
                 var control = new UserControlOrdersByHalls() { DataContext = this };
                 CurrentUserControl = control;
+                LoadHalls();
             }
         }
         #endregion
