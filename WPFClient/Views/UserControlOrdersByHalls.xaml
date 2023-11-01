@@ -10,7 +10,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <Button DockPanel.Dock="Top" Content="Test" Command="{Binding LoadTablesCmd}"/>
         <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" SelectedItem="{Binding SelectedHall}" Background="Transparent" BorderBrush="Transparent"> <!-- біндінг до вибраного залу -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -23,8 +22,8 @@
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text=""/>
                             <!-- біндінг до кількості зайнятих столів у конкретній залі -->
                         </Border>
-                        <Border Background="#FFABABAB"  Grid.Column="1">
-                            <Button Style="{StaticResource ListBoxButton}" Height="60" Width="275" FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesCmd}"/>
+                        <Border Background="#FFAAAAAA"  Grid.Column="1">
+                            <Button Style="{StaticResource ListBoxButton}" Height="60" Width="275" FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesCmd}" CommandParameter="{Binding Name}"/>
                         </Border>
                     </Grid>
                 </DataTemplate>

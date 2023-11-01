@@ -8,6 +8,7 @@ namespace data_access.Entities
 {
     public class WorkShiftEmployee : IEntity
     {
+        public int Id { get; set; }
         public int WorkShiftId { get; set; }
         public WorkShift? WorkShift { get; set; }
         public int EmployeeId { get; set; }

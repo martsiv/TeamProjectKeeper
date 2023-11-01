@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
@@ -40,7 +41,7 @@ namespace WPFClient.ViewModels
             switchToByWaitersCmd = new((o) => SwitchToByWaiters());
             switchToByHallsCmd = new((o) => SwitchToByHalls());
             loadHallsCmd = new((o) => LoadHalls());
-            loadTablesCmd = new((o) => LoadTables());
+            loadTablesCmd = new((o) => LoadTables(o));
             //Встановлюємо значення за замовчуванням
             SwitchToByWaiters();
             PageId = pageIndex;
@@ -58,19 +59,19 @@ namespace WPFClient.ViewModels
                 halls.Add(new HallModel()
                 {
                     Id = item.Id,
-                    Name = item.Name
+                    Name = item.Name,
+                    LoadTablesCmd = this.LoadTablesCmd
                 });
             }
         }
         private readonly RelayCommand loadTablesCmd;
         public ICommand LoadTablesCmd => loadTablesCmd;
-        public void LoadTables()
+        public void LoadTables(object obj)
         {
-            if(SelectedHall == null)
+            if(obj == null)
                 return;
-            var res = UoW.TableRepo.Get().Where(x => x.HallId == SelectedHall.Id);
+            var res = UoW.TableRepo.Get().Where(x => x.Hall.Name == obj.ToString());
             tables.Clear();
-            int count = 0;
             foreach (var item in res)
             {
                 tables.Add(new TableModel()
@@ -80,6 +81,7 @@ namespace WPFClient.ViewModels
                 });
             }
         }
+
         #endregion
         #region Navigation
         private ICommand? _goToLogin;
