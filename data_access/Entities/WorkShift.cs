@@ -9,8 +9,7 @@ namespace data_access.Entities
     public class WorkShift : IEntity
     {
         public int Id { get; set; }
-        public DateTime OpeningDate { get; set; }
-        public DateTime ClosingDate { get; set; }
+        public DateTime Date { get; set; }
         public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
         public ICollection<CashierShift> CashierShifts { get; set; } = new HashSet<CashierShift>();
     }
