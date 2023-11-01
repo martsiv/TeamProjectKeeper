@@ -34,7 +34,6 @@ namespace WPFClient.ViewModels
         public TableModel? SelectedTable { get; set; }
         private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
         public IEnumerable<TableModel> Tables => tables;
-        
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
@@ -78,10 +77,10 @@ namespace WPFClient.ViewModels
                 {
                     Id = item.Id,
                     HallId = item.HallId,
+                    Number = item.Number
                 });
             }
         }
-
         #endregion
         #region Navigation
         private ICommand? _goToLogin;
