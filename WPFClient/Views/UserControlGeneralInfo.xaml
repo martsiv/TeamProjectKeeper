@@ -3,46 +3,160 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:WPFClient.Views"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_GeneralInfo}"
+             xmlns:Ext="clr-namespace:Ext"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel Background="White">
-        <Label
-            DockPanel.Dock="Top"
-             Name="View1" 
-             VerticalAlignment="Top" HorizontalAlignment="Center"
-             Height="40" 
-             Canvas.Left="10" Canvas.Top="10" 
-             FontSize="14" FontFamily="Georgia" 
-             FontWeight="Bold"
-             Content="{Binding Title}"/>
-        <Border DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding CurrentEmployeeModel.Name}"/>
-                <TextBlock Text="Зміна відкрита: "/>
-                <TextBlock Text=""/>
-            </StackPanel>
-        </Border>
-        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-            <Button                
-                 Content="Login"
-                 Command="{Binding GoToLogin}"
-                 Width="90" Height="30" Margin="0,20" />
-            <Button                
-      Content="Previous"
-      Command="{Binding GoToPreviusPage}"
-      Width="90" Height="30" Margin="0,20" />
-            <Button                
-                 Content="Orders"
-                 Command="{Binding GoToOrders}"
-                 Width="90" Height="30" Margin="0,20" />
-        </UniformGrid>
+    <UserControl.Resources>
+        <Style x:Key="Text" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="TextTitleCenter" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Text}">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+        </Style>
+        <Style TargetType="{x:Type Image}">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Height" Value="70" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentControl
+                                FontSize="15"
+                                Content="{TemplateBinding Content}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="DarkGray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+
+
 
         <Border>
+            <DockPanel Background="DimGray">
 
+                <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
+                    <!--Binding...-->
+                    <Button Background="{x:Null}" DockPanel.Dock="Right" Width="60" Height="60">
+                        <Image Margin="10" Width="50" Source="/ResourceDictionaries/Image/PowerOff.png"/>
+                    </Button>
+                    <Button Foreground="White" Width="120" DockPanel.Dock="Left"  Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png" Command="{Binding GoToLogin}">НАЗАД</Button>
+                    <Button Foreground="White" Width="120" DockPanel.Dock="Left"  Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/OrderMenuWhite.png">ЗАМОВЛЕННЯ</Button>
+                    <Button Foreground="White" Width="100" DockPanel.Dock="Right" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/WINDOWS.png">ВИЙТИ З WINDOWS</Button>
+                    <Button Foreground="White" Width="100" DockPanel.Dock="Right" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/TEAMVIEWER.png">TEAMVIEWER</Button>
+                    <Button Foreground="White" Width="120" DockPanel.Dock="Right" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Instrument.png">ІНСТРУМЕНТИ</Button>
+                    <Button Foreground="White" Width="120" DockPanel.Dock="Right" Style="{StaticResource ImageButton}" Ext:CustomButton.Image="/ResourceDictionaries/Image/Addition.png">ДОПОВНЕННЯ</Button>
+                    <Button
+                        DockPanel.Dock="Right"
+                        Content="OrdersByWaiters"
+                        Command="{Binding GoToOrdersByWaiters}"
+                        Width="120" Height="30"/>
+                    <!--...Commands-->
+                </DockPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="3" Grid.Column="0">
+                        <Border Background="DarkViolet" Height="100">
+                            <DockPanel>
+                                <TextBlock Style="{StaticResource TextTitleCenter}" DockPanel.Dock="Top" Text="{Binding CurrentEmployeeModel.Name,Mode=OneWay}"/>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource Text}" Text="Зміна відкрита"/>
+                                    <TextBlock HorizontalAlignment="Center" Style="{StaticResource Text}" Text="{Binding CurrentEmployeeModel, StringFormat={}{0:dd.MM.yyyy H:mm},Mode=OneWay}"/>
+                                    <!--Binding початок зміни DateTime-->
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                        <!--Binding...-->
+                        <Button Content="Відкрити особисту зміну"/>
+                        <Button Content="Закрити особисту зміну"/>
+                        <!--...Commands-->
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <StackPanel  Margin="3">
+                            <Border Background="SteelBlue">
+                                <TextBlock Style="{StaticResource TextTitleCenter}" DockPanel.Dock="Top" Text="ГОСТІ"/>
+                            </Border>
+                            <!--Binding...-->
+                            <Button Content="Бенкети і резерви"/>
+                            <Button Content="Доставка"/>
+                            <!--...Commands-->
+                        </StackPanel>
+                        <StackPanel Margin="3">
+                            <Border Background="Teal">
+                                <TextBlock Style="{StaticResource TextTitleCenter}" Text="СЕРВІС"/>
+                            </Border>
+                            <!--Binding...-->
+                            <Button Content="Звіти"/>
+                            <!--...Command-->
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="3" Grid.Column="2">
+                        <Border Background="DarkCyan">
+                            <DockPanel>
+                                <TextBlock Style="{StaticResource TextTitleCenter}" DockPanel.Dock="Top" Text="КАСА"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Margin="11,0,0,0" Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <!--#region Binding Data CurrentEmployeeModel-->
+                                        <TextBlock Grid.Row="0" HorizontalAlignment="Left" Style="{StaticResource Text}">Фіксальних реєстаторів: <Run Text="{Binding CurrentEmployeeModel,Mode=OneWay}"/></TextBlock>
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" Style="{StaticResource Text}" Text="Касова зміна"/>
+                                        <TextBlock Grid.Row="2" HorizontalAlignment="Left" Style="{StaticResource Text}">відкрита на: <Run Text="{Binding CurrentEmployeeModel,Mode=OneWay}"/></TextBlock>
+                                        <TextBlock Grid.Row="3" HorizontalAlignment="Left" Style="{StaticResource Text}">закрита на: <Run Text="{Binding CurrentEmployeeModel,Mode=OneWay}"/></TextBlock>
+                                        <!--#endregion-->
+                                    </Grid>
+                                    <!--Binding...-->
+                                    <Button Grid.Column="1" Content="Детальніше..."/>
+                                    <!--...Command-->
+                                </Grid>
+                            </DockPanel>
+                        </Border>
+                        <UniformGrid Columns="2">
+                            <!--Binding...-->
+                            <Button Content="Відкрити касову зміну"/>
+                            <Button Content="Закриті замовлення"/>
+                            <Button Content="Закрити касову зміну"/>
+                            <Button Content="Поточні замовлення"/>
+                            <!--...Commands-->
+                        </UniformGrid>
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
         </Border>
 
     </DockPanel>

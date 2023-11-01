@@ -4,38 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFClient.Views"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_Login}"
+             xmlns:Ext="clr-namespace:Ext"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Background="White">
-      
-        <Label 
-            Name="View1" 
-            VerticalAlignment="Top" HorizontalAlignment="Center"
-            Height="40" 
-            Canvas.Left="10" Canvas.Top="10" 
-            FontSize="14" FontFamily="Georgia" 
-            FontWeight="Bold"
-            Content="{Binding Title}"/>
-
-        <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Name">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName = "SelectionChanged">
-                    <i:InvokeCommandAction Command = "{Binding  GoToGeneralInfo}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-        
+    <DockPanel>
+        <DockPanel.Background>
+            <ImageBrush ImageSource="/ResourceDictionaries/Image/Font.png" Stretch="UniformToFill"/>
+        </DockPanel.Background>
+        <!--Деревяний фон-->
         <Button                
+            DockPanel.Dock="Bottom"
             Content="GeneralInfo"
             Command="{Binding GoToGeneralInfo}"
-            Width="90" Height="30" Margin="0,20" />
-    </StackPanel>
+            Width="90" Margin="5"/>
+
+        <ListBox 
+            SelectionMode="Multiple"
+            VerticalAlignment="Center"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}" 
+            Margin="0,20"
+            HorizontalAlignment="Center"
+            ItemsSource="{Binding Employees}"
+            SelectedItem="{Binding SelectedEmployee,Mode=OneWayToSource}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="6"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Width="80" BorderBrush="{x:Null}" Command="{Binding GoToGeneralInfo}" CommandParameter="{Binding}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="WhiteSmoke">
+                                    <ContentPresenter/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <DockPanel Margin="5">
+                            <TextBlock 
+                                DockPanel.Dock="Bottom" 
+                                TextAlignment="Center" 
+                                Text="{Binding Name}"/>
+                            <Image 
+                                Source="/ResourceDictionaries/Image/PeopleBlack.png"
+                                Margin="5" 
+                                Opacity="0.3" 
+                                RenderOptions.BitmapScalingMode="Fant" 
+                                />
+                        </DockPanel>
+                    </Button>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 </UserControl>

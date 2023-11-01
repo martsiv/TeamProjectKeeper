@@ -1,12 +1,7 @@
-﻿using data_access.Entities;
-using data_access.Repositories;
+﻿using data_access.Repositories;
 using PropertyChanged;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
@@ -51,7 +46,7 @@ namespace WPFClient.ViewModels
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
         public UnitOfWork UoW { get; set; }
-        [DependsOn (nameof(TransferModel))]
+        [DependsOn(nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         public WorkShiftModel CurrentWorkShift { get; set; }
         public OrderModel CurrentOrderModel { get; set; }
@@ -93,14 +88,14 @@ namespace WPFClient.ViewModels
                 return _goToPreviusPage ??= new RelayCommand(x =>
                 {
                     if (TransferModel.PreviousPages.Count != 0)
-                    { 
+                    {
                         string lastPage = TransferModel.PreviousPages.Last();
                         TransferModel.PreviousPages.RemoveAt(TransferModel.PreviousPages.Count - 1);
                         ViewChanged?.Raise(this, new BaseTransferModel() { UoW = this.UoW, PreviousPages = TransferModel.PreviousPages, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = lastPage });
                     }
                 }, (o) => TransferModel.PreviousPages.Count != 0);
             }
-        } 
+        }
         #endregion
     }
 }

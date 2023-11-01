@@ -3,15 +3,13 @@ using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
-using WPFClient.Views;
 using WPFClient.Models;
 using WPFClient.TransferModel;
+using WPFClient.Views;
 
 namespace WPFClient.ViewModels
 {
@@ -34,7 +32,7 @@ namespace WPFClient.ViewModels
             PageId = pageIndex;
             Title = "Авторизація";
         }
-         
+
         #region Load employees
         private readonly RelayCommand loadEmployeesCmd;
         public ICommand LoadEmployeesCmd => loadEmployeesCmd;
@@ -49,6 +47,7 @@ namespace WPFClient.ViewModels
                     Id = item.Id,
                     Name = item.Name,
                     PinCode = item.PinCode,
+                    GoToGeneralInfo = this.GoToGeneralInfo
                 });
             }
         }
@@ -63,11 +62,16 @@ namespace WPFClient.ViewModels
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    if (SelectedEmployee != null && CheckPin())
+                    if (x is EmployeeModel SelectedEmployee)
                     {
-                        var selectedEmployee = SelectedEmployee;
-                        SelectedEmployee = null;
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentEmployee = selectedEmployee, UoW = this.UoW });
+                        this.SelectedEmployee = SelectedEmployee;
+                        //Can...
+                        MessageBox.Show($"Password:{SelectedEmployee?.PinCode}\nLine:73\nVM_Login");
+                        //      ...remove
+                        if (CheckPin())
+                        {
+                            ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentEmployee = SelectedEmployee, UoW = this.UoW });
+                        }
                     }
                 }, x => SelectedEmployee != null);
             }

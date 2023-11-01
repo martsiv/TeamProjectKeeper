@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WPFClient.TransferModel;
 
 namespace WPFClient.Models
@@ -18,5 +19,8 @@ namespace WPFClient.Models
         public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
         public int PositionId { get; set; }
         public Position? Position { get; set; }
+        //===================================
+        public ICommand GoToGeneralInfo { get; internal set; }
+        // Від цього будуть проблеми?
     }
 }
