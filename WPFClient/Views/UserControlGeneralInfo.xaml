@@ -22,7 +22,7 @@
         <Border DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding CurrentEmployeeModel.Name}"/>
-                <TextBlock Text="{Binding IsOpenedWorkShift}"/>
+                <TextBlock Text="{Binding WorkShiftStatus}"/>
                 <Button Command="{Binding OpenWorkShiftEmployeeCmd}">Відкрити зміну</Button>
                 <Button Command="{Binding CloseWorkShiftEmployeeCmd}">Закрити зміну</Button>
 

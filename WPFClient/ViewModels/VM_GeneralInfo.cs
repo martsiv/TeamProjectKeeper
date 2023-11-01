@@ -19,62 +19,35 @@ namespace WPFClient.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class VM_GeneralInfo : IPageViewModel
     {
-        //private ObservableCollection<EmployeeModel> employeeModels = new ObservableCollection<EmployeeModel>();
-        //private ObservableCollection<CategoryModel> categoryModels = new ObservableCollection<CategoryModel>();
-        //private ObservableCollection<DeliveryOrderModel> deliveryOrderModels = new ObservableCollection<DeliveryOrderModel>();
-        //private ObservableCollection<DishModel> dishModels = new ObservableCollection<DishModel>();
-        //private ObservableCollection<InternalOrderModel> internalOrderModels = new ObservableCollection<InternalOrderModel>();
-        //private ObservableCollection<OrderDishModel> orderDishModels = new ObservableCollection<OrderDishModel>();
-        //private ObservableCollection<OrderModel> orderModels = new ObservableCollection<OrderModel>();
-        //private ObservableCollection<OrderStatusModel> orderStatusModels = new ObservableCollection<OrderStatusModel>();
-        //private ObservableCollection<PaymentModel> paymentModels = new ObservableCollection<PaymentModel>();
-        //private ObservableCollection<PositionModel> positionModels = new ObservableCollection<PositionModel>();
-        //private ObservableCollection<SubcategoryModel> subcategoryModels = new ObservableCollection<SubcategoryModel>();
-        //private ObservableCollection<TableModel> tableModels = new ObservableCollection<TableModel>();
-        //private ObservableCollection<WorkShiftEmployeeModel> workShiftEmployeeModels = new ObservableCollection<WorkShiftEmployeeModel>();
-        //private ObservableCollection<WorkShiftModel> workShiftModels = new ObservableCollection<WorkShiftModel>();
-        //public IEnumerable<EmployeeModel> EmployeeModels => employeeModels;
-        //public IEnumerable<CategoryModel> CategoryModels => categoryModels;
-        //public IEnumerable<DeliveryOrderModel> DeliveryOrderModels => deliveryOrderModels;
-        //public IEnumerable<DishModel> DishModels => dishModels;
-        //public IEnumerable<InternalOrderModel> InternalOrderModels => internalOrderModels;
-        //public IEnumerable<OrderDishModel> OrderDishModels => orderDishModels;
-        //public IEnumerable<OrderModel> OrderModels => orderModels;
-        //public IEnumerable<OrderStatusModel> OrderStatusModels => orderStatusModels;
-        //public IEnumerable<PaymentModel> PaymentModels => paymentModels;
-        //public IEnumerable<PositionModel> PositionModels => positionModels;
-        //public IEnumerable<SubcategoryModel> SubcategoryModels => subcategoryModels;
-        //public IEnumerable<TableModel> TableModels => tableModels;
-        //public IEnumerable<WorkShiftEmployeeModel> WorkShiftEmployeeModels => workShiftEmployeeModels;
-        //public IEnumerable<WorkShiftModel> WorkShiftModels => workShiftModels;
         public event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW { get; set; }
+        public UnitOfWork UoW => TransferModel.UoW;
         [DependsOn(nameof(TransferModel))]
-        public EmployeeModel CurrentEmployeeModel { get => TransferModel.CurrentEmployee; }
+        public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         [DependsOn(nameof(TransferModel))]
         public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; set => TransferModel.CurrentWorkShiftEmployee = value; }
-        [DependsOn(nameof(TransferModel))]
-        public string IsOpenedWorkShift
+        [DependsOn(nameof(TransferModel), nameof(CurrentWorkShiftEmployee), nameof(IsOpenedWorkShiftEmployee))]
+        public string WorkShiftStatus
         {
             get
             {
-                if (CurrentWorkShiftEmployee == null)
-                    return "Зміна закрита";
+                if (!IsOpenedWorkShiftEmployee)
+                    return "Зміна закрита\n" + (CurrentWorkShiftEmployee?.TimeTo != null ? $"{CurrentWorkShiftEmployee.WorkShiftDate.ToShortDateString()} {CurrentWorkShiftEmployee.TimeTo.Value.ToShortTimeString()}" : "");
                 else
-                    return $"Зміна відкрита\n{CurrentWorkShiftEmployee.TimeFrom.ToString("dd.MM.yyyy HH:mm:ss")}";
+                    return $"Зміна відкрита\n{CurrentWorkShiftEmployee.WorkShiftDate.ToShortDateString()} {CurrentWorkShiftEmployee.TimeFrom.ToShortTimeString()}";
             }
         }
-
+        [DependsOn(nameof(TransferModel))]
+        public bool IsOpenedWorkShiftEmployee => (CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo == null);
         [DependsOn(nameof(TransferModel))]
         public OrderModel CurrentOrderModel { get => TransferModel.CurrentOrder; set => TransferModel.CurrentOrder = value; }
 
         public VM_GeneralInfo(string pageIndex = "2")
         {
-            openWorkShiftEmployeeCmd = new((o) => OpenWorkShiftEmployee(), (o) => CurrentWorkShiftEmployee == null);
-            closeWorkShiftEmployeeCmd = new((o) => CloseWorkShiftEmployee(), (o) => CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo != null);
+            openWorkShiftEmployeeCmd = new((o) => OpenWorkShiftEmployee(), (o) => !IsOpenedWorkShiftEmployee);
+            closeWorkShiftEmployeeCmd = new((o) => CloseWorkShiftEmployee(), (o) => IsOpenedWorkShiftEmployee);
 
             PageId = pageIndex;
             Title = "Загальна інформація";
@@ -99,8 +72,9 @@ namespace WPFClient.ViewModels
                 return _goToOrders ??= new RelayCommand(x =>
                 {
                     TransferModel.PreviousPages.Add(PageId);
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.Orders.ToString() });
-                });
+                    TransferModel.PageNumber = UserControlsEnum.Orders.ToString();
+                    ViewChanged?.Raise(this, TransferModel);
+                }, o => CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo == null);
             }
         }
         private ICommand? _goToPreviusPage;
@@ -112,11 +86,11 @@ namespace WPFClient.ViewModels
                 {
                     if (TransferModel.PreviousPages.Count != 0)
                     {
-                        string lastPage = TransferModel.PreviousPages.Last();
+                        TransferModel.PageNumber = TransferModel.PreviousPages.Last();
                         TransferModel.PreviousPages.RemoveAt(TransferModel.PreviousPages.Count - 1);
-                        ViewChanged?.Raise(this, new BaseTransferModel() { UoW = this.UoW, PreviousPages = TransferModel.PreviousPages, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = lastPage });
+                        ViewChanged?.Raise(this, TransferModel);
                     }
-                }, (o) => TransferModel.PreviousPages.Count != 0);
+                }, o => CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo == null && TransferModel.PreviousPages.Count != 0);
             }
         }
         #endregion
@@ -125,18 +99,27 @@ namespace WPFClient.ViewModels
         public ICommand OpenWorkShiftEmployeeCmd => openWorkShiftEmployeeCmd;
         public void OpenWorkShiftEmployee()
         {
-            var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.OpeningDate.Date == DateTime.Now.Date)?.FirstOrDefault();
+            if (CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo != null)
+                return;
+            var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
             DateTime currentTime = DateTime.Now;
             if (workShift == null)
             {
-                workShift = new WorkShift() { OpeningDate = currentTime.Date };
+                workShift = new WorkShift() { Date = currentTime.Date };
                 UoW.WorkShiftRepo.Insert(workShift);
                 UoW.Save();
             }
             WorkShiftEmployee workShiftEmployee = new WorkShiftEmployee() { EmployeeId = CurrentEmployeeModel.Id, WorkShiftId = workShift.Id, TimeFrom = new DateTime(1, 1, 1, currentTime.Hour, currentTime.Minute, currentTime.Second) };
             UoW.WorkShiftEmployeeRepo.Insert(workShiftEmployee);
             UoW.Save();
-            CurrentWorkShiftEmployee = new WorkShiftEmployeeModel() { EmployeeId = workShiftEmployee.EmployeeId, Employee = workShiftEmployee.Employee, WorkShiftDate = workShift.OpeningDate, WorkShiftId = workShiftEmployee.WorkShiftId, TimeFrom = workShiftEmployee.TimeFrom };
+            CurrentWorkShiftEmployee = new WorkShiftEmployeeModel() 
+            { 
+                EmployeeId = workShiftEmployee.EmployeeId, 
+                EmployeeModel = CurrentEmployeeModel, 
+                WorkShiftDate = workShift.Date, 
+                WorkShiftId = workShiftEmployee.WorkShiftId, 
+                TimeFrom = workShiftEmployee.TimeFrom 
+            };
         }
         private readonly RelayCommand closeWorkShiftEmployeeCmd;
         public ICommand CloseWorkShiftEmployeeCmd => closeWorkShiftEmployeeCmd;
@@ -147,14 +130,14 @@ namespace WPFClient.ViewModels
             DateTime currentTime = DateTime.Now;
 
             CurrentWorkShiftEmployee.TimeTo = new DateTime(1, 1, 1, currentTime.Hour, currentTime.Minute, currentTime.Second);
-            var compositeKey = new { WorkShiftId = CurrentWorkShiftEmployee.WorkShiftId, EmployeeId = CurrentWorkShiftEmployee.EmployeeId };
-
-            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.GetByID(compositeKey);
+            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == CurrentWorkShiftEmployee.WorkShiftId && wse.EmployeeId == CurrentEmployeeModel.Id);
             workShiftEmployee.TimeTo = CurrentWorkShiftEmployee.TimeTo;
             UoW.WorkShiftEmployeeRepo.Update(workShiftEmployee);
             UoW.Save();
+            //Update view
+            var tmp = CurrentWorkShiftEmployee;
             CurrentWorkShiftEmployee = null;
+            CurrentWorkShiftEmployee = tmp;
         }
-        //public bool IsOpenedWorkShift { get => UoW.WorkShiftRepo.Get().Where(ws => ws.OpeningDate.Date == DateTime.Now.Date).ToList()?.Count != null; }
     }
 }
