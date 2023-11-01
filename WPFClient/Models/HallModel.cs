@@ -1,20 +1,22 @@
 ﻿using data_access.Entities;
+using data_access.Repositories;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFClient.TransferModel;
+using System.Windows.Input;
+using WPFClient.Commands;
 
 namespace WPFClient.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class TableModel
+    public class HallModel
     {
         public int Id { get; set; }
-        public ICollection<InternalOrder> InternalOrders { get; set; } = new HashSet<InternalOrder>();
-        public int HallId { get; set; }
-        public Hall? Hall { get; set; }
+        public string Name { get; set; }
+        public ICollection<Table> Tables { get; set; } = new HashSet<Table>();
     }
 }

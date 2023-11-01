@@ -37,4 +37,30 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="ListBoxButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bord">
+                        <TextBlock Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter TargetName="bord" Property="Background" Value="Khaki"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter TargetName="bord" Property="Background" Value="Khaki"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#ADADAD"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

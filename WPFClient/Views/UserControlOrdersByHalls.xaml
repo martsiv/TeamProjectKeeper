@@ -10,6 +10,37 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <Label Content="By halls"/>
+        <Button DockPanel.Dock="Top" Content="Test" Command="{Binding LoadTablesCmd}"/>
+        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" SelectedItem="{Binding SelectedHall}" Background="Transparent" BorderBrush="Transparent"> <!-- біндінг до вибраного залу -->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="White">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text=""/>
+                            <!-- біндінг до кількості зайнятих столів у конкретній залі -->
+                        </Border>
+                        <Border Background="#FFABABAB"  Grid.Column="1">
+                            <Button Style="{StaticResource ListBoxButton}" Height="60" Width="275" FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesCmd}"/>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding Tables}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Id}" Background="Green" Command="" Width="60" Height="60"/> <!-- Має бути біндінг до кольору кнопки,команди яку виконує кнопка і до контенту кнопки -->
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 </UserControl>
