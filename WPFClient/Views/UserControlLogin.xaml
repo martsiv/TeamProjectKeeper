@@ -40,8 +40,7 @@
                                 Source="/ResourceDictionaries/Image/PeopleBlack.png"
                                 Margin="5" 
                                 Opacity="0.3" 
-                                RenderOptions.BitmapScalingMode="Fant" 
-                                />
+                                RenderOptions.BitmapScalingMode="Fant"/>
                         </DockPanel>
                     </Border>
                 </DataTemplate>
