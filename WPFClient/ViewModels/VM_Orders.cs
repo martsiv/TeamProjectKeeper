@@ -3,9 +3,11 @@ using data_access.Repositories;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
@@ -22,21 +24,67 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW { get; set; }
-        [DependsOn (nameof(TransferModel))]
+        public UnitOfWork UoW => TransferModel.UoW;
+        [DependsOn(nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
+        [DependsOn(nameof(TransferModel))]
+        public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; set => TransferModel.CurrentWorkShiftEmployee = value; }
         public OrderModel CurrentOrderModel { get; set; }
+        public HallModel? SelectedHall { get; set; }
+        private ObservableCollection<HallModel> halls = new ObservableCollection<HallModel>();
+        public IEnumerable<HallModel> Halls => halls;
+        public TableModel? SelectedTable { get; set; }
+        private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
+        public IEnumerable<TableModel> Tables => tables;
+        
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
             switchToByWaitersCmd = new((o) => SwitchToByWaiters());
             switchToByHallsCmd = new((o) => SwitchToByHalls());
+            loadHallsCmd = new((o) => LoadHalls());
+            loadTablesCmd = new((o) => LoadTables(o));
             //Встановлюємо значення за замовчуванням
             SwitchToByWaiters();
             PageId = pageIndex;
             Title = "Вибір замовлення";
         }
+        #region LoadData
+        private readonly RelayCommand loadHallsCmd;
+        public ICommand LoadHallsCmd => loadHallsCmd;
+        public void LoadHalls()
+        {
+            var res = UoW.HallRepo.Get();
+            halls.Clear();
+            foreach (var item in res)
+            {
+                halls.Add(new HallModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    LoadTablesCmd = this.LoadTablesCmd
+                });
+            }
+        }
+        private readonly RelayCommand loadTablesCmd;
+        public ICommand LoadTablesCmd => loadTablesCmd;
+        public void LoadTables(object obj)
+        {
+            if(obj == null)
+                return;
+            var res = UoW.TableRepo.Get().Where(x => x.Hall.Name == obj.ToString());
+            tables.Clear();
+            foreach (var item in res)
+            {
+                tables.Add(new TableModel()
+                {
+                    Id = item.Id,
+                    HallId = item.HallId,
+                });
+            }
+        }
 
+        #endregion
         #region Navigation
         private ICommand? _goToLogin;
         public ICommand GoToLogin
@@ -57,7 +105,8 @@ namespace WPFClient.ViewModels
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
                     TransferModel.PreviousPages.Add(PageId);
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.GeneralInfo.ToString() });
+                    TransferModel.PageNumber = UserControlsEnum.GeneralInfo.ToString();
+                    ViewChanged?.Raise(this, TransferModel);
                 });
             }
         }
@@ -69,7 +118,8 @@ namespace WPFClient.ViewModels
                 return _goToOrderMainView ??= new RelayCommand(x =>
                 {
                     TransferModel.PreviousPages.Add(PageId);
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.Order.ToString() });
+                    TransferModel.PageNumber = UserControlsEnum.Order.ToString();
+                    ViewChanged?.Raise(this, TransferModel);
                 });
             }
         }
@@ -81,7 +131,8 @@ namespace WPFClient.ViewModels
                 return _goToQuickCheck ??= new RelayCommand(x =>
                 {
                     TransferModel.PreviousPages.Add(PageId);
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.QuickOrder.ToString() });
+                    TransferModel.PageNumber = UserControlsEnum.QuickOrder.ToString();
+                    ViewChanged?.Raise(this, TransferModel);
                 });
             }
         }
@@ -94,9 +145,9 @@ namespace WPFClient.ViewModels
                 {
                     if (TransferModel.PreviousPages.Count != 0)
                     {
-                        string lastPage = TransferModel.PreviousPages.Last();
+                        TransferModel.PageNumber = TransferModel.PreviousPages.Last();
                         TransferModel.PreviousPages.RemoveAt(TransferModel.PreviousPages.Count - 1);
-                        ViewChanged?.Raise(this, new BaseTransferModel() { UoW = this.UoW, PreviousPages = TransferModel.PreviousPages, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = lastPage });
+                        ViewChanged?.Raise(this, TransferModel);
                     }
                 }, (o) => TransferModel.PreviousPages.Count != 0);
             }
@@ -131,6 +182,7 @@ namespace WPFClient.ViewModels
             {
                 var control = new UserControlOrdersByHalls() { DataContext = this };
                 CurrentUserControl = control;
+                LoadHalls();
             }
         }
         #endregion

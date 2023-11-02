@@ -13,9 +13,9 @@ namespace WPFClient.Models
     public class WorkShiftEmployeeModel
     {
         public int WorkShiftId { get; set; }
-        public WorkShift? WorkShift { get; set; }
+        public DateTime WorkShiftDate { get; set; }
         public int EmployeeId { get; set; }
-        public Employee? Employee { get; set; }
+        public EmployeeModel? EmployeeModel { get; set; }
         public DateTime TimeFrom { get; set; }
         public DateTime? TimeTo { get; set; }
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();

@@ -21,8 +21,12 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW { get; set; }
-        public EmployeeModel CurrentEmployeeModel { get; set; }
+        public UnitOfWork UoW => TransferModel.UoW;
+        [DependsOn(nameof(TransferModel))]
+        public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
+        [DependsOn(nameof(TransferModel))]
+        public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; set => TransferModel.CurrentWorkShiftEmployee = value; }
+
         public OrderModel CurrentOrderModel { get; set; }
 
         public VM_OrderQuickCheck(string pageIndex = "5")
@@ -50,7 +54,8 @@ namespace WPFClient.ViewModels
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
                     TransferModel.PreviousPages.Add(PageId);
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.GeneralInfo.ToString() });
+                    TransferModel.PageNumber = UserControlsEnum.GeneralInfo.ToString();
+                    ViewChanged?.Raise(this, TransferModel);
                 });
             }
         }
@@ -62,7 +67,8 @@ namespace WPFClient.ViewModels
                 return _goToPayment ??= new RelayCommand(x =>
                 {
                     TransferModel.PreviousPages.Add(PageId);
-                    ViewChanged?.Raise(this, new BaseTransferModel() { CurrentEmployee = CurrentEmployeeModel, UoW = UoW, CurrentOrder = CurrentOrderModel, PreviousPages = TransferModel.PreviousPages, PageNumber = UserControlsEnum.Payment.ToString() });
+                    TransferModel.PageNumber = UserControlsEnum.Payment.ToString();
+                    ViewChanged?.Raise(this, TransferModel);
                 });
             }
         }
@@ -75,9 +81,9 @@ namespace WPFClient.ViewModels
                 {
                     if (TransferModel.PreviousPages.Count != 0)
                     {
-                        string lastPage = TransferModel.PreviousPages.Last();
+                        TransferModel.PageNumber = TransferModel.PreviousPages.Last();
                         TransferModel.PreviousPages.RemoveAt(TransferModel.PreviousPages.Count - 1);
-                        ViewChanged?.Raise(this, new BaseTransferModel() { UoW = this.UoW, PreviousPages = TransferModel.PreviousPages, CurrentEmployee = this.CurrentEmployeeModel, CurrentOrder = this.CurrentOrderModel, PageNumber = lastPage });
+                        ViewChanged?.Raise(this, TransferModel);
                     }
                 }, (o) => TransferModel.PreviousPages.Count != 0);
             }

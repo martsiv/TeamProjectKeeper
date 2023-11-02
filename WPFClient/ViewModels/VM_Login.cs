@@ -9,7 +9,7 @@ using WPFClient.Commands;
 using WPFClient.Help;
 using WPFClient.Models;
 using WPFClient.TransferModel;
-using WPFClient.Views;
+using data_access.Entities;
 
 namespace WPFClient.ViewModels
 {
@@ -22,6 +22,8 @@ namespace WPFClient.ViewModels
         public BaseTransferModel TransferModel { get; set; }
         public UnitOfWork UoW { get; set; }
         public EmployeeModel? SelectedEmployee { get; set; }
+        public WorkShiftEmployeeModel? CurrentWorkShiftEmployee;
+        public CashierShiftModel? CurrentCashierShift;
         private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
         public IEnumerable<EmployeeModel> Employees => employees;
         public VM_Login(UnitOfWork unitOfWork, string pageIndex = "1")
@@ -62,16 +64,43 @@ namespace WPFClient.ViewModels
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    if (x is EmployeeModel SelectedEmployee)
+                    if (SelectedEmployee != null && CheckPin())
                     {
-                        this.SelectedEmployee = SelectedEmployee;
-                        //Can...
-                        MessageBox.Show($"Password:{SelectedEmployee?.PinCode}\nLine:73\nVM_Login");
-                        //      ...remove
-                        if (CheckPin())
+                        var selectedEmployee = SelectedEmployee;
+                        SelectedEmployee = null;
+                        var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
+                        if (workShift != null)
                         {
-                            ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentEmployee = SelectedEmployee, UoW = this.UoW });
+                            var cashierShift = UoW.CashierShiftRepo.Get().FirstOrDefault(cs => cs.WorkShiftId == workShift.Id);
+                            if (cashierShift != null) 
+                            {
+                                CurrentCashierShift = new()
+                                {
+                                    Id = cashierShift.Id,
+                                    CashRegisterId = cashierShift.CashRegisterId,
+                                    OpeningDateTime = cashierShift.OpeningDateTime,
+                                    ClosingDateTime = cashierShift.ClosingDateTime,
+                                    DepositedCash = cashierShift.DepositedCash,
+                                    WithdrawnCash = cashierShift.WithdrawnCash,
+                                    WorkShiftId = cashierShift.WorkShiftId,
+                                    CashRegistryDescription = UoW.CashRegisterRepo.GetByID(cashierShift.CashRegisterId).Description
+                                };
+                            }
+                            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == workShift.Id && wse.EmployeeId == selectedEmployee.Id);
+                            if (workShiftEmployee != null)
+                            {
+                                CurrentWorkShiftEmployee = new WorkShiftEmployeeModel()
+                                {
+                                    WorkShiftId = workShiftEmployee.WorkShiftId,
+                                    EmployeeId = selectedEmployee.Id,
+                                    WorkShiftDate = workShift.Date,
+                                    EmployeeModel = selectedEmployee,
+                                    TimeFrom = workShiftEmployee.TimeFrom,
+                                    TimeTo = workShiftEmployee.TimeTo,
+                                };
+                            }
                         }
+                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentCashierShift = this.CurrentCashierShift, CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
                     }
                 }, x => SelectedEmployee != null);
             }

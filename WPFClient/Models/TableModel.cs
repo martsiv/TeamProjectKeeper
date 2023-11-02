@@ -14,5 +14,7 @@ namespace WPFClient.Models
     {
         public int Id { get; set; }
         public ICollection<InternalOrder> InternalOrders { get; set; } = new HashSet<InternalOrder>();
+        public int HallId { get; set; }
+        public Hall? Hall { get; set; }
     }
 }
