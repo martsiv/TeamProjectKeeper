@@ -15,6 +15,11 @@ namespace data_access.Data
     {
         public static void SeedData(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CashRegister>().HasData(new CashRegister[]
+            {
+                new CashRegister() { Id = 1, Description = "PK1"},
+                new CashRegister() { Id = 2, Description = "PK2"},
+            });
             modelBuilder.Entity<Hall>().HasData(new Hall[]
             {
                 new Hall() { Id = 1, Name = "Бар"},
