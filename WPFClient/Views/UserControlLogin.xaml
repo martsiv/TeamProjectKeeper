@@ -16,7 +16,7 @@
             Content="GeneralInfo"
             Command="{Binding GoToGeneralInfo}"
             Width="90" Margin="5"/>
-        <ListBox 
+        <ListBox
             SelectionMode="Multiple"
             VerticalAlignment="Center"
             Background="{x:Null}"
