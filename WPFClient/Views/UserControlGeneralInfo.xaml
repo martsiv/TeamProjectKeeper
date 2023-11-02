@@ -16,7 +16,7 @@
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
-            <Setter Property="DockPanel.Dock" Value="Top" />
+            <Setter Property="DockPanel.Dock" Value="Top"/>
         </Style>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Background" Value="White"/>
@@ -30,8 +30,7 @@
                                 FontSize="15"
                                 Content="{TemplateBinding Content}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                               />
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -46,10 +45,11 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Top" Background="White" LastChildFill="False">
-            <Button DockPanel.Dock="Right" Width="50" Height="50" Command="{Binding GoToLogin}"></Button>
-        </DockPanel>
+    <DockPanel Background="White">
+        <Button DockPanel.Dock="Top" HorizontalAlignment="Right" Width="50" Height="50"
+                Command="{Binding GoToLogin}">
+            <Image Source="/ResourceDictionaries/Image/Lock.png" Margin="5"/>
+        </Button>
         <Border>
             <DockPanel Background="DimGray">
                 <DockPanel DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
@@ -72,7 +72,6 @@
                         <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/WINDOWS.png"        Content="ВИЙТИ В WINDOWS"/>
                     </DockPanel>
                 </DockPanel>
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -86,8 +85,10 @@
                                 <TextBlock DockPanel.Dock="Bottom" Text="{Binding WorkShiftStatus}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </DockPanel>
                         </Border>
-                        <Button Command="{Binding OpenWorkShiftEmployeeCmd}" Content="Відкрити особисту зміну"/>
-                        <Button Command="{Binding CloseWorkShiftEmployeeCmd}" Content="Закрити особисту зміну"/>
+                        <Button Content="Відкрити особисту зміну"
+                                Command="{Binding OpenWorkShiftEmployeeCmd}"/>
+                        <Button Content="Закрити особисту зміну"
+                                Command="{Binding CloseWorkShiftEmployeeCmd}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <StackPanel Margin="3">
@@ -124,6 +125,5 @@
                 </Grid>
             </DockPanel>
         </Border>
-
     </DockPanel>
 </UserControl>

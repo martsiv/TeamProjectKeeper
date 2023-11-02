@@ -11,14 +11,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Background="White">
-      
-        <Button                
-            DockPanel.Dock="Bottom"
-            Content="GeneralInfo"
-            Command="{Binding GoToGeneralInfo}"
-            Width="90" Margin="5"/>
+        <Button DockPanel.Dock="Bottom" Width="80" Height="80" Style="{StaticResource ImageButton}"
+                Ext:CustomButton.Image="/ResourceDictionaries/Image/PinCodeBlack.png"
+                Command="{Binding GoToGeneralInfo}"
+                Content="Login"/>
         <ListBox
-            SelectionMode="Multiple"
             VerticalAlignment="Center"
             Background="{x:Null}"
             BorderBrush="{x:Null}" 
@@ -43,8 +40,7 @@
                                 Source="/ResourceDictionaries/Image/PeopleBlack.png"
                                 Margin="5" 
                                 Opacity="0.3" 
-                                RenderOptions.BitmapScalingMode="Fant" 
-                                />
+                                RenderOptions.BitmapScalingMode="Fant"/>
                         </DockPanel>
                     </Border>
                 </DataTemplate>
