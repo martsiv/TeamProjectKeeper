@@ -11,7 +11,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Background="White">
-
         <Button DockPanel.Dock="Bottom" Width="80" Height="80" Style="{StaticResource ImageButton}"
                 Ext:CustomButton.Image="/ResourceDictionaries/Image/PinCodeBlack.png"
                 Command="{Binding GoToGeneralInfo}"

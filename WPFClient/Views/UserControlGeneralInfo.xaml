@@ -74,7 +74,6 @@
                         <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/WINDOWS.png"        Content="ВИЙТИ В WINDOWS"/>
                     </DockPanel>
                 </DockPanel>
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -128,6 +127,5 @@
                 </Grid>
             </DockPanel>
         </Border>
-
     </DockPanel>
 </UserControl>
