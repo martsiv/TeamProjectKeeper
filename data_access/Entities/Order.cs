@@ -10,8 +10,8 @@ namespace data_access.Entities
     public class Order : IEntity
     {
         public int Id { get; set; }
-        public int WorkShiftEmployeeId1 { get; set; }
-        public int WorkShiftEmployeeId2 { get; set; }
+        public int WorkShiftID { get; set; }
+        public int EmployeeID { get; set; }
         public WorkShiftEmployee? WorkShiftEmployee { get; set; }
         public int OrderStatusId { get; set; }
         public OrderStatus? OrderStatus { get; set; }

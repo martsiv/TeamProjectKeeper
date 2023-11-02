@@ -1274,6 +1274,9 @@ namespace data_access.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Opened")
                         .HasColumnType("datetime2");
 
@@ -1287,10 +1290,7 @@ namespace data_access.Migrations
                         .HasColumnType("money")
                         .HasColumnName("Total amount of money");
 
-                    b.Property<int>("WorkShiftEmployeeId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkShiftEmployeeId2")
+                    b.Property<int>("WorkShiftID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1299,7 +1299,7 @@ namespace data_access.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.HasIndex("WorkShiftEmployeeId1", "WorkShiftEmployeeId2");
+                    b.HasIndex("WorkShiftID", "EmployeeID");
 
                     b.ToTable("Orders");
 
@@ -1568,6 +1568,10 @@ namespace data_access.Migrations
                     b.Property<int>("HallId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HallId");
@@ -1578,72 +1582,86 @@ namespace data_access.Migrations
                         new
                         {
                             Id = 1,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "1"
                         },
                         new
                         {
                             Id = 2,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "2"
                         },
                         new
                         {
                             Id = 3,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "3"
                         },
                         new
                         {
                             Id = 4,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "4"
                         },
                         new
                         {
                             Id = 5,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "5"
                         },
                         new
                         {
                             Id = 6,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "6"
                         },
                         new
                         {
                             Id = 7,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "7"
                         },
                         new
                         {
                             Id = 8,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "8"
                         },
                         new
                         {
                             Id = 9,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "9"
                         },
                         new
                         {
                             Id = 10,
-                            HallId = 2
+                            HallId = 2,
+                            Number = "10"
                         },
                         new
                         {
                             Id = 11,
-                            HallId = 1
+                            HallId = 1,
+                            Number = "1"
                         },
                         new
                         {
                             Id = 12,
-                            HallId = 1
+                            HallId = 1,
+                            Number = "2"
                         },
                         new
                         {
                             Id = 13,
-                            HallId = 1
+                            HallId = 1,
+                            Number = "3"
                         },
                         new
                         {
                             Id = 14,
-                            HallId = 1
+                            HallId = 1,
+                            Number = "4"
                         });
                 });
 
@@ -1776,7 +1794,7 @@ namespace data_access.Migrations
 
                     b.HasOne("data_access.Entities.WorkShiftEmployee", "WorkShiftEmployee")
                         .WithMany("Orders")
-                        .HasForeignKey("WorkShiftEmployeeId1", "WorkShiftEmployeeId2")
+                        .HasForeignKey("WorkShiftID", "EmployeeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
