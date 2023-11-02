@@ -3,56 +3,126 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:WPFClient.Views"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_GeneralInfo}"
+             xmlns:Ext="clr-namespace:Ext"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel Background="White">
-        <Label
-            DockPanel.Dock="Top"
-             Name="View1" 
-             VerticalAlignment="Top" HorizontalAlignment="Center"
-             Height="40" 
-             Canvas.Left="10" Canvas.Top="10" 
-             FontSize="14" FontFamily="Georgia" 
-             FontWeight="Bold"
-             Content="{Binding Title}"/>
-        <Border DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding CurrentEmployeeModel.Name}"/>
-                <TextBlock Text="{Binding WorkShiftStatus}"/>
-                <Button Command="{Binding OpenWorkShiftEmployeeCmd}">Відкрити зміну</Button>
-                <Button Command="{Binding CloseWorkShiftEmployeeCmd}">Закрити зміну</Button>
-
-            </StackPanel>
-        </Border>
-        <Border DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding CashierShiftStatus}"/>
-                <Button Command="{Binding OpenCashierShiftCmd}">Відкрити касову зміну</Button>
-                <Button Command="{Binding CloseCashierShiftCmd}">Закрити касову зміну</Button>
-
-            </StackPanel>
-        </Border>
-        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-            <Button                
-                 Content="Login"
-                 Command="{Binding GoToLogin}"
-                 Width="90" Height="30" Margin="0,20" />
-            <Button                
-      Content="Previous"
-      Command="{Binding GoToPreviusPage}"
-      Width="90" Height="30" Margin="0,20" />
-            <Button                
-                 Content="Orders"
-                 Command="{Binding GoToOrders}"
-                 Width="90" Height="30" Margin="0,20" />
-        </UniformGrid>
-
+    <UserControl.Resources>
+        <Style x:Key="TextTitleCenter" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="DockPanel.Dock" Value="Top" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentControl
+                                FontSize="15"
+                                Content="{TemplateBinding Content}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                               />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="DarkGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Background="White" LastChildFill="False">
+            <Button DockPanel.Dock="Right" Width="50" Height="50" Command="{Binding GoToLogin}"></Button>
+        </DockPanel>
         <Border>
+            <DockPanel Background="DimGray">
+                <DockPanel DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
+                    <Button Background="{x:Null}" DockPanel.Dock="Right" Height="60">
+                        <Image Margin="10" Width="50" Source="/ResourceDictionaries/Image/PowerOff.png"/>
+                    </Button>
+                    <DockPanel LastChildFill="False">
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ImageButton}">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Width" Value="auto"/>
+                                <Setter Property="MinWidth" Value="60"/>
+                                <Setter Property="Margin" Value="5,2"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <Button DockPanel.Dock="Left"  Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png"           Content="НАЗАД"
+                                Command="{Binding GoToPreviusPage}"/>
+                        <Button DockPanel.Dock="Left"  Ext:CustomButton.Image="/ResourceDictionaries/Image/OrderMenuWhite.png" Content="ЗАМОВЛЕННЯ"
+                                Command="{Binding GoToOrders}"/>
+                        <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/WINDOWS.png"        Content="ВИЙТИ В WINDOWS"/>
+                    </DockPanel>
+                </DockPanel>
 
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="3" Grid.Column="0">
+                        <Border Background="DarkViolet" Height="100">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="{Binding CurrentEmployeeModel.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                                <TextBlock DockPanel.Dock="Bottom" Text="{Binding WorkShiftStatus}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </Border>
+                        <Button Command="{Binding OpenWorkShiftEmployeeCmd}" Content="Відкрити особисту зміну"/>
+                        <Button Command="{Binding CloseWorkShiftEmployeeCmd}" Content="Закрити особисту зміну"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Margin="3">
+                            <TextBlock Background="SteelBlue" Style="{StaticResource TextTitleCenter}" Text="ГОСТІ"/>
+                            <Button Content="Бенкети і резерви"/>
+                            <Button Content="Доставка"/>
+                        </StackPanel>
+                        <StackPanel Margin="3">
+                            <TextBlock Background="Teal" Style="{StaticResource TextTitleCenter}" Text="СЕРВІС"/>
+                            <Button Content="Звіти"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="3" Grid.Column="2">
+                        <DockPanel Background="DarkCyan">
+                            <TextBlock Style="{StaticResource TextTitleCenter}" Text="КАСА"/>
+                            <UniformGrid Columns="2" Rows="1">
+                                <TextBlock Padding="5, 0, 0, 0" Text="{Binding CashierShiftStatus}"></TextBlock>
+                                <Button Grid.Column="1" DockPanel.Dock="Right" Content="Детальніше..."/>
+                            </UniformGrid>
+                        </DockPanel>
+                        <UniformGrid Columns="2">
+                            <StackPanel>
+                                <Button Content="Відкрити касову зміну"
+                                        Command="{Binding OpenCashierShiftCmd}"/>
+                                <Button Content="Закрити касову зміну"
+                                        Command="{Binding CloseCashierShiftCmd}"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <Button Content="Поточні замовлення"/>
+                                <Button Content="Закриті замовлення"/>
+                            </StackPanel>
+                        </UniformGrid>
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
         </Border>
 
     </DockPanel>

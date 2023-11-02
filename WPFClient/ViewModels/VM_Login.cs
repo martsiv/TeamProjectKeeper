@@ -74,7 +74,7 @@ namespace WPFClient.ViewModels
                         if (workShift != null)
                         {
                             var cashierShift = UoW.CashierShiftRepo.Get().FirstOrDefault(cs => cs.WorkShiftId == workShift.Id);
-                            if (cashierShift != null) 
+                            if (cashierShift != null)
                             {
                                 CurrentCashierShift = new()
                                 {

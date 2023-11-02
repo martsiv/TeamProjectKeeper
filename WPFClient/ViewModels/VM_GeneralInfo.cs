@@ -3,10 +3,7 @@ using data_access.Repositories;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFClient.Commands;
 using WPFClient.Help;
@@ -52,7 +49,7 @@ namespace WPFClient.ViewModels
                     return $"Касова зміна відкрита\n{CurrentCashierShiftModel?.OpeningDateTime.ToShortDateString()} {CurrentCashierShiftModel?.OpeningDateTime.ToShortTimeString()}";
             }
         }
-        
+
 
         public VM_GeneralInfo(string pageIndex = "2")
         {
@@ -128,7 +125,8 @@ namespace WPFClient.ViewModels
             var res = UoW.OrderRepo.Get().Where(o => !(o.OrderStatus.Id == 2 || o.OrderStatus.Id == 3)).Count();
             if (res != 0)
                 return true;
-            else return false;
+            else
+                return false;
         }
         #endregion
 

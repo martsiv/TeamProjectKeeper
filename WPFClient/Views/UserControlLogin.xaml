@@ -7,35 +7,48 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_Login}"
+             xmlns:Ext="clr-namespace:Ext"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Background="White">
+    <DockPanel Background="White">
       
-        <Label 
-            Name="View1" 
-            VerticalAlignment="Top" HorizontalAlignment="Center"
-            Height="40" 
-            Canvas.Left="10" Canvas.Top="10" 
-            FontSize="14" FontFamily="Georgia" 
-            FontWeight="Bold"
-            Content="{Binding Title}"/>
-
-        <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Name">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName = "SelectionChanged">
-                    <i:InvokeCommandAction Command = "{Binding  GoToGeneralInfo}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-        
         <Button                
+            DockPanel.Dock="Bottom"
             Content="GeneralInfo"
             Command="{Binding GoToGeneralInfo}"
-            Width="90" Height="30" Margin="0,20" />
-    </StackPanel>
+            Width="90" Margin="5"/>
+        <ListBox
+            SelectionMode="Multiple"
+            VerticalAlignment="Center"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}" 
+            Margin="0,20"
+            HorizontalAlignment="Center"
+            ItemsSource="{Binding Employees}"
+            SelectedItem="{Binding SelectedEmployee}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="6"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="80" BorderBrush="{x:Null}" Background="WhiteSmoke">
+                        <DockPanel Margin="5">
+                            <TextBlock 
+                                DockPanel.Dock="Bottom" 
+                                TextAlignment="Center" 
+                                Text="{Binding Name}"/>
+                            <Image 
+                                Source="/ResourceDictionaries/Image/PeopleBlack.png"
+                                Margin="5" 
+                                Opacity="0.3" 
+                                RenderOptions.BitmapScalingMode="Fant" 
+                                />
+                        </DockPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
 </UserControl>

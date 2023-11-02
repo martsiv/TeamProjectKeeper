@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ResourceDictionaries\Image\Addition.png" />
     <None Remove="ResourceDictionaries\Image\Airplane.png" />
     <None Remove="ResourceDictionaries\Image\Back.png" />
     <None Remove="ResourceDictionaries\Image\Bar.png" />
@@ -19,6 +20,7 @@
     <None Remove="ResourceDictionaries\Image\Dish.png" />
     <None Remove="ResourceDictionaries\Image\DoubleForward.png" />
     <None Remove="ResourceDictionaries\Image\Equals.png" />
+    <None Remove="ResourceDictionaries\Image\Font.png" />
     <None Remove="ResourceDictionaries\Image\Forward.png" />
     <None Remove="ResourceDictionaries\Image\HallScheme.png" />
     <None Remove="ResourceDictionaries\Image\Home.png" />
@@ -35,6 +37,7 @@
     <None Remove="ResourceDictionaries\Image\OtherBack.png" />
     <None Remove="ResourceDictionaries\Image\Payment.png" />
     <None Remove="ResourceDictionaries\Image\People.png" />
+    <None Remove="ResourceDictionaries\Image\PeopleBlack.png" />
     <None Remove="ResourceDictionaries\Image\PinCode.png" />
     <None Remove="ResourceDictionaries\Image\Pluse.png" />
     <None Remove="ResourceDictionaries\Image\PowerOff.png" />
@@ -45,9 +48,11 @@
     <None Remove="ResourceDictionaries\Image\Star.png" />
     <None Remove="ResourceDictionaries\Image\Table.png" />
     <None Remove="ResourceDictionaries\Image\TableColor.png" />
+    <None Remove="ResourceDictionaries\Image\TEAMVIEWER.png" />
     <None Remove="ResourceDictionaries\Image\ThreeDots.png" />
     <None Remove="ResourceDictionaries\Image\TrashCan.png" />
     <None Remove="ResourceDictionaries\Image\Waiter.png" />
+    <None Remove="ResourceDictionaries\Image\WINDOWS.png" />
     <None Remove="ResourceDictionaries\Image\X.png" />
   </ItemGroup>
 
@@ -62,6 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="ResourceDictionaries\Image\Addition.png" />
     <Resource Include="ResourceDictionaries\Image\Airplane.png" />
     <Resource Include="ResourceDictionaries\Image\Back.png" />
     <Resource Include="ResourceDictionaries\Image\Bar.png" />
@@ -73,6 +79,7 @@
     <Resource Include="ResourceDictionaries\Image\Dish.png" />
     <Resource Include="ResourceDictionaries\Image\DoubleForward.png" />
     <Resource Include="ResourceDictionaries\Image\Equals.png" />
+    <Resource Include="ResourceDictionaries\Image\Font.png" />
     <Resource Include="ResourceDictionaries\Image\Forward.png" />
     <Resource Include="ResourceDictionaries\Image\HallScheme.png" />
     <Resource Include="ResourceDictionaries\Image\Home.png" />
@@ -89,6 +96,7 @@
     <Resource Include="ResourceDictionaries\Image\OtherBack.png" />
     <Resource Include="ResourceDictionaries\Image\Payment.png" />
     <Resource Include="ResourceDictionaries\Image\People.png" />
+    <Resource Include="ResourceDictionaries\Image\PeopleBlack.png" />
     <Resource Include="ResourceDictionaries\Image\PinCode.png" />
     <Resource Include="ResourceDictionaries\Image\Pluse.png" />
     <Resource Include="ResourceDictionaries\Image\PowerOff.png" />
@@ -99,9 +107,11 @@
     <Resource Include="ResourceDictionaries\Image\Star.png" />
     <Resource Include="ResourceDictionaries\Image\Table.png" />
     <Resource Include="ResourceDictionaries\Image\TableColor.png" />
+    <Resource Include="ResourceDictionaries\Image\TEAMVIEWER.png" />
     <Resource Include="ResourceDictionaries\Image\ThreeDots.png" />
     <Resource Include="ResourceDictionaries\Image\TrashCan.png" />
     <Resource Include="ResourceDictionaries\Image\Waiter.png" />
+    <Resource Include="ResourceDictionaries\Image\WINDOWS.png" />
     <Resource Include="ResourceDictionaries\Image\X.png" />
   </ItemGroup>
 
