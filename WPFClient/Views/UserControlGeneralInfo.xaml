@@ -22,8 +22,18 @@
         <Border DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding CurrentEmployeeModel.Name}"/>
-                <TextBlock Text="Зміна відкрита: "/>
-                <TextBlock Text=""/>
+                <TextBlock Text="{Binding WorkShiftStatus}"/>
+                <Button Command="{Binding OpenWorkShiftEmployeeCmd}">Відкрити зміну</Button>
+                <Button Command="{Binding CloseWorkShiftEmployeeCmd}">Закрити зміну</Button>
+
+            </StackPanel>
+        </Border>
+        <Border DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding CashierShiftStatus}"/>
+                <Button Command="{Binding OpenCashierShiftCmd}">Відкрити касову зміну</Button>
+                <Button Command="{Binding CloseCashierShiftCmd}">Закрити касову зміну</Button>
+
             </StackPanel>
         </Border>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1">

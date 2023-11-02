@@ -23,7 +23,7 @@ namespace WPFClient.ViewModels
             _pageViewModels[$"{UserControlsEnum.Login}"] = new VM_Login(_unitOfWork, $"{UserControlsEnum.Login}");
             _pageViewModels[$"{UserControlsEnum.Login}"].ViewChanged += (o, s) =>
             {
-                _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
+                //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
@@ -31,7 +31,7 @@ namespace WPFClient.ViewModels
             _pageViewModels[$"{UserControlsEnum.GeneralInfo}"] = new VM_GeneralInfo($"{UserControlsEnum.GeneralInfo}");
             _pageViewModels[$"{UserControlsEnum.GeneralInfo}"].ViewChanged += (o, s) =>
             {
-                _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
+                //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
@@ -39,7 +39,7 @@ namespace WPFClient.ViewModels
             _pageViewModels[$"{UserControlsEnum.Orders}"] = new VM_Orders($"{UserControlsEnum.Orders}");
             _pageViewModels[$"{UserControlsEnum.Orders}"].ViewChanged += (o, s) =>
             {
-                _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
+                //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
@@ -47,7 +47,7 @@ namespace WPFClient.ViewModels
             _pageViewModels[$"{UserControlsEnum.Order}"] = new VM_OrderMainView($"{UserControlsEnum.Order}");
             _pageViewModels[$"{UserControlsEnum.Order}"].ViewChanged += (o, s) =>
             {
-                _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
+                //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
@@ -55,7 +55,7 @@ namespace WPFClient.ViewModels
             _pageViewModels[$"{UserControlsEnum.QuickOrder}"] = new VM_OrderQuickCheck($"{UserControlsEnum.QuickOrder}");
             _pageViewModels[$"{UserControlsEnum.QuickOrder}"].ViewChanged += (o, s) =>
             {
-                _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
+                //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
@@ -63,7 +63,7 @@ namespace WPFClient.ViewModels
             _pageViewModels[$"{UserControlsEnum.Payment}"] = new VM_Payment($"{UserControlsEnum.Payment}");
             _pageViewModels[$"{UserControlsEnum.Payment}"].ViewChanged += (o, s) =>
             {
-                _pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
+                //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
                 _pageViewModels[s.Value.PageNumber].TransferModel = s.Value;
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };

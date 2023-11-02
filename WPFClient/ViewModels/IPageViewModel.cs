@@ -13,7 +13,7 @@ namespace WPFClient.ViewModels
     public interface IPageViewModel
     {
         event EventHandler<EventArgs<BaseTransferModel>>? ViewChanged;
-        public UnitOfWork UoW { get; set; }
+        //public UnitOfWork UoW { get; set; }
         public BaseTransferModel TransferModel { get; set; }
         string PageId { get; set; }
         string Title { get; set; }
