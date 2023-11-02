@@ -39,6 +39,7 @@
     <None Remove="ResourceDictionaries\Image\People.png" />
     <None Remove="ResourceDictionaries\Image\PeopleBlack.png" />
     <None Remove="ResourceDictionaries\Image\PinCode.png" />
+    <None Remove="ResourceDictionaries\Image\PinCodeBlack.png" />
     <None Remove="ResourceDictionaries\Image\Pluse.png" />
     <None Remove="ResourceDictionaries\Image\PowerOff.png" />
     <None Remove="ResourceDictionaries\Image\Printer.png" />
@@ -98,6 +99,7 @@
     <Resource Include="ResourceDictionaries\Image\People.png" />
     <Resource Include="ResourceDictionaries\Image\PeopleBlack.png" />
     <Resource Include="ResourceDictionaries\Image\PinCode.png" />
+    <Resource Include="ResourceDictionaries\Image\PinCodeBlack.png" />
     <Resource Include="ResourceDictionaries\Image\Pluse.png" />
     <Resource Include="ResourceDictionaries\Image\PowerOff.png" />
     <Resource Include="ResourceDictionaries\Image\Printer.png" />
