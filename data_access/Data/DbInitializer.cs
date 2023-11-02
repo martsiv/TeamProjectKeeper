@@ -23,20 +23,20 @@ namespace data_access.Data
             });
             modelBuilder.Entity<Entities.Table>().HasData(new Entities.Table[]
             {
-                new Entities.Table() { Id = 1, HallId = 2},
-                new Entities.Table() { Id = 2, HallId = 2},
-                new Entities.Table() { Id = 3, HallId = 2},
-                new Entities.Table() { Id = 4, HallId = 2},
-                new Entities.Table() { Id = 5, HallId = 2},
-                new Entities.Table() { Id = 6, HallId = 2},
-                new Entities.Table() { Id = 7, HallId = 2},
-                new Entities.Table() { Id = 8, HallId = 2},
-                new Entities.Table() { Id = 9, HallId = 2},
-                new Entities.Table() { Id = 10, HallId = 2},
-                new Entities.Table() { Id = 11, HallId = 1},
-                new Entities.Table() { Id = 12, HallId = 1},
-                new Entities.Table() { Id = 13, HallId = 1},
-                new Entities.Table() { Id = 14, HallId = 1},
+                new Entities.Table() { Id = 1, HallId = 2, Number = "1"},
+                new Entities.Table() { Id = 2, HallId = 2, Number = "2"},
+                new Entities.Table() { Id = 3, HallId = 2, Number = "3"},
+                new Entities.Table() { Id = 4, HallId = 2, Number = "4"},
+                new Entities.Table() { Id = 5, HallId = 2, Number = "5"},
+                new Entities.Table() { Id = 6, HallId = 2, Number = "6"},
+                new Entities.Table() { Id = 7, HallId = 2, Number = "7"},
+                new Entities.Table() { Id = 8, HallId = 2, Number = "8"},
+                new Entities.Table() { Id = 9, HallId = 2, Number = "9"},
+                new Entities.Table() { Id = 10, HallId = 2, Number = "10"},
+                new Entities.Table() { Id = 11, HallId = 1, Number = "1"},
+                new Entities.Table() { Id = 12, HallId = 1, Number = "2"},
+                new Entities.Table() { Id = 13, HallId = 1, Number = "3"},
+                new Entities.Table() { Id = 14, HallId = 1, Number = "4"},
             });
             modelBuilder.Entity<Category>().HasData(new Category[]
             {

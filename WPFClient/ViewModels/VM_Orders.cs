@@ -4,6 +4,7 @@ using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,6 @@ namespace WPFClient.ViewModels
         public TableModel? SelectedTable { get; set; }
         private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
         public IEnumerable<TableModel> Tables => tables;
-        
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
@@ -58,12 +58,14 @@ namespace WPFClient.ViewModels
             halls.Clear();
             foreach (var item in res)
             {
-                halls.Add(new HallModel()
+                HallModel hall = new HallModel()
                 {
                     Id = item.Id,
                     Name = item.Name,
                     LoadTablesCmd = this.LoadTablesCmd
-                });
+                };
+                hall.OccupiedTables = UoW.InternalOrderRepo.Get().Where(x => x.OrderStatus.Id == 1 && x.Table.Hall.Id == item.Id).Count();
+                halls.Add(hall);
             }
         }
         private readonly RelayCommand loadTablesCmd;
@@ -76,14 +78,15 @@ namespace WPFClient.ViewModels
             tables.Clear();
             foreach (var item in res)
             {
-                tables.Add(new TableModel()
+                TableModel table = new TableModel()
                 {
                     Id = item.Id,
                     HallId = item.HallId,
-                });
+                    Number = item.Number,
+                };
+                tables.Add(table);
             }
         }
-
         #endregion
         #region Navigation
         private ICommand? _goToLogin;
