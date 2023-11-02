@@ -26,6 +26,7 @@ namespace WPFClient.ViewModels
         public UnitOfWork UoW { get; set; }
         public EmployeeModel? SelectedEmployee { get; set; }
         public WorkShiftEmployeeModel? CurrentWorkShiftEmployee;
+        public CashierShiftModel? CurrentCashierShift;
         private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
         public IEnumerable<EmployeeModel> Employees => employees;
         public VM_Login(UnitOfWork unitOfWork, string pageIndex = "1")
@@ -72,6 +73,21 @@ namespace WPFClient.ViewModels
                         var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
                         if (workShift != null)
                         {
+                            var cashierShift = UoW.CashierShiftRepo.Get().FirstOrDefault(cs => cs.WorkShiftId == workShift.Id);
+                            if (cashierShift != null) 
+                            {
+                                CurrentCashierShift = new()
+                                {
+                                    Id = cashierShift.Id,
+                                    CashRegisterId = cashierShift.CashRegisterId,
+                                    OpeningDateTime = cashierShift.OpeningDateTime,
+                                    ClosingDateTime = cashierShift.ClosingDateTime,
+                                    DepositedCash = cashierShift.DepositedCash,
+                                    WithdrawnCash = cashierShift.WithdrawnCash,
+                                    WorkShiftId = cashierShift.WorkShiftId,
+                                    CashRegistryDescription = UoW.CashRegisterRepo.GetByID(cashierShift.CashRegisterId).Description
+                                };
+                            }
                             var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == workShift.Id && wse.EmployeeId == selectedEmployee.Id);
                             if (workShiftEmployee != null)
                             {
@@ -86,7 +102,7 @@ namespace WPFClient.ViewModels
                                 };
                             }
                         }
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
+                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentCashierShift = this.CurrentCashierShift, CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
                     }
                 }, x => SelectedEmployee != null);
             }
