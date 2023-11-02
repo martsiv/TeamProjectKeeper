@@ -72,6 +72,18 @@ namespace data_access.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CashRegisters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "PK1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "PK2"
+                        });
                 });
 
             modelBuilder.Entity("data_access.Entities.Category", b =>
