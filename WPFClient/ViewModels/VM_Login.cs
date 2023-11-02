@@ -10,6 +10,8 @@ using WPFClient.Help;
 using WPFClient.Models;
 using WPFClient.TransferModel;
 using data_access.Entities;
+using System.Linq;
+using WPFClient.Views;
 
 namespace WPFClient.ViewModels
 {
@@ -64,43 +66,46 @@ namespace WPFClient.ViewModels
             {
                 return _goToGeneralInfo ??= new RelayCommand(x =>
                 {
-                    if (SelectedEmployee != null && CheckPin())
+                    if (x is EmployeeModel selectedEmployee)
                     {
-                        var selectedEmployee = SelectedEmployee;
-                        SelectedEmployee = null;
-                        var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
-                        if (workShift != null)
+                        this.SelectedEmployee = selectedEmployee;
+                        if (SelectedEmployee != null && CheckPin())
                         {
-                            var cashierShift = UoW.CashierShiftRepo.Get().FirstOrDefault(cs => cs.WorkShiftId == workShift.Id);
-                            if (cashierShift != null) 
+                            SelectedEmployee = null;
+                            var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
+                            if (workShift != null)
                             {
-                                CurrentCashierShift = new()
+                                var cashierShift = UoW.CashierShiftRepo.Get().FirstOrDefault(cs => cs.WorkShiftId == workShift.Id);
+                                if (cashierShift != null)
                                 {
-                                    Id = cashierShift.Id,
-                                    CashRegisterId = cashierShift.CashRegisterId,
-                                    OpeningDateTime = cashierShift.OpeningDateTime,
-                                    ClosingDateTime = cashierShift.ClosingDateTime,
-                                    DepositedCash = cashierShift.DepositedCash,
-                                    WithdrawnCash = cashierShift.WithdrawnCash,
-                                    WorkShiftId = cashierShift.WorkShiftId,
-                                    CashRegistryDescription = UoW.CashRegisterRepo.GetByID(cashierShift.CashRegisterId).Description
-                                };
-                            }
-                            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == workShift.Id && wse.EmployeeId == selectedEmployee.Id);
-                            if (workShiftEmployee != null)
-                            {
-                                CurrentWorkShiftEmployee = new WorkShiftEmployeeModel()
+                                    CurrentCashierShift = new()
+                                    {
+                                        Id = cashierShift.Id,
+                                        CashRegisterId = cashierShift.CashRegisterId,
+                                        OpeningDateTime = cashierShift.OpeningDateTime,
+                                        ClosingDateTime = cashierShift.ClosingDateTime,
+                                        DepositedCash = cashierShift.DepositedCash,
+                                        WithdrawnCash = cashierShift.WithdrawnCash,
+                                        WorkShiftId = cashierShift.WorkShiftId,
+                                        CashRegistryDescription = UoW.CashRegisterRepo.GetByID(cashierShift.CashRegisterId).Description
+                                    };
+                                }
+                                var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == workShift.Id && wse.EmployeeId == selectedEmployee.Id);
+                                if (workShiftEmployee != null)
                                 {
-                                    WorkShiftId = workShiftEmployee.WorkShiftId,
-                                    EmployeeId = selectedEmployee.Id,
-                                    WorkShiftDate = workShift.Date,
-                                    EmployeeModel = selectedEmployee,
-                                    TimeFrom = workShiftEmployee.TimeFrom,
-                                    TimeTo = workShiftEmployee.TimeTo,
-                                };
+                                    CurrentWorkShiftEmployee = new WorkShiftEmployeeModel()
+                                    {
+                                        WorkShiftId = workShiftEmployee.WorkShiftId,
+                                        EmployeeId = selectedEmployee.Id,
+                                        WorkShiftDate = workShift.Date,
+                                        EmployeeModel = selectedEmployee,
+                                        TimeFrom = workShiftEmployee.TimeFrom,
+                                        TimeTo = workShiftEmployee.TimeTo,
+                                    };
+                                }
                             }
+                            ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentCashierShift = this.CurrentCashierShift, CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
                         }
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentCashierShift = this.CurrentCashierShift, CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
                     }
                 }, x => SelectedEmployee != null);
             }
