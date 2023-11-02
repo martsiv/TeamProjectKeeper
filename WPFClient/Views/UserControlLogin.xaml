@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFClient.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
              d:DataContext="{d:DesignInstance Type=vm:VM_Login}"
              xmlns:Ext="clr-namespace:Ext"
@@ -24,7 +25,7 @@
             Margin="0,20"
             HorizontalAlignment="Center"
             ItemsSource="{Binding Employees}"
-            SelectedItem="{Binding SelectedEmployee,Mode=OneWayToSource}">
+            SelectedItem="{Binding SelectedEmployee}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="6"/>
@@ -32,14 +33,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Width="80" BorderBrush="{x:Null}" Command="{Binding GoToGeneralInfo}" CommandParameter="{Binding}">
-                        <Button.Template>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border Background="WhiteSmoke">
-                                    <ContentPresenter/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
+                    <Border Width="80" BorderBrush="{x:Null}" Background="WhiteSmoke">
                         <DockPanel Margin="5">
                             <TextBlock 
                                 DockPanel.Dock="Bottom" 
@@ -52,7 +46,7 @@
                                 RenderOptions.BitmapScalingMode="Fant" 
                                 />
                         </DockPanel>
-                    </Button>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

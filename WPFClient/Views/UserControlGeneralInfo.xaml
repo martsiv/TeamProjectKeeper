@@ -47,9 +47,9 @@
         </Style>
     </UserControl.Resources>
     <DockPanel>
-
-
-
+        <DockPanel DockPanel.Dock="Top" Background="White" LastChildFill="False">
+            <Button DockPanel.Dock="Right" Width="50" Height="50" Command="{Binding GoToLogin}"></Button>
+        </DockPanel>
         <Border>
             <DockPanel Background="DimGray">
                 <DockPanel DockPanel.Dock="Bottom" Height="60" Background="#FF303030">
@@ -66,12 +66,10 @@
                             </Style>
                         </DockPanel.Resources>
                         <Button DockPanel.Dock="Left"  Ext:CustomButton.Image="/ResourceDictionaries/Image/Back.png"           Content="НАЗАД"
-                                Command="{Binding GoToLogin}"/>
-                        <Button DockPanel.Dock="Left"  Ext:CustomButton.Image="/ResourceDictionaries/Image/OrderMenuWhite.png" Content="ЗАМОВЛЕННЯ"/>
-                        <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/WINDOWS.png"        Content="ВИЙТИ З WINDOWS"/>
-                        <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/TEAMVIEWER.png"     Content="TEAMVIEWER"/>
-                        <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/Instrument.png"     Content="ІНСТРУМЕНТИ"/>
-                        <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/Addition.png"       Content="ДОПОВНЕННЯ"/>
+                                Command="{Binding GoToPreviusPage}"/>
+                        <Button DockPanel.Dock="Left"  Ext:CustomButton.Image="/ResourceDictionaries/Image/OrderMenuWhite.png" Content="ЗАМОВЛЕННЯ"
+                                Command="{Binding GoToOrders}"/>
+                        <Button DockPanel.Dock="Right" Ext:CustomButton.Image="/ResourceDictionaries/Image/WINDOWS.png"        Content="ВИЙТИ В WINDOWS"/>
                     </DockPanel>
                 </DockPanel>
 
@@ -84,14 +82,12 @@
                     <StackPanel Margin="3" Grid.Column="0">
                         <Border Background="DarkViolet" Height="100">
                             <DockPanel>
-                                <TextBlock Style="{StaticResource TextTitleCenter}"
-                                           Text="{Binding Mode=OneWay}"/>
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
-                                           Text="{Binding WorkShiftStatus, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock DockPanel.Dock="Top" Text="{Binding CurrentEmployeeModel.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                                <TextBlock DockPanel.Dock="Bottom" Text="{Binding WorkShiftStatus}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </DockPanel>
                         </Border>
-                        <Button Content="Відкрити особисту зміну"/>
-                        <Button Content="Закрити особисту зміну"/>
+                        <Button Command="{Binding OpenWorkShiftEmployeeCmd}" Content="Відкрити особисту зміну"/>
+                        <Button Command="{Binding CloseWorkShiftEmployeeCmd}" Content="Закрити особисту зміну"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <StackPanel Margin="3">
@@ -107,23 +103,10 @@
                     <StackPanel Margin="3" Grid.Column="2">
                         <DockPanel Background="DarkCyan">
                             <TextBlock Style="{StaticResource TextTitleCenter}" Text="КАСА"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock 
-                                    FontSize="11"
-                                    Foreground="White"
-                                    Margin="11,0,0,0"
-                                    VerticalAlignment="Center">
-                                Фіксальних реєстаторів: <Run Text="{Binding Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/><LineBreak/>
-                                Касова зміна<LineBreak/>
-                                відкрита на: <Run Text="{Binding CurrentWorkShiftEmployee.TimeFrom, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/><LineBreak/>
-                                закрита на: <Run Text="{Binding CurrentWorkShiftEmployee.TimeTo, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                </TextBlock>
+                            <UniformGrid Columns="2" Rows="1">
+                                <TextBlock Padding="5, 0, 0, 0" Text="{Binding CashierShiftStatus}"></TextBlock>
                                 <Button Grid.Column="1" DockPanel.Dock="Right" Content="Детальніше..."/>
-                            </Grid>
+                            </UniformGrid>
                         </DockPanel>
                         <UniformGrid Columns="2">
                             <StackPanel>
@@ -135,8 +118,6 @@
                             <StackPanel>
                                 <Button Content="Поточні замовлення"/>
                                 <Button Content="Закриті замовлення"/>
-                                <Button Content="Замовлення"
-                                        Command="{Binding GoToOrders}"/>
                             </StackPanel>
                         </UniformGrid>
                     </StackPanel>
