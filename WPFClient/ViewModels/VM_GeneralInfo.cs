@@ -86,7 +86,7 @@ namespace WPFClient.ViewModels
                     TransferModel.PreviousPages.Add(PageId);
                     TransferModel.PageNumber = UserControlsEnum.Orders.ToString();
                     ViewChanged?.Raise(this, TransferModel);
-                }, o => CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo == null);
+                }, o => CurrentWorkShiftEmployee != null && CurrentWorkShiftEmployee.TimeTo == null && CurrentCashierShiftModel != null && CurrentCashierShiftModel.ClosingDateTime == null);
             }
         }
         private ICommand? _goToPreviusPage;
