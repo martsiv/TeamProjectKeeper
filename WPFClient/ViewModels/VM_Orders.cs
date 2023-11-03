@@ -37,6 +37,8 @@ namespace WPFClient.ViewModels
         public TableModel? SelectedTable { get; set; }
         private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
         public IEnumerable<TableModel> Tables => tables;
+        private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
+        public IEnumerable<EmployeeModel> Employees => employees;
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
@@ -85,6 +87,23 @@ namespace WPFClient.ViewModels
                     Number = item.Number,
                 };
                 tables.Add(table);
+            }
+        }
+        public void LoadEmployees()
+        {
+            var res = UoW.WorkShiftEmployeeRepo.Get().Where(x => x.TimeFrom != null && x.TimeTo == null);
+            employees.Clear();
+            foreach (var item in res)
+            {
+                EmployeeModel employee = new EmployeeModel()
+                {
+                    Id = item.Employee.Id,
+                    Name = item.Employee.Name,
+                    PinCode = item.Employee.PinCode,
+                    PositionId = (int)item.Employee.PositionId,
+                };
+                employee.WaiterOrders = UoW.InternalOrderRepo.Get().Where(x => x.EmployeeID == item.Employee.Id && x.OrderStatus.Id == 1).Count();
+                employees.Add(employee);
             }
         }
         #endregion
@@ -165,6 +184,7 @@ namespace WPFClient.ViewModels
             {
                 var control = new UserControlOrdersByAllTables() { DataContext = this };
                 CurrentUserControl = control;
+                LoadEmployees();
             }
         }
         private readonly RelayCommand switchToByWaitersCmd;

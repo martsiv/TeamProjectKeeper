@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" SelectedItem="{Binding SelectedHall}" Background="Transparent" BorderBrush="Transparent">
+        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" Background="Transparent" BorderBrush="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="60">
