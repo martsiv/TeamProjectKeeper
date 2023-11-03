@@ -35,6 +35,8 @@ namespace WPFClient.ViewModels
         private ObservableCollection<HallModel> halls = new ObservableCollection<HallModel>();
         public IEnumerable<HallModel> Halls => halls;
         public TableModel? SelectedTable { get; set; }
+        private ObservableCollection<TableModel> tablesByHall = new ObservableCollection<TableModel>();
+        public IEnumerable<TableModel> TablesByHall => tablesByHall;
         private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
         public IEnumerable<TableModel> Tables => tables;
         private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
@@ -45,6 +47,7 @@ namespace WPFClient.ViewModels
             switchToByWaitersCmd = new((o) => SwitchToByWaiters());
             switchToByHallsCmd = new((o) => SwitchToByHalls());
             loadHallsCmd = new((o) => LoadHalls());
+            loadTablesByHallCmd = new((o) => LoadTablesByHall(o));
             loadTablesCmd = new((o) => LoadTables(o));
             //Встановлюємо значення за замовчуванням
             SwitchToByWaiters();
@@ -64,20 +67,20 @@ namespace WPFClient.ViewModels
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    LoadTablesCmd = this.LoadTablesCmd
+                    LoadTablesByHallCmd = this.LoadTablesByHallCmd
                 };
                 hall.OccupiedTables = UoW.InternalOrderRepo.Get().Where(x => x.OrderStatus.Id == 1 && x.Table.Hall.Id == item.Id).Count();
                 halls.Add(hall);
             }
         }
-        private readonly RelayCommand loadTablesCmd;
-        public ICommand LoadTablesCmd => loadTablesCmd;
-        public void LoadTables(object obj)
+        private readonly RelayCommand loadTablesByHallCmd;
+        public ICommand LoadTablesByHallCmd => loadTablesByHallCmd;
+        public void LoadTablesByHall(object obj)
         {
             if(obj == null)
                 return;
             var res = UoW.TableRepo.Get().Where(x => x.Hall.Name == obj.ToString());
-            tables.Clear();
+            tablesByHall.Clear();
             foreach (var item in res)
             {
                 TableModel table = new TableModel()
@@ -86,7 +89,7 @@ namespace WPFClient.ViewModels
                     HallId = item.HallId,
                     Number = item.Number,
                 };
-                tables.Add(table);
+                tablesByHall.Add(table);
             }
         }
         public void LoadEmployees()
@@ -101,9 +104,29 @@ namespace WPFClient.ViewModels
                     Name = item.Employee.Name,
                     PinCode = item.Employee.PinCode,
                     PositionId = (int)item.Employee.PositionId,
+                    LoadTablesCmd = this.LoadTablesCmd,
                 };
-                employee.WaiterOrders = UoW.InternalOrderRepo.Get().Where(x => x.EmployeeID == item.Employee.Id && x.OrderStatus.Id == 1).Count();
+                employee.WaiterOrders = UoW.InternalOrderRepo.Get().Where(x => x.WorkShiftEmployee.EmployeeId == item.Employee.Id && x.OrderStatus.Id == 1).Count();
                 employees.Add(employee);
+            }
+        }
+        private readonly RelayCommand loadTablesCmd;
+        public ICommand LoadTablesCmd => loadTablesCmd;
+        public void LoadTables(object obj)
+        {
+            if(obj == null)
+                return;
+            var res = UoW.InternalOrderRepo.Get().Where(x => x.WorkShiftEmployee.Employee.Name == obj.ToString() && x.OrderStatus.Id == 1);
+            tables.Clear();
+            foreach (var item in res)
+            {
+                TableModel table = new TableModel()
+                {
+                    Id = item.Table.Id,
+                    HallId = item.Table.HallId,
+                    Number = item.Table.Number,
+                };
+                tables.Add(table);
             }
         }
         #endregion

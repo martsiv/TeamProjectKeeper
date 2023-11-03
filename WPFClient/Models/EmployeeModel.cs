@@ -20,5 +20,6 @@ namespace WPFClient.Models
         public int PositionId { get; set; }
         public Position? Position { get; set; }
         public int? WaiterOrders { get; set; }
+        public ICommand? LoadTablesCmd {get; set;}
     }
 }
