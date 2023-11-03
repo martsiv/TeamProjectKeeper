@@ -37,6 +37,27 @@ namespace WPFClient.ViewModels
         public TableModel? SelectedTable { get; set; }
         private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
         public IEnumerable<TableModel> Tables => tables;
+        [DependsOn(nameof(TransferModel))]
+        public string WorkShiftStatus => $"Зміна відкрита\n{CurrentWorkShiftEmployee?.WorkShiftDate.ToShortDateString()} {CurrentWorkShiftEmployee?.TimeFrom.ToShortTimeString()}";
+        public decimal GetTotalOrderAmount(int? employeeId = null)
+        {
+            decimal totalAmount = 0;
+
+            var orders = UoW.OrderRepo.Get(
+                filter: o => o.OrderStatusId == 1 && (!employeeId.HasValue || o.EmployeeID == employeeId),
+                includeProperties: "OrderDishes.Dish");
+
+            foreach (var order in orders)
+            {
+                foreach (var orderDish in order.OrderDishes)
+                {
+                    totalAmount += orderDish.Quantity * orderDish.Dish.Price;
+                }
+            }
+
+            return totalAmount;
+        }
+
         public VM_Orders(string pageIndex = "3")
         {
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());

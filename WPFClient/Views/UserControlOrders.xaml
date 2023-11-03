@@ -22,7 +22,7 @@
                             <TextBlock Margin="5" HorizontalAlignment="Left">
                              <Run FontWeight="Bold" FontSize="12" Text="{Binding CurrentEmployeeModel.Name}"/>
                              <LineBreak/>
-                             <Run FontSize="12" Text="{Binding WorkShiftStatus, Mode=TwoWay}"/>
+                             <Run FontSize="12" Text="{Binding WorkShiftStatus, Mode=OneWay}"/>
                              <LineBreak/>
                              <Run FontSize="12" Text="Сума:"/><!--Binding до загальної суми всіх відкритих чеків-->
                             </TextBlock>
