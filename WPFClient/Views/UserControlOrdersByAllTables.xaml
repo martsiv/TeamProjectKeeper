@@ -10,7 +10,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <Label Content=" By all tables"/>
-        <TextBlock Text="{Binding Title}"></TextBlock>
+        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Employees}" Background="Transparent" BorderBrush="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="275"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="White">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding WaiterOrders}"/>
+                        </Border>
+                        <Button Style="{StaticResource ListBoxButton}" Grid.Column="1" Background="#FFD7D7D7" BorderBrush="Transparent" Padding="10,0,0,0" Height="60" Width="275"
+                     FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesCmd}" CommandParameter="{Binding Name}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding Tables}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Number}" Background="Green" Command="" Width="60" Height="60"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 </UserControl>

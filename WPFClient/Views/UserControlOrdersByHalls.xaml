@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" SelectedItem="{Binding SelectedHall}" Background="Transparent" BorderBrush="Transparent">
+        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" Background="Transparent" BorderBrush="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="60">
@@ -22,12 +22,12 @@
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding OccupiedTables}"/>
                         </Border>
                         <Button Style="{StaticResource ListBoxButton}" Grid.Column="1" Background="#FFD7D7D7" BorderBrush="Transparent" Padding="10,0,0,0" Height="60" Width="275"
-                                FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesCmd}" CommandParameter="{Binding Name}"/>
+                                FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesByHallCmd}" CommandParameter="{Binding Name}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding Tables}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
+        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding TablesByHall}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />
