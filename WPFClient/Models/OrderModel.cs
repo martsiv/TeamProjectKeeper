@@ -13,15 +13,17 @@ namespace WPFClient.Models
     public class OrderModel
     {
         public int Id { get; set; }
-        public int WorkShiftEmployeeId1 { get; set; }
-        public int WorkShiftEmployeeId2 { get; set; }
-        public WorkShiftEmployee? WorkShiftEmployee { get; set; }
+        public int WorkShiftID { get; set; }
+        public int EmployeeID { get; set; }
+        public WorkShiftEmployeeModel? WorkShiftEmployee { get; set; }
         public int OrderStatusId { get; set; }
-        public OrderStatus? OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
         public int? PaymentId { get; set; }
-        public Payment? Payment { get; set; }
-        public ICollection<OrderDish> OrderDishes { get; set; } = new HashSet<OrderDish>();
+        public PaymentModel? Payment { get; set; }
+        public ICollection<OrderDishModel> OrderDishes { get; set; } = new HashSet<OrderDishModel>();
         public int? CutleryNumber { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime Opened { get; set; }
+        public DateTime? Closed { get; set; }
     }
 }

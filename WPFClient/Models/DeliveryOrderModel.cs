@@ -9,7 +9,7 @@ using WPFClient.TransferModel;
 namespace WPFClient.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class DeliveryOrderModel
+    public class DeliveryOrderModel : OrderModel
     {
         public string ClientName { get; set; }
         public string PhoneNumber { get; set; }

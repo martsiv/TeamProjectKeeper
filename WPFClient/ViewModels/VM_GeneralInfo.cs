@@ -20,7 +20,7 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW => TransferModel.UoW;
+        public UnitOfWork UoW;
         [DependsOn(nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         [DependsOn(nameof(TransferModel))]
@@ -51,8 +51,9 @@ namespace WPFClient.ViewModels
         }
 
 
-        public VM_GeneralInfo(string pageIndex = "2")
+        public VM_GeneralInfo(UnitOfWork unitOfWork, string pageIndex = "2")
         {
+            UoW = unitOfWork;
             openWorkShiftEmployeeCmd = new((o) => OpenWorkShiftEmployee(), (o) => !IsOpenedWorkShiftEmployee);
             closeWorkShiftEmployeeCmd = new((o) => CloseWorkShiftEmployee(), (o) => IsOpenedWorkShiftEmployee);
             openCashierShiftCmd = new((o) => OpenCashierShift(), (o) => !IsOpenedCashierShift);
@@ -156,6 +157,7 @@ namespace WPFClient.ViewModels
                 WorkShiftId = workShiftEmployee.WorkShiftId,
                 TimeFrom = workShiftEmployee.TimeFrom
             };
+            CurrentEmployeeModel.WorkShiftEmployees.Add(CurrentWorkShiftEmployee);
         }
         private readonly RelayCommand closeWorkShiftEmployeeCmd;
         public ICommand CloseWorkShiftEmployeeCmd => closeWorkShiftEmployeeCmd;

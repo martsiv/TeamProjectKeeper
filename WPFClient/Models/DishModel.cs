@@ -16,7 +16,7 @@ namespace WPFClient.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int SubcategoryId { get; set; }
-        public Subcategory? Subcategory { get; set; }
-        public ICollection<OrderDish> OrderDishes { get; set; } = new HashSet<OrderDish>();
+        public SubcategoryModel? Subcategory { get; set; }
+        public ICollection<OrderDishModel> OrderDishes { get; set; } = new HashSet<OrderDishModel>();
     }
 }

@@ -18,6 +18,6 @@ namespace WPFClient.Models
         public EmployeeModel? EmployeeModel { get; set; }
         public DateTime TimeFrom { get; set; }
         public DateTime? TimeTo { get; set; }
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ICollection<OrderModel> Orders { get; set; } = new HashSet<OrderModel>();
     }
 }

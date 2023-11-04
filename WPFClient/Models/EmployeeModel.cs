@@ -16,10 +16,8 @@ namespace WPFClient.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int PinCode { get; set; }
-        public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
-        public int PositionId { get; set; }
-        public Position? Position { get; set; }
-        public int? WaiterOrders { get; set; }
-        public ICommand? LoadTablesCmd {get; set;}
+        public ICollection<WorkShiftEmployeeModel> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployeeModel>();
+        public decimal? TotalAmmount { get; set; }
+        public PositionModel? Position { get; set; }
     }
 }

@@ -32,15 +32,12 @@ namespace WPFClient.ViewModels
         public VM_Login(UnitOfWork unitOfWork, string pageIndex = "1")
         {
             UoW = unitOfWork;
-            loadEmployeesCmd = new((o) => LoadEmployees());
             LoadEmployees();
             PageId = pageIndex;
             Title = "Авторизація";
         }
 
         #region Load employees
-        private readonly RelayCommand loadEmployeesCmd;
-        public ICommand LoadEmployeesCmd => loadEmployeesCmd;
         public void LoadEmployees()
         {
             var res = UoW.EmployeeRepo.Get();
@@ -70,6 +67,13 @@ namespace WPFClient.ViewModels
                     {
                         var selectedEmployee = SelectedEmployee;
                         SelectedEmployee = null;
+                        var transferModel = new BaseTransferModel()
+                        {
+                            PageNumber = UserControlsEnum.GeneralInfo.ToString(),
+                            CurrentCashierShift = this.CurrentCashierShift,
+                            CurrentEmployee = selectedEmployee, 
+                            UoW = this.UoW
+                        };
                         var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
                         if (workShift != null)
                         {
@@ -87,8 +91,22 @@ namespace WPFClient.ViewModels
                                     WorkShiftId = cashierShift.WorkShiftId,
                                     CashRegistryDescription = UoW.CashRegisterRepo.GetByID(cashierShift.CashRegisterId).Description
                                 };
+                                transferModel.CurrentCashierShift = CurrentCashierShift;
                             }
-                            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == workShift.Id && wse.EmployeeId == selectedEmployee.Id);
+                            var workShiftEmployees = UoW.WorkShiftEmployeeRepo.Get().Where(wse => wse.WorkShiftId == workShift.Id);
+                            foreach (var item in workShiftEmployees)
+                            {
+                                var wse = new WorkShiftEmployeeModel()
+                                {
+                                    WorkShiftId = item.WorkShiftId,
+                                    EmployeeId = item.EmployeeId,
+                                    TimeFrom = item.TimeFrom,
+                                    TimeTo = item.TimeTo,
+                                    WorkShiftDate = workShift.Date,
+                                };
+                                transferModel.WorkShiftEmployees.Add(wse);
+                            }
+                            var workShiftEmployee = transferModel.WorkShiftEmployees.FirstOrDefault(wse => wse.EmployeeId == selectedEmployee.Id);
                             if (workShiftEmployee != null)
                             {
                                 CurrentWorkShiftEmployee = new WorkShiftEmployeeModel()
@@ -100,9 +118,14 @@ namespace WPFClient.ViewModels
                                     TimeFrom = workShiftEmployee.TimeFrom,
                                     TimeTo = workShiftEmployee.TimeTo,
                                 };
+                                selectedEmployee.WorkShiftEmployees.Add(CurrentWorkShiftEmployee);
+                                transferModel.CurrentWorkShiftEmployee = CurrentWorkShiftEmployee;
                             }
                         }
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentCashierShift = this.CurrentCashierShift, CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
+                        foreach (var item in this.Employees)
+                            transferModel.Employees.Add(item);
+                        
+                        ViewChanged?.Raise(this, transferModel);
                     }
                 }, x => SelectedEmployee != null);
             }
