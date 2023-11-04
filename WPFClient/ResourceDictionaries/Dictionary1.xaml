@@ -1,6 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:help="clr-namespace:WPFClient.Help"
                     xmlns:Ext="clr-namespace:Ext">
+    <help:ConverterFromCollectionToNumber x:Key="CountConverter" />
+
+
     <Style x:Key="ImageButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>

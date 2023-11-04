@@ -19,10 +19,10 @@
                             <ColumnDefinition Width="275"/>
                         </Grid.ColumnDefinitions>
                         <Border Background="White">
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="Загальна сума"/>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding WorkShiftEmployees, Converter={StaticResource CountConverter}}"/>
                         </Border>
                         <Button Style="{StaticResource ListBoxButton}" Grid.Column="1" Background="#FFD7D7D7" BorderBrush="Transparent" Padding="10,0,0,0" Height="60" Width="275"
-                             FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command=""/>
+                             FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

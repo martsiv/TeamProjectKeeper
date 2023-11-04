@@ -13,7 +13,7 @@ namespace data_access.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasOne(x => x.WorkShiftEmployee).WithMany(x => x.Orders).HasForeignKey(x => new { x.WorkShiftID, x.EmployeeID }).IsRequired(true);
+            builder.HasOne(x => x.WorkShiftEmployee).WithMany(x => x.Orders).HasForeignKey(x => new { x.EmployeeID, x.WorkShiftID }).IsRequired(true);
             builder.HasOne(x => x.OrderStatus).WithMany(x => x.Orders).HasForeignKey(x => x.OrderStatusId).IsRequired(true);
             builder.HasOne(x => x.Payment).WithMany(x => x.Orders).HasForeignKey(x => x.PaymentId).IsRequired(false);
             builder.Property(x => x.CutleryNumber).IsRequired(false);

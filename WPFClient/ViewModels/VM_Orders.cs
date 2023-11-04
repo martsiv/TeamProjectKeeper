@@ -46,7 +46,7 @@ namespace WPFClient.ViewModels
         public IEnumerable<WorkShiftEmployeeModel> WorkShiftEmployees => TransferModel.WorkShiftEmployees;
         //Працівники 
         [DependsOn(nameof(TransferModel))]
-        public IEnumerable<EmployeeModel> Employees => TransferModel.Employees;
+        public IEnumerable<EmployeeModel> Employees => TransferModel?.Employees;
         //Страви
         private ObservableCollection<DishModel> dishes = new ObservableCollection<DishModel>();
         public IEnumerable<DishModel> Dishes => dishes;
@@ -146,13 +146,15 @@ namespace WPFClient.ViewModels
             var res = UoW.TableRepo.Get();
             foreach (var item in res)
             {
+                var hall = halls.FirstOrDefault(h => h.Id == item.HallId);
                 TableModel table = new TableModel()
                 {
                     Id = item.Id,
                     HallId = item.HallId,
                     Number = item.Number,
-
+                    Hall = hall,
                 };
+                hall.Tables.Add(table);
                 tables.Add(table);
             }
         }
@@ -162,19 +164,23 @@ namespace WPFClient.ViewModels
             var res = UoW.InternalOrderRepo.Get().Where(io => io.OrderStatusId == 1 && io.WorkShiftID == CurrentWorkShiftEmployee.WorkShiftId).ToList();
             foreach (var item in res)
             {
+                var workShiftEmployee = WorkShiftEmployees.FirstOrDefault(wse => wse.EmployeeId == item.EmployeeID);
+                var table = tables.FirstOrDefault(t => t.Id == item.TableId);
                 InternalOrderModel internalOrder = new InternalOrderModel()
                 {
                     Id = item.Id,
                     WorkShiftID = item.WorkShiftID,
                     EmployeeID = item.EmployeeID,
+                    WorkShiftEmployee = workShiftEmployee,
                     OrderStatusId = item.OrderStatusId,
                     CutleryNumber = item.CutleryNumber,
                     TotalPrice = item.TotalPrice,
                     Opened = item.Opened,
                     TableId = item.TableId,
+                    Tabel = table
                 };
-                if (item.WorkShiftID == CurrentWorkShiftEmployee.WorkShiftId && item.EmployeeID == CurrentWorkShiftEmployee.EmployeeId)
-                    internalOrder.WorkShiftEmployee = CurrentWorkShiftEmployee;
+                table.InternalOrders.Add(internalOrder);
+                workShiftEmployee.Orders.Add(internalOrder);
                 internalOrderModels.Add(internalOrder);
             }
         }
@@ -182,18 +188,25 @@ namespace WPFClient.ViewModels
         {
             orderDishModels.Clear();
 
-            var res = UoW.OrderDishRepo.Get().Where(od => od.Order.OrderStatusId == 1 && od.Order.WorkShiftID == CurrentWorkShiftEmployee.WorkShiftId);
+            var res = UoW.OrderDishRepo.Get(
+                filter: od => od.Order.OrderStatusId == 1 && od.Order.WorkShiftID == CurrentWorkShiftEmployee.WorkShiftId,
+                includeProperties: "Order.WorkShiftEmployee"
+            ).ToList();
             foreach (var item in res)
             {
+                var internalOrder = InternalOrderModels.FirstOrDefault(io => io.Id == item.OrderId);
+                var dish = Dishes.FirstOrDefault(d => d.Id == item.DishId);
                 OrderDishModel orderDishModel = new OrderDishModel()
                 {
                     OrderId = item.OrderId,
-                    Order = InternalOrderModels.FirstOrDefault(io => io.Id == item.OrderId),
+                    Order = internalOrder,
                     DishId = item.DishId,
-                    Dish = Dishes.FirstOrDefault(d => d.Id == item.DishId),
+                    Dish = dish,
                     Comment = item.Comment,
                     Quantity = item.Quantity,
                 };
+                internalOrder.OrderDishes.Add(orderDishModel);
+                dish.OrderDishes.Add(orderDishModel);
                 orderDishModels.Add(orderDishModel);
             }
         }

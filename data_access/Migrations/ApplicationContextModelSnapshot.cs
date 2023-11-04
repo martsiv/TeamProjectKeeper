@@ -1311,7 +1311,7 @@ namespace data_access.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.HasIndex("WorkShiftID", "EmployeeID");
+                    b.HasIndex("EmployeeID", "WorkShiftID");
 
                     b.ToTable("Orders");
 
@@ -1806,7 +1806,7 @@ namespace data_access.Migrations
 
                     b.HasOne("data_access.Entities.WorkShiftEmployee", "WorkShiftEmployee")
                         .WithMany("Orders")
-                        .HasForeignKey("WorkShiftID", "EmployeeID")
+                        .HasForeignKey("EmployeeID", "WorkShiftID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -70,8 +70,8 @@ namespace WPFClient.ViewModels
                         var transferModel = new BaseTransferModel()
                         {
                             PageNumber = UserControlsEnum.GeneralInfo.ToString(),
-                            CurrentCashierShift = this.CurrentCashierShift,
-                            CurrentEmployee = selectedEmployee, 
+                            CurrentEmployee = selectedEmployee,
+                            Employees = employees,
                             UoW = this.UoW
                         };
                         var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
@@ -104,27 +104,19 @@ namespace WPFClient.ViewModels
                                     TimeTo = item.TimeTo,
                                     WorkShiftDate = workShift.Date,
                                 };
-                                transferModel.WorkShiftEmployees.Add(wse);
-                            }
-                            var workShiftEmployee = transferModel.WorkShiftEmployees.FirstOrDefault(wse => wse.EmployeeId == selectedEmployee.Id);
-                            if (workShiftEmployee != null)
-                            {
-                                CurrentWorkShiftEmployee = new WorkShiftEmployeeModel()
+                                foreach (var employee in transferModel.Employees) 
                                 {
-                                    WorkShiftId = workShiftEmployee.WorkShiftId,
-                                    EmployeeId = selectedEmployee.Id,
-                                    WorkShiftDate = workShift.Date,
-                                    EmployeeModel = selectedEmployee,
-                                    TimeFrom = workShiftEmployee.TimeFrom,
-                                    TimeTo = workShiftEmployee.TimeTo,
-                                };
-                                selectedEmployee.WorkShiftEmployees.Add(CurrentWorkShiftEmployee);
-                                transferModel.CurrentWorkShiftEmployee = CurrentWorkShiftEmployee;
+                                    if (wse.EmployeeId == employee.Id)
+                                    {
+                                        employee.WorkShiftEmployees.Add(wse);
+                                        wse.EmployeeModel = employee;
+                                    }
+                                }
+                                transferModel.WorkShiftEmployees.Add(wse);
+                                if (wse.EmployeeModel == transferModel.CurrentEmployee)
+                                    transferModel.CurrentWorkShiftEmployee = wse;
                             }
                         }
-                        foreach (var item in this.Employees)
-                            transferModel.Employees.Add(item);
-                        
                         ViewChanged?.Raise(this, transferModel);
                     }
                 }, x => SelectedEmployee != null);
