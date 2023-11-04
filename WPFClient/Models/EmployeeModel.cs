@@ -19,5 +19,7 @@ namespace WPFClient.Models
         public ICollection<WorkShiftEmployee> WorkShiftEmployees { get; set; } = new HashSet<WorkShiftEmployee>();
         public int PositionId { get; set; }
         public Position? Position { get; set; }
+        public int? WaiterOrders { get; set; }
+        public ICommand? LoadTablesCmd {get; set;}
     }
 }
