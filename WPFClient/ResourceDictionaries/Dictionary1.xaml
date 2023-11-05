@@ -3,6 +3,8 @@
                      xmlns:help="clr-namespace:WPFClient.Help"
                     xmlns:Ext="clr-namespace:Ext">
     <help:ConverterFromCollectionToNumber x:Key="CountConverter" />
+    <help:OrderStatusToVisibilityConverter x:Key="OrderStatusToVisibilityConverter" />
+    <help:ConverterFromEmployeeToOrders x:Key="ConverterFromEmployeeToOrders" />
 
 
     <Style x:Key="ImageButton" TargetType="{x:Type Button}">

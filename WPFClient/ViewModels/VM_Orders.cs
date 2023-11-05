@@ -47,6 +47,7 @@ namespace WPFClient.ViewModels
         //Працівники 
         [DependsOn(nameof(TransferModel))]
         public IEnumerable<EmployeeModel> Employees => TransferModel?.Employees;
+        public EmployeeModel? SelectedEmployee { get; set; }
         //Страви
         private ObservableCollection<DishModel> dishes = new ObservableCollection<DishModel>();
         public IEnumerable<DishModel> Dishes => dishes;
