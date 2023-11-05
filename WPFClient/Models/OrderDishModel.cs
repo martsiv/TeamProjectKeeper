@@ -13,9 +13,9 @@ namespace WPFClient.Models
     public class OrderDishModel
     {
         public int DishId { get; set; }
-        public Dish? Dish { get; set; }
+        public DishModel? Dish { get; set; }
         public int OrderId { get; set; }
-        public Order? Order { get; set; }
+        public OrderModel? Order { get; set; }
         public int Quantity { get; set; }
         public string? Comment { get; set; }
     }

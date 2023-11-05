@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFClient.Views"
+             xmlns:help="clr-namespace:WPFClient.Help"
              xmlns:vm="clr-namespace:WPFClient.ViewModels"
+             xmlns:model="clr-namespace:WPFClient.Models"
              xmlns:Ext="clr-namespace:Ext"
              d:DataContext="{d:DesignInstance Type=vm:VM_Orders}"
              mc:Ignorable="d" 
@@ -19,23 +21,11 @@
                             <ColumnDefinition Width="275"/>
                         </Grid.ColumnDefinitions>
                         <Border Background="White">
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding WaiterOrders}"/>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding WorkShiftEmployees, Converter={StaticResource CountConverter}}"/>
                         </Border>
-                        <Button Style="{StaticResource ListBoxButton}" Grid.Column="1" Background="#FFD7D7D7" BorderBrush="Transparent" Padding="10,0,0,0" Height="60" Width="275"
-                     FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesCmd}" CommandParameter="{Binding Name}"/>
+                        <TextBlock Grid.Column="1" Background="#FFD7D7D7"  Padding="10,0,0,0" Height="60" Width="275"
+                     FontSize="16" VerticalAlignment="Bottom" Text="{Binding Name}"></TextBlock>
                     </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding Tables}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Button Content="{Binding Number}" Background="Green" Command="" Width="60" Height="60"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

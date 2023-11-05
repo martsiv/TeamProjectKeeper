@@ -17,8 +17,6 @@ namespace WPFClient.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int OccupiedTables { get; set; }
-        public ICommand LoadTablesByHallCmd {get; set;}
-        public ICollection<Table> Tables { get; set; } = new HashSet<Table>();
+        public ICollection<TableModel> Tables { get; set; } = new HashSet<TableModel>();
     }
 }

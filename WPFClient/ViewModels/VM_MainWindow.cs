@@ -28,7 +28,7 @@ namespace WPFClient.ViewModels
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
 
-            _pageViewModels[$"{UserControlsEnum.GeneralInfo}"] = new VM_GeneralInfo($"{UserControlsEnum.GeneralInfo}");
+            _pageViewModels[$"{UserControlsEnum.GeneralInfo}"] = new VM_GeneralInfo(_unitOfWork, $"{UserControlsEnum.GeneralInfo}");
             _pageViewModels[$"{UserControlsEnum.GeneralInfo}"].ViewChanged += (o, s) =>
             {
                 //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
@@ -36,7 +36,7 @@ namespace WPFClient.ViewModels
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
 
-            _pageViewModels[$"{UserControlsEnum.Orders}"] = new VM_Orders($"{UserControlsEnum.Orders}");
+            _pageViewModels[$"{UserControlsEnum.Orders}"] = new VM_Orders(_unitOfWork, $"{UserControlsEnum.Orders}");
             _pageViewModels[$"{UserControlsEnum.Orders}"].ViewChanged += (o, s) =>
             {
                 //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
@@ -44,7 +44,7 @@ namespace WPFClient.ViewModels
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
 
-            _pageViewModels[$"{UserControlsEnum.Order}"] = new VM_OrderMainView($"{UserControlsEnum.Order}");
+            _pageViewModels[$"{UserControlsEnum.Order}"] = new VM_OrderMainView(_unitOfWork, $"{UserControlsEnum.Order}");
             _pageViewModels[$"{UserControlsEnum.Order}"].ViewChanged += (o, s) =>
             {
                 //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;
@@ -52,7 +52,7 @@ namespace WPFClient.ViewModels
                 CurrentPageViewModel = _pageViewModels[s.Value.PageNumber];
             };
 
-            _pageViewModels[$"{UserControlsEnum.QuickOrder}"] = new VM_OrderQuickCheck($"{UserControlsEnum.QuickOrder}");
+            _pageViewModels[$"{UserControlsEnum.QuickOrder}"] = new VM_OrderQuickCheck(_unitOfWork, $"{UserControlsEnum.QuickOrder}");
             _pageViewModels[$"{UserControlsEnum.QuickOrder}"].ViewChanged += (o, s) =>
             {
                 //_pageViewModels[s.Value.PageNumber].UoW = s.Value.UoW;

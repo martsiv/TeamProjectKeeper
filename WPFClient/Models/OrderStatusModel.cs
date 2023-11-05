@@ -14,6 +14,6 @@ namespace WPFClient.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public ICollection<OrderModel> Orders { get; set; } = new HashSet<OrderModel>();
     }
 }

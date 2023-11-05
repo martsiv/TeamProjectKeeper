@@ -20,15 +20,16 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW => TransferModel.UoW;
+        public UnitOfWork UoW;
         [DependsOn(nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         [DependsOn(nameof(TransferModel))]
         public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; set => TransferModel.CurrentWorkShiftEmployee = value; }
 
         public OrderModel CurrentOrderModel { get; set; }
-        public VM_OrderMainView(string pageIndex = "4")
+        public VM_OrderMainView(UnitOfWork unitOfWork, string pageIndex = "4")
         {
+            UoW = unitOfWork;
             PageId = pageIndex;
             Title = "Замовлення";
         }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace WPFClient.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class InternalOrderModel
+    public class InternalOrderModel : OrderModel
     {
         public int TableId { get; set; }
-        public Table? Tabel { get; set; }
+        public TableModel? Tabel { get; set; }
     }
 }

@@ -25,39 +25,110 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW => TransferModel.UoW;
+        public UnitOfWork UoW;
         [DependsOn(nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         [DependsOn(nameof(TransferModel))]
-        public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; set => TransferModel.CurrentWorkShiftEmployee = value; }
+        public WorkShiftEmployeeModel CurrentWorkShiftEmployee { get => TransferModel.CurrentWorkShiftEmployee; }
         public OrderModel CurrentOrderModel { get; set; }
+        //Обраний зал
         public HallModel? SelectedHall { get; set; }
+        //Зали
         private ObservableCollection<HallModel> halls = new ObservableCollection<HallModel>();
         public IEnumerable<HallModel> Halls => halls;
+        // Обраний стіл
         public TableModel? SelectedTable { get; set; }
-        private ObservableCollection<TableModel> tablesByHall = new ObservableCollection<TableModel>();
-        public IEnumerable<TableModel> TablesByHall => tablesByHall;
+        //Всі столи
         private ObservableCollection<TableModel> tables = new ObservableCollection<TableModel>();
         public IEnumerable<TableModel> Tables => tables;
-        private ObservableCollection<EmployeeModel> employees = new ObservableCollection<EmployeeModel>();
-        public IEnumerable<EmployeeModel> Employees => employees;
-        public VM_Orders(string pageIndex = "3")
+        //Робочі зміни
+        [DependsOn(nameof(TransferModel))]
+        public IEnumerable<WorkShiftEmployeeModel> WorkShiftEmployees => TransferModel.WorkShiftEmployees;
+        //Працівники 
+        [DependsOn(nameof(TransferModel))]
+        public IEnumerable<EmployeeModel> Employees => TransferModel?.Employees;
+        public EmployeeModel? SelectedEmployee { get; set; }
+        //Страви
+        private ObservableCollection<DishModel> dishes = new ObservableCollection<DishModel>();
+        public IEnumerable<DishModel> Dishes => dishes;
+        //Замовлення на столиках
+        private ObservableCollection<InternalOrderModel> internalOrderModels = new ObservableCollection<InternalOrderModel>();
+        public IEnumerable<InternalOrderModel> InternalOrderModels => internalOrderModels;
+        //Проміжна замовлення-страви
+        private ObservableCollection<OrderDishModel> orderDishModels = new ObservableCollection<OrderDishModel>();
+        public IEnumerable<OrderDishModel> OrderDishModels => orderDishModels;
+        //Сума по всіх замовленнях поточного юзера
+        public string TotalAmmountOfCurrentEmployee { get; set; }
+        public decimal GetTotalOrderAmount(int? employeeId = null)
         {
+            decimal totalAmount = 0;
+
+            var orders = UoW.OrderRepo.Get(
+                filter: o => o.OrderStatusId == 1 && (!employeeId.HasValue || o.EmployeeID == employeeId),
+                includeProperties: "OrderDishes.Dish");
+
+            foreach (var order in orders)
+            {
+                foreach (var orderDish in order.OrderDishes)
+                {
+                    totalAmount += orderDish.Quantity * orderDish.Dish.Price;
+                }
+            }
+
+            return totalAmount;
+        }
+
+        [DependsOn(nameof(TransferModel))]
+        public string WorkShiftStatus => $"Зміна відкрита: {CurrentWorkShiftEmployee?.WorkShiftDate.ToShortDateString()} {CurrentWorkShiftEmployee?.TimeFrom.ToShortTimeString()}";
+
+        public VM_Orders(UnitOfWork unitOfWork, string pageIndex = "3")
+        {
+            UoW = unitOfWork;
+            loadAllDataCmd = new((o) => LoadAllData());
             switchToByAllTablesCmd = new((o) => SwitchToByAllTables());
             switchToByWaitersCmd = new((o) => SwitchToByWaiters());
             switchToByHallsCmd = new((o) => SwitchToByHalls());
-            loadHallsCmd = new((o) => LoadHalls());
-            loadTablesByHallCmd = new((o) => LoadTablesByHall(o));
-            loadTablesCmd = new((o) => LoadTables(o));
             //Встановлюємо значення за замовчуванням
             SwitchToByWaiters();
             PageId = pageIndex;
             Title = "Вибір замовлення";
+            //Завантажуємо колекції з таблиць з тривіальними даними
+            LoadDishes();
+            LoadHalls();
+            LoadTables();
         }
         #region LoadData
-        private readonly RelayCommand loadHallsCmd;
-        public ICommand LoadHallsCmd => loadHallsCmd;
-        public void LoadHalls()
+        private readonly RelayCommand loadAllDataCmd;
+        public ICommand LoadAllDataCmd => loadAllDataCmd;
+        void LoadAllData()
+        {
+            AddCurrentWorkShiftEmployeeToCollection();
+            TotalAmmountOfCurrentEmployee = $"Сума: {GetTotalOrderAmount(CurrentEmployeeModel.Id)}";
+            LoadInternalOrders();
+            LoadOrdersDishes();
+        }
+        //Інше завантаження даних 
+        private void AddCurrentWorkShiftEmployeeToCollection()
+        {
+            if (!WorkShiftEmployees.Contains(CurrentWorkShiftEmployee))
+                TransferModel.WorkShiftEmployees.Add(CurrentWorkShiftEmployee);
+        }
+        private void LoadDishes()
+        {
+            var res = UoW.DishRepo.Get();
+            foreach (var item in res)
+            {
+                DishModel dish = new DishModel()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Price = item.Price,
+                    SubcategoryId = item.SubcategoryId,
+                };
+                dishes.Add(dish);
+            }
+        }
+        private void LoadHalls()
         {
             var res = UoW.HallRepo.Get();
             halls.Clear();
@@ -67,69 +138,81 @@ namespace WPFClient.ViewModels
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    LoadTablesByHallCmd = this.LoadTablesByHallCmd
                 };
-                hall.OccupiedTables = UoW.InternalOrderRepo.Get().Where(x => x.OrderStatus.Id == 1 && x.Table.Hall.Id == item.Id).Count();
                 halls.Add(hall);
             }
         }
-        private readonly RelayCommand loadTablesByHallCmd;
-        public ICommand LoadTablesByHallCmd => loadTablesByHallCmd;
-        public void LoadTablesByHall(object obj)
+        private void LoadTables()
         {
-            if(obj == null)
-                return;
-            var res = UoW.TableRepo.Get().Where(x => x.Hall.Name == obj.ToString());
-            tablesByHall.Clear();
+            var res = UoW.TableRepo.Get();
             foreach (var item in res)
             {
+                var hall = halls.FirstOrDefault(h => h.Id == item.HallId);
                 TableModel table = new TableModel()
                 {
                     Id = item.Id,
                     HallId = item.HallId,
                     Number = item.Number,
+                    Hall = hall,
                 };
-                tablesByHall.Add(table);
-            }
-        }
-        public void LoadEmployees()
-        {
-            var res = UoW.WorkShiftEmployeeRepo.Get().Where(x => x.TimeFrom != null && x.TimeTo == null);
-            employees.Clear();
-            foreach (var item in res)
-            {
-                EmployeeModel employee = new EmployeeModel()
-                {
-                    Id = item.Employee.Id,
-                    Name = item.Employee.Name,
-                    PinCode = item.Employee.PinCode,
-                    PositionId = (int)item.Employee.PositionId,
-                    LoadTablesCmd = this.LoadTablesCmd,
-                };
-                employee.WaiterOrders = UoW.InternalOrderRepo.Get().Where(x => x.WorkShiftEmployee.EmployeeId == item.Employee.Id && x.OrderStatus.Id == 1).Count();
-                employees.Add(employee);
-            }
-        }
-        private readonly RelayCommand loadTablesCmd;
-        public ICommand LoadTablesCmd => loadTablesCmd;
-        public void LoadTables(object obj)
-        {
-            if(obj == null)
-                return;
-            var res = UoW.InternalOrderRepo.Get().Where(x => x.WorkShiftEmployee.Employee.Name == obj.ToString() && x.OrderStatus.Id == 1);
-            tables.Clear();
-            foreach (var item in res)
-            {
-                TableModel table = new TableModel()
-                {
-                    Id = item.Table.Id,
-                    HallId = item.Table.HallId,
-                    Number = item.Table.Number,
-                };
+                hall.Tables.Add(table);
                 tables.Add(table);
             }
         }
+        private void LoadInternalOrders()
+        {
+            internalOrderModels.Clear();
+            var res = UoW.InternalOrderRepo.Get().Where(io => io.OrderStatusId == 1 && io.WorkShiftID == CurrentWorkShiftEmployee.WorkShiftId).ToList();
+            foreach (var item in res)
+            {
+                var workShiftEmployee = WorkShiftEmployees.FirstOrDefault(wse => wse.EmployeeId == item.EmployeeID);
+                var table = tables.FirstOrDefault(t => t.Id == item.TableId);
+                InternalOrderModel internalOrder = new InternalOrderModel()
+                {
+                    Id = item.Id,
+                    WorkShiftID = item.WorkShiftID,
+                    EmployeeID = item.EmployeeID,
+                    WorkShiftEmployee = workShiftEmployee,
+                    OrderStatusId = item.OrderStatusId,
+                    CutleryNumber = item.CutleryNumber,
+                    TotalPrice = item.TotalPrice,
+                    Opened = item.Opened,
+                    TableId = item.TableId,
+                    Tabel = table
+                };
+                table.InternalOrders.Add(internalOrder);
+                workShiftEmployee.Orders.Add(internalOrder);
+                internalOrderModels.Add(internalOrder);
+            }
+        }
+        private void LoadOrdersDishes()
+        {
+            orderDishModels.Clear();
+
+            var res = UoW.OrderDishRepo.Get(
+                filter: od => od.Order.OrderStatusId == 1 && od.Order.WorkShiftID == CurrentWorkShiftEmployee.WorkShiftId,
+                includeProperties: "Order.WorkShiftEmployee"
+            ).ToList();
+            foreach (var item in res)
+            {
+                var internalOrder = InternalOrderModels.FirstOrDefault(io => io.Id == item.OrderId);
+                var dish = Dishes.FirstOrDefault(d => d.Id == item.DishId);
+                OrderDishModel orderDishModel = new OrderDishModel()
+                {
+                    OrderId = item.OrderId,
+                    Order = internalOrder,
+                    DishId = item.DishId,
+                    Dish = dish,
+                    Comment = item.Comment,
+                    Quantity = item.Quantity,
+                };
+                internalOrder.OrderDishes.Add(orderDishModel);
+                dish.OrderDishes.Add(orderDishModel);
+                orderDishModels.Add(orderDishModel);
+            }
+        }
         #endregion
+
         #region Navigation
         private ICommand? _goToLogin;
         public ICommand GoToLogin
@@ -207,7 +290,6 @@ namespace WPFClient.ViewModels
             {
                 var control = new UserControlOrdersByAllTables() { DataContext = this };
                 CurrentUserControl = control;
-                LoadEmployees();
             }
         }
         private readonly RelayCommand switchToByWaitersCmd;
@@ -228,7 +310,6 @@ namespace WPFClient.ViewModels
             {
                 var control = new UserControlOrdersByHalls() { DataContext = this };
                 CurrentUserControl = control;
-                LoadHalls();
             }
         }
         #endregion

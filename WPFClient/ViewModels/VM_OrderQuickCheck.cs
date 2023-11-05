@@ -21,7 +21,7 @@ namespace WPFClient.ViewModels
         public string PageId { get; set; }
         public string Title { get; set; }
         public BaseTransferModel TransferModel { get; set; }
-        public UnitOfWork UoW => TransferModel.UoW;
+        public UnitOfWork UoW;
         [DependsOn(nameof(TransferModel))]
         public EmployeeModel CurrentEmployeeModel => TransferModel.CurrentEmployee;
         [DependsOn(nameof(TransferModel))]
@@ -29,8 +29,9 @@ namespace WPFClient.ViewModels
 
         public OrderModel CurrentOrderModel { get; set; }
 
-        public VM_OrderQuickCheck(string pageIndex = "5")
+        public VM_OrderQuickCheck(UnitOfWork unitOfWork, string pageIndex = "5")
         {
+            UoW = unitOfWork;
             PageId = pageIndex;
             Title = "Швидкий чек";
         }

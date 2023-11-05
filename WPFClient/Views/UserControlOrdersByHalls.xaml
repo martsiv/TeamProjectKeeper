@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <ListBox DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" Background="Transparent" BorderBrush="Transparent">
+        <ListBox x:Name="HallsListBox" DockPanel.Dock="Left" Width="350" HorizontalAlignment="Left" ItemsSource="{Binding Halls}" SelectedItem="{Binding SelectedHall}" Background="Transparent" BorderBrush="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="60">
@@ -19,15 +19,15 @@
                             <ColumnDefinition Width="275"/>
                         </Grid.ColumnDefinitions>
                         <Border Background="White">
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding OccupiedTables}"/>
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Text="{Binding Tables, Converter={StaticResource CountConverter}}"/>
                         </Border>
-                        <Button Style="{StaticResource ListBoxButton}" Grid.Column="1" Background="#FFD7D7D7" BorderBrush="Transparent" Padding="10,0,0,0" Height="60" Width="275"
-                                FontSize="16" VerticalAlignment="Bottom" Content="{Binding Name}" Command="{Binding LoadTablesByHallCmd}" CommandParameter="{Binding Name}"/>
+                        <TextBlock Grid.Column="1" Background="#FFD7D7D7"  Padding="10,0,0,0" Height="60" Width="275"
+                                FontSize="16" VerticalAlignment="Bottom" Text="{Binding Name}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding TablesByHall}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
+        <ListBox Height="68" VerticalAlignment="Top" ItemsSource="{Binding SelectedHall.Tables}" SelectedItem="{Binding SelectedTable}" Background="Transparent" BorderBrush="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />
@@ -35,7 +35,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Content="{Binding Number}" Background="Green" Command="" Width="60" Height="60"/> <!-- Має бути біндінг до кольору кнопки,команди яку виконує кнопка і до контенту кнопки -->
+                    <Button Content="{Binding Number}" Background="Green"  Width="60" Height="60"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

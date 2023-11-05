@@ -32,15 +32,12 @@ namespace WPFClient.ViewModels
         public VM_Login(UnitOfWork unitOfWork, string pageIndex = "1")
         {
             UoW = unitOfWork;
-            loadEmployeesCmd = new((o) => LoadEmployees());
             LoadEmployees();
             PageId = pageIndex;
             Title = "Авторизація";
         }
 
         #region Load employees
-        private readonly RelayCommand loadEmployeesCmd;
-        public ICommand LoadEmployeesCmd => loadEmployeesCmd;
         public void LoadEmployees()
         {
             var res = UoW.EmployeeRepo.Get();
@@ -70,6 +67,13 @@ namespace WPFClient.ViewModels
                     {
                         var selectedEmployee = SelectedEmployee;
                         SelectedEmployee = null;
+                        var transferModel = new BaseTransferModel()
+                        {
+                            PageNumber = UserControlsEnum.GeneralInfo.ToString(),
+                            CurrentEmployee = selectedEmployee,
+                            Employees = employees,
+                            UoW = this.UoW
+                        };
                         var workShift = UoW.WorkShiftRepo.Get().Where(ws => ws.Date.Date == DateTime.Now.Date)?.FirstOrDefault();
                         if (workShift != null)
                         {
@@ -87,22 +91,33 @@ namespace WPFClient.ViewModels
                                     WorkShiftId = cashierShift.WorkShiftId,
                                     CashRegistryDescription = UoW.CashRegisterRepo.GetByID(cashierShift.CashRegisterId).Description
                                 };
+                                transferModel.CurrentCashierShift = CurrentCashierShift;
                             }
-                            var workShiftEmployee = UoW.WorkShiftEmployeeRepo.Get().FirstOrDefault(wse => wse.WorkShiftId == workShift.Id && wse.EmployeeId == selectedEmployee.Id);
-                            if (workShiftEmployee != null)
+                            var workShiftEmployees = UoW.WorkShiftEmployeeRepo.Get().Where(wse => wse.WorkShiftId == workShift.Id);
+                            foreach (var item in workShiftEmployees)
                             {
-                                CurrentWorkShiftEmployee = new WorkShiftEmployeeModel()
+                                var wse = new WorkShiftEmployeeModel()
                                 {
-                                    WorkShiftId = workShiftEmployee.WorkShiftId,
-                                    EmployeeId = selectedEmployee.Id,
+                                    WorkShiftId = item.WorkShiftId,
+                                    EmployeeId = item.EmployeeId,
+                                    TimeFrom = item.TimeFrom,
+                                    TimeTo = item.TimeTo,
                                     WorkShiftDate = workShift.Date,
-                                    EmployeeModel = selectedEmployee,
-                                    TimeFrom = workShiftEmployee.TimeFrom,
-                                    TimeTo = workShiftEmployee.TimeTo,
                                 };
+                                foreach (var employee in transferModel.Employees) 
+                                {
+                                    if (wse.EmployeeId == employee.Id)
+                                    {
+                                        employee.WorkShiftEmployees.Add(wse);
+                                        wse.EmployeeModel = employee;
+                                    }
+                                }
+                                transferModel.WorkShiftEmployees.Add(wse);
+                                if (wse.EmployeeModel == transferModel.CurrentEmployee)
+                                    transferModel.CurrentWorkShiftEmployee = wse;
                             }
                         }
-                        ViewChanged?.Raise(this, new BaseTransferModel() { PageNumber = UserControlsEnum.GeneralInfo.ToString(), CurrentCashierShift = this.CurrentCashierShift, CurrentWorkShiftEmployee = this.CurrentWorkShiftEmployee, CurrentEmployee = selectedEmployee, UoW = this.UoW });
+                        ViewChanged?.Raise(this, transferModel);
                     }
                 }, x => SelectedEmployee != null);
             }
